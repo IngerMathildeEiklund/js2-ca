@@ -19,6 +19,14 @@ interface AuthResponse {
     }
 }
 
+interface RegisterResponse {
+    data: {
+        name: string, 
+        email: string,
+        [key: string]: any
+    }
+}
+
 interface UserProfile {
     name: string, 
     email: string,
@@ -49,3 +57,41 @@ export function logOut(): void {
     // add a toast notif and redirect// 
 
 };
+
+
+/// register //
+
+const REGISTER_ENDPOINT = '/auth/register';
+
+
+/// "Credentials" the shape TS expects//
+interface RegisterUser {
+name: string,
+email: string,
+password: string
+
+}
+
+export async function  registerUser(registerUser: RegisterUser): Promise <UserProfile>  {
+    try {
+        const response = await post<RegisterResponse>(REGISTER_ENDPOINT, registerUser);
+
+        if (!response) {
+            throw new Error('Registration successful, but no accesstoken received');
+        }
+
+        const profile = response.data;
+
+        storage.save<UserProfile>('profile', profile);
+        console.log(profile);
+        return profile as UserProfile;
+
+    }catch(error: unknown) {
+     console.error('Registration failed', error);
+     throw error;
+    }
+}
+
+
+
+
