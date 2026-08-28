@@ -1,5 +1,15 @@
 @import url(login.css);
 @import url(register.css);
+@import url(messages.css);
+
+:root {
+--background-error: #F8C6C6;
+--text-error: #880000;
+--background-warning: #FFE1BF;
+--text-warning: #995200;
+--background-success: #CDF2CA;
+--text-success: #096800;
+}
 
 body {
     background-color: rgb(214, 214, 214);

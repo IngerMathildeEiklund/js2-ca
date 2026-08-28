@@ -5,5 +5,6 @@ import './storage/storage.ts';
 import './errors/apiError.ts';
 import './components/loginform.ts';
 import './components/registerform.ts';
+import './messages/toastnotification.ts'
 
 

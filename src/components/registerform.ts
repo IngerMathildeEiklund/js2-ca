@@ -1,66 +1,94 @@
 import { registerUser } from "../api/authService";
 import { ApiError } from "../errors/apiError";
+import { toastNotification } from "../messages/toastnotification";
 
 interface RegisterUser {
-name: string,
-email: string,
-password: string,
+  name: string;
+  email: string;
+  password: string;
 }
-
 
 interface RegisterFormElements extends HTMLFormControlsCollection {
-    name: HTMLInputElement,
-    email: HTMLInputElement,
-    password: HTMLInputElement,
-    confirmPassword: HTMLInputElement;
+  name: HTMLInputElement;
+  email: HTMLInputElement;
+  password: HTMLInputElement;
+  confirmPassword: HTMLInputElement;
 }
 
-const registrationForm = document.getElementById('registration-form') as HTMLFormElement;
+const registrationForm = document.getElementById(
+  "registration-form",
+) as HTMLFormElement;
 
-registrationForm?.addEventListener('submit', async (event) => {
-    event.preventDefault();
+const submitBTN = document.getElementById("submit-button") as HTMLButtonElement;
 
-    const elements = registrationForm.elements as RegisterFormElements;
+registrationForm?.addEventListener("submit", async (event) => {
+  event.preventDefault();
 
-    const formData: RegisterUser =  {
-        name: elements.name.value,
-        email: elements.email.value,
-        password: elements.password.value
+  const elements = registrationForm.elements as RegisterFormElements;
+
+  const formData: RegisterUser = {
+    name: elements.name.value.trim(),
+    email: elements.email.value.trim(),
+    password: elements.password.value.trim(),
+  };
+  const confirmPassword = elements.confirmPassword.value;
+
+  const emailRegex = /^[a-zA-Z0-9._%+-]+@stud\.noroff\.no$/;
+  const usernamePattern = /^[a-zA-Z0-9_]+$/;
+
+  if (!emailRegex.test(formData.email)) {
+    toastNotification(
+      'Please use a valid email format, "@stud.noroff.no" ',
+      "warning",
+    );
+
+    return;
+  } else if (formData.password.length < 8) {
+    toastNotification("Password must contain atleast 8 characters.", "warning");
+
+    return;
+  } else if (formData.password !== confirmPassword) {
+    toastNotification("Passwords do not match", "warning");
+
+    return;
+  } else if (!usernamePattern.test(formData.name)) {
+    toastNotification(
+      "Invalid username format. Please only use letters, numbers and underscores.",
+      "warning",
+    );
+
+    return;
+  }
+  if (submitBTN) submitBTN.disabled = true;
+  try {
+    await registerUser(formData);
+    toastNotification("Successful registration!", "success");
+  } catch (error) {
+    if (error instanceof ApiError) {
+      switch (error.status) {
+        case 409:
+          toastNotification("Credentials already in use.", "warning");
+
+          break;
+        case 400:
+          toastNotification(`${error.message}`, "error");
+
+          break;
+        case 500:
+          toastNotification("Please try again later.", "error");
+
+          break;
+        default:
+          toastNotification("Please try again later.", "error");
+      }
+    } else if (error instanceof Error) {
+      toastNotification(`${error.message}`, "error");
+    } else {
+      toastNotification(
+        "Something unexpected went wrong, please try again later.",
+        "error",
+      );
     }
-    const confirmPassword = elements.confirmPassword.value;
-    
-    const emailRegex = /^[a-zA-Z0-9._%+-]+@stud\.noroff\.no$/;
-
-    if (!emailRegex.test(formData.email)) {
-        console.log('Please use a valid email format, "@stud.noroff.no" ');
-        return;
-    }
-    else if (formData.password.length < 8) {
-        console.log('Password must contain atleast 8 characters.');
-        return;
-    } 
-    else if (formData.password !== confirmPassword) {
-        console.log('Passwords do not match.');
-        return;
-    }
-    try {
-        const profile = await registerUser(formData);
-        console.log(`Successful registration! ${profile.name}`);
-    }catch(error) {
-       if (error instanceof ApiError) {
-        if (error.status === 409) {
-            console.log('Credentials already in use.')
-            return;
-        }else if (error.status === 400) {
-            console.log(error.message);
-        }else if (error.status === 500) {
-            console.log('Please try again later.');
-        }else {
-            console.log('Something unknown went wrong, please try again later.');
-        }
-       }
-    }
-})
-
-    
-
+  }
+  if (submitBTN) submitBTN.disabled = false;
+});

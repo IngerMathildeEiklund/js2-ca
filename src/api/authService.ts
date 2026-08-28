@@ -1,97 +1,105 @@
 import { post } from "./apiClient";
-
 import { storage } from "../storage/storage";
 
-
-const LOGIN_ENDPOINT = '/auth/login';
+const LOGIN_ENDPOINT = "/auth/login";
 
 interface Credentials {
-    email: string, 
-    password: string
+  email: string;
+  password: string;
 }
 
 interface AuthResponse {
-    data: {
-        accessToken: string,
-        name: string, 
-        email: string,
-        [key: string]: any
-    }
-}
-
-interface RegisterResponse {
-    data: {
-        name: string, 
-        email: string,
-        [key: string]: any
-    }
+  data: {
+    accessToken: string;
+    name: string;
+    email: string;
+  };
 }
 
 interface UserProfile {
-    name: string, 
-    email: string,
-    [key: string]: any
+  name: string;
+  email: string;
 }
 
+/**
+ *
+ * @param credentials The credentials the user enters, email and password.
+ * @returns a data object with a valid access token, name, email.
+ * @throws {Error} if the user successfully logs in, but no access token gets stored.
+ */
 
-export async function loginUser(credentials: Credentials): Promise <UserProfile> {
+export async function loginUser(
+  credentials: Credentials,
+): Promise<UserProfile> {
+  const response = await post<AuthResponse>(LOGIN_ENDPOINT, credentials);
 
-    const response = await post<AuthResponse>(LOGIN_ENDPOINT, credentials);
+  if (!response?.data?.accessToken) {
+    throw new Error("Login successful, but no access token received.");
+  }
+  const { accessToken, ...profile } = response.data;
 
-    if (!response?.data?.accessToken) {
-        throw new Error('Login successful, but no access token received.');
-    }
-    const { accessToken, ...profile } = response.data;
+  storage.save("accessToken", accessToken);
+  storage.save<UserProfile>("profile", profile);
 
-    storage.save('accessToken', accessToken);
-    storage.save<UserProfile>('profile', profile);
-
-    return profile as UserProfile;
+  return profile as UserProfile;
 }
-
 
 export function logOut(): void {
-    storage.remove('accessToken');
-    storage.remove('profile');
+  storage.remove("accessToken");
+  storage.remove("profile");
+}
 
-    // add a toast notif and redirect// 
+/// REGISTER //
 
-};
+const REGISTER_ENDPOINT = "/auth/register";
 
-
-/// register //
-
-const REGISTER_ENDPOINT = '/auth/register';
-
-
-/// "Credentials" the shape TS expects//
 interface RegisterUser {
-name: string,
-email: string,
-password: string
-
+  name: string;
+  email: string;
+  password: string;
 }
 
-export async function  registerUser(registerUser: RegisterUser): Promise <UserProfile>  {
-    try {
-        const response = await post<RegisterResponse>(REGISTER_ENDPOINT, registerUser);
+interface RegisterResponse {
+  data: {
+    name: string;
+    email: string;
+    [key: string]: any;
+  };
+}
+/**
+ *
+ * @param registerUser The users credentials, name, email and password.
+ * @returns a successfully newly created profile object.
+ * @throws {Error} if the server does not respond.
+ * @throws {Error} if there are missing fields.
+ * @throws Rethrows any errors from the API Client. {@link ApiError}
+ */
 
-        if (!response) {
-            throw new Error('Registration successful, but no accesstoken received');
-        }
+export async function registerUser(
+  registerUser: RegisterUser,
+): Promise<UserProfile> {
+  try {
+    const response = await post<RegisterResponse>(
+      REGISTER_ENDPOINT,
+      registerUser,
+    );
 
-        const profile = response.data;
-
-        storage.save<UserProfile>('profile', profile);
-        console.log(profile);
-        return profile as UserProfile;
-
-    }catch(error: unknown) {
-     console.error('Registration failed', error);
-     throw error;
+    if (!response) {
+      throw new Error("Registration failed, no response from server");
     }
+
+    const profile = response.data;
+
+    if (!profile?.name || !profile?.email) {
+      throw new Error(
+        "Registration succeeded, but no profile data was returned.",
+      );
+    }
+    storage.save<UserProfile>("profile", profile);
+    console.log(profile);
+    return profile;
+  } catch (error: unknown) {
+    console.error("Registration failed", error);
+    throw error;
+  }
 }
-
-
-
-

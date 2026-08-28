@@ -18,12 +18,9 @@ loginForm?.addEventListener('submit', async (event) => {
     }
 
     try {
-        const profile = await loginUser(credentials);
-        console.log(`Welcome back,  ${profile.name}!`);
-
-        setTimeout(() => {
-            window.location.href= './register.html'
-        },2000);
+        await loginUser(credentials);
+        window.location.href= './register.html'
+        // Redirect to register and show a toast notif//
     }catch(error: unknown) {
         if (error instanceof Error) {
             console.error(`Login failed! ${error.message}`);

@@ -8,6 +8,7 @@
 </head>
 <body>
     <main>
+        <div id="toast-container" aria-live="polite" aria-atomic="true"></div>
         <section>
             <h1>
                 welcome to my great project
@@ -15,18 +16,18 @@
         </section>
         <form id="registration-form">
             <label for="registration-username"> Username</label>
-            <input id="registration-username" type = "text" name="name" required>
+            <input id="registration-username" type = "text" name="name" title = "Only letters, numbers and underscores are allowed." required>
 
             <label for="registration-email"> Email </label>
-            <input id="registration-email" type = "email" name="email" required>
+            <input id="registration-email" type = "email" name="email" title="Please only use a 'stud@noroff.no' format" required>
 
             <label for="registration-password"> Password </label>
-            <input id="registration-password" type = "password" name="password" required>
+            <input id="registration-password" type = "password" name="password" title="Create a password with a minimum of 8 characters" required>
 
             <label for="registration-password-repeat"> Repeat password </label>
-            <input id="registration-password-repeat" type="password" name="confirmPassword" required>
+            <input id="registration-password-repeat" type="password" name="confirmPassword" title="Please match the previously entered password" required>
 
-            <button type="submit"> Sign up </button>
+            <button type="submit" id="submit-button"> Sign up </button>
         </form>
         </section>
     </main>
