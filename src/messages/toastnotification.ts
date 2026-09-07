@@ -1,8 +1,7 @@
-
 type MessageType = "success" | "warning" | "error";
 
 export function toastNotification(message: string, type: MessageType): void {
-    const toastContainer = document.getElementById("toast-container");
+  const toastContainer = document.getElementById("toast-container");
   if (!toastContainer) return;
 
   const toastElement = document.createElement("div");

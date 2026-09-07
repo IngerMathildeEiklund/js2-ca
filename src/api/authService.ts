@@ -1,5 +1,6 @@
 import { post } from "./apiClient";
 import { storage } from "../storage/storage";
+import { API_KEY } from "../storage/config";
 
 const LOGIN_ENDPOINT = "/auth/login";
 
@@ -29,7 +30,7 @@ interface UserProfile {
  */
 
 export async function loginUser(
-  credentials: Credentials,
+  credentials: Credentials
 ): Promise<UserProfile> {
   const response = await post<AuthResponse>(LOGIN_ENDPOINT, credentials);
 
@@ -39,6 +40,7 @@ export async function loginUser(
   const { accessToken, ...profile } = response.data;
 
   storage.save("accessToken", accessToken);
+  storage.save('apiKey', API_KEY);
   storage.save<UserProfile>("profile", profile);
 
   return profile as UserProfile;
@@ -76,12 +78,12 @@ interface RegisterResponse {
  */
 
 export async function registerUser(
-  registerUser: RegisterUser,
+  registerUser: RegisterUser
 ): Promise<UserProfile> {
   try {
     const response = await post<RegisterResponse>(
       REGISTER_ENDPOINT,
-      registerUser,
+      registerUser
     );
 
     if (!response) {
@@ -92,7 +94,7 @@ export async function registerUser(
 
     if (!profile?.name || !profile?.email) {
       throw new Error(
-        "Registration succeeded, but no profile data was returned.",
+        "Registration succeeded, but no profile data was returned."
       );
     }
     storage.save<UserProfile>("profile", profile);

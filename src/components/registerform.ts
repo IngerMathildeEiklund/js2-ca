@@ -16,7 +16,7 @@ interface RegisterFormElements extends HTMLFormControlsCollection {
 }
 
 const registrationForm = document.getElementById(
-  "registration-form",
+  "registration-form"
 ) as HTMLFormElement;
 
 const submitBTN = document.getElementById("submit-button") as HTMLButtonElement;
@@ -29,7 +29,7 @@ registrationForm?.addEventListener("submit", async (event) => {
   const formData: RegisterUser = {
     name: elements.name.value.trim(),
     email: elements.email.value.trim(),
-    password: elements.password.value.trim(),
+    password: elements.password.value.trim()
   };
   const confirmPassword = elements.confirmPassword.value;
 
@@ -39,7 +39,7 @@ registrationForm?.addEventListener("submit", async (event) => {
   if (!emailRegex.test(formData.email)) {
     toastNotification(
       'Please use a valid email format, "@stud.noroff.no" ',
-      "warning",
+      "warning"
     );
 
     return;
@@ -54,7 +54,7 @@ registrationForm?.addEventListener("submit", async (event) => {
   } else if (!usernamePattern.test(formData.name)) {
     toastNotification(
       "Invalid username format. Please only use letters, numbers and underscores.",
-      "warning",
+      "warning"
     );
 
     return;
@@ -74,6 +74,10 @@ registrationForm?.addEventListener("submit", async (event) => {
           toastNotification(`${error.message}`, "error");
 
           break;
+          case 429:
+          toastNotification("Too many requests, please try again later.", "error");
+
+          break;
         case 500:
           toastNotification("Please try again later.", "error");
 
@@ -86,7 +90,7 @@ registrationForm?.addEventListener("submit", async (event) => {
     } else {
       toastNotification(
         "Something unexpected went wrong, please try again later.",
-        "error",
+        "error"
       );
     }
   }

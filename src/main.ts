@@ -1,10 +1,13 @@
 // main.ts
-import './api/apiClient.ts';
-import './api/authService.ts';
-import './storage/storage.ts';
-import './errors/apiError.ts';
-import './components/loginform.ts';
-import './components/registerform.ts';
-import './messages/toastnotification.ts'
+import "./api/apiClient.ts";
+import "./api/authService.ts";
+import "./storage/storage.ts";
+import "./errors/apiError.ts";
+import "./components/loginform.ts";
+import "./components/registerform.ts";
+import "./messages/toastnotification.ts";
+import "./api/postsService.ts";
+import "./components/renderPosts.ts";
+import "./storage/config.ts";
 
 

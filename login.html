@@ -1,28 +1,33 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
     <main>
-        <div id="toast-container" aria-live="polite" aria-atomic="true"></div>
-        <section>
-            <h1>
-                welcome to my great project
-            </h1>
-            <form id="login-form">
-                <label for="login-email-input"> Email adress </label>
-                <input id="login-email-input" name="email" type="email" required>
-                <label for="login-password-input"> Password </label>
-                <input id="login-password-input" name="password" type="password" required>
-                <p> Don't have an account? Register <a href="register.html">here</a></p>
-                <button id="login-button" type="submit"> Log in</button>
-            </form>
-        </section>
+      <div id="toast-container" aria-live="polite" aria-atomic="true"></div>
+      <section>
+        <h1>welcome to my great project</h1>
+        <form id="login-form">
+          <label for="login-email-input"> Email adress </label>
+          <input id="login-email-input" name="email" type="email" required />
+          <label for="login-password-input"> Password </label>
+          <input
+            id="login-password-input"
+            name="password"
+            type="password"
+            required
+          />
+          <p>
+            Don't have an account? Register <a href="register.html">here</a>
+          </p>
+          <button id="login-button" type="submit">Log in</button>
+        </form>
+      </section>
     </main>
-<script src="/src/main.ts" type="module"></script>
-</body>
+    <script src="/src/main.ts" type="module"></script>
+  </body>
 </html>

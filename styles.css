@@ -3,17 +3,16 @@
 @import url(messages.css);
 
 :root {
---background-error: #F8C6C6;
---text-error: #880000;
---background-warning: #FFE1BF;
---text-warning: #995200;
---background-success: #CDF2CA;
---text-success: #096800;
+  --background-error: #f8c6c6;
+  --text-error: #880000;
+  --background-warning: #ffe1bf;
+  --text-warning: #995200;
+  --background-success: #cdf2ca;
+  --text-success: #096800;
 }
 
 body {
-    background-color: rgb(214, 214, 214);
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    color: rgb(48, 38, 29);
+  background-color: rgb(214, 214, 214);
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  color: rgb(48, 38, 29);
 }
-

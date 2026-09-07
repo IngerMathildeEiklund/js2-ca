@@ -9,7 +9,7 @@ interface ApiOptions extends RequestInit {
 
 async function apiClient<T>(
   endpoint: string,
-  options: ApiOptions = {},
+  options: ApiOptions = {}
 ): Promise<T | null> {
   const { body, ...customOptions } = options;
 
@@ -20,14 +20,14 @@ async function apiClient<T>(
     "Content-Type": "application/json",
     ...(apiKey && { "X-Noroff-API-Key": apiKey }),
     ...(accessToken && { Authorization: `Bearer ${accessToken}` }),
-    ...customOptions.headers,
+    ...customOptions.headers
   };
 
   const config: RequestInit = {
     ...customOptions,
     headers,
     method: customOptions.method ?? (body ? "POST" : "GET"),
-    body: body ? JSON.stringify(body) : undefined,
+    body: body ? JSON.stringify(body) : undefined
   };
 
   try {
@@ -55,12 +55,12 @@ export const get = <T = unknown>(endpoint: string): Promise<T | null> =>
 
 export const post = <T = unknown>(
   endpoint: string,
-  body: unknown,
+  body: unknown
 ): Promise<T | null> => apiClient<T>(endpoint, { body });
 
 export const put = <T = unknown>(
   endpoint: string,
-  body: unknown,
+  body: unknown
 ): Promise<T | null> => apiClient<T>(endpoint, { method: "PUT", body });
 
 export const del = <T = unknown>(endpoint: string): Promise<T | null> =>
