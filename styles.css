@@ -1,6 +1,8 @@
 @import url(login.css);
 @import url(register.css);
 @import url(messages.css);
+@import url(index.css);
+@import url(one-post.css);
 
 :root {
   --background-error: #f8c6c6;
@@ -15,4 +17,8 @@ body {
   background-color: rgb(214, 214, 214);
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   color: rgb(48, 38, 29);
+}
+
+.hidden {
+  display: none;
 }

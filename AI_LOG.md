@@ -35,3 +35,17 @@ Changes made: Added query parameter for page and limit.
 
 CLAUDE AI. 
 
+10.09.2026 11:38:
+
+Prompt: What is wrong with my functions to render one post? 
+
+Changes made:
+- Added a new interface for the getPostbyId function as it wasn't unwrapping the API response properly. 
+- Separated concerns. Split the building post logic from the function that gets the id. Using the buildPost function inside the renderOnePost function to keep code DRY.
+
+
+
+
+
+
+

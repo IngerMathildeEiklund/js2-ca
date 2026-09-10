@@ -1,0 +1,36 @@
+#render-posts {
+    display:grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+}
+.post-element {
+    display: flex;
+    flex-direction:  column;
+    justify-content: space-between;
+    padding: 1rem;
+    background-color: #f5f5f5;
+    cursor: pointer;
+}
+
+.image-wrapper {
+height: 100%;
+width: 100%;
+}
+
+.image {
+    width: 10rem;
+    height: auto;
+}
+
+
+.time-comments-reactions-wrapper {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+}
+
+.post-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+

@@ -40,7 +40,7 @@ export async function loginUser(
   const { accessToken, ...profile } = response.data;
 
   storage.save("accessToken", accessToken);
-  storage.save('apiKey', API_KEY);
+  storage.save("apiKey", API_KEY);
   storage.save<UserProfile>("profile", profile);
 
   return profile as UserProfile;
