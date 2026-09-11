@@ -14,12 +14,13 @@ interface Comment {
     banner: Banner,
 }
 
-interface PostWithComments extends Post {
+export interface PostWithComments extends Post {
     comments: Comment[]
 }
 interface Author {
     name: string, 
     email: string,
+    avatar: Avatar,
     bio: string,
 }
 
@@ -32,14 +33,19 @@ interface Banner {
     alt: string
 }
 
-interface Media {
+export interface Media {
     url: string, 
     alt: string
 }
 
-interface PostCount {
+export interface PostCount {
     comments: number, 
     reactions: number
+}
+interface Reaction {
+    symbol: string,
+    count: number, 
+    reactors: string[]
 }
 
 export interface Post {
@@ -50,6 +56,8 @@ export interface Post {
     media: Media,
     created: string,
     updated: string,
+    author: Author,
+    reactions: Reaction[],
     _count: PostCount
 }
 
@@ -72,8 +80,8 @@ interface GetPostResponse {
     meta: Meta
 }
 
-export async function getPosts(page: 1, limit: 100): Promise<GetPostsResponse> {
-const response = await get<GetPostsResponse>(`${POSTS_ENDPOINT}?page=${page}&limit=${limit}`);
+export async function getPosts(page: number = 1, limit: number = 100): Promise<GetPostsResponse> {
+const response = await get<GetPostsResponse>(`${POSTS_ENDPOINT}?page=${page}&limit=${limit}&_author=true&_reactions=true`);
 if (!response?.data) {
     throw new Error(`Failed to fetch posts, Response: ${JSON.stringify(response)}`);
 }
@@ -88,11 +96,12 @@ return response;
 
 
 export async function getPostById(postId: number): Promise<PostWithComments | null> {
-   const response = await get<GetPostResponse>(`${POSTS_ENDPOINT}/${postId}?_comments=true`);
+   const response = await get<GetPostResponse>(`${POSTS_ENDPOINT}/${postId}?_comments=true&_author=true&_reactions=true`);
 
    if (!response?.data) {
     return null;
    }
    return response.data;
 }
+
 
