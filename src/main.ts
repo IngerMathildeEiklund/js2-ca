@@ -9,5 +9,6 @@ import "./messages/toastnotification.ts";
 import "./api/postsService.ts";
 import "./components/renderPosts.ts";
 import "./storage/config.ts";
+import "./components/publishPostForm.ts"
 
 

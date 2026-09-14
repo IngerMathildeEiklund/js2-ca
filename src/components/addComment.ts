@@ -3,12 +3,12 @@ import { toastNotification } from "../messages/toastnotification";
 import { getLoggedInUser } from "../storage/storage";
 import  type { PostComment } from "../api/postsService";
 import { transformDate } from "./renderPosts";
-import { buildComments } from "./renderPosts";
 
 
     const addCommentForm = document.getElementById('add-comment') as HTMLFormElement;
     const addCommentBTN = document.getElementById('add-comment-button') as HTMLButtonElement;
     const textArea = document.getElementById('comment-text') as HTMLTextAreaElement;
+
 
     const urlParams = new URLSearchParams(window.location.search);
     const idParam = urlParams.get('id');
@@ -54,7 +54,7 @@ import { buildComments } from "./renderPosts";
 
     })
     
-
+    
      export function buildCreatedComment(comment: PostComment): HTMLElement {
         const commentWrapper = document.createElement('div');
         const commentOwner = document.createElement('p');
@@ -62,9 +62,7 @@ import { buildComments } from "./renderPosts";
         const ownerImgWrapper = document.createElement('div');
         const commentBody = document.createElement('div');
         const createdAt = document.createElement('p');
-        const replyBTN = document.createElement('button')
 
-        replyBTN.textContent = 'Reply'
         
         commentOwner.textContent = comment.owner;
         avatarImage.src = comment.author.avatar.url;
@@ -76,8 +74,9 @@ import { buildComments } from "./renderPosts";
         ownerImgWrapper.append(avatarImage, commentOwner);
 
         commentWrapper.appendChild(ownerImgWrapper);
-        commentWrapper.append(commentBody, createdAt, replyBTN);
+        commentWrapper.append(commentBody, createdAt);
         return commentWrapper;
     }
    
+    
 

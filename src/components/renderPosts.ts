@@ -2,11 +2,11 @@ import { getPosts } from "../api/postsService";
 import { toastNotification } from "../messages/toastnotification";
 import { getPostById } from "../api/postsService";
 import { buildCreatedComment } from "./addComment";
+import { publishNewPost } from "../api/postsService";
 
 import type { Post } from "../api/postsService";
 import type { PostWithComments } from "../api/postsService";
 
-/* const FALLBACK_IMAGE = "/src/images/fallback-img.svg"; */
 
 const renderPostsContainer = document.getElementById("render-posts");
 const renderOnePostContainer = document.getElementById(
@@ -173,5 +173,6 @@ export function buildComments(post: PostWithComments): HTMLElement {
   return commentsContainer;
 }
 
+ 
 renderPosts();
 renderOnePost();

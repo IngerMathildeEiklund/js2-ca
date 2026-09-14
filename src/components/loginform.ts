@@ -22,9 +22,6 @@ if (!loginForm) {
 
   try {
     await loginUser(credentials);
-    setTimeout(() => {
-      console.log("Login successful!");
-    },3000)
     window.location.href = "./index.html";
     
     // Redirect to register and show a toast notif//
