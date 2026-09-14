@@ -1,23 +1,30 @@
-import { get } from "./apiClient";
+import { get, post } from "./apiClient";
 
-const POSTS_ENDPOINT = "/social/posts";
+export const POSTS_ENDPOINT = "/social/posts";
 
-interface Comment {
-    body: string,
-    replyToId: number,
+export interface PostComment {
     id: number, 
     postId: number, 
+    body: string,
+    replyToId?: number,
     owner: string,
     created: string,
-    author: Author,
-    avatar: Avatar,
-    banner: Banner,
+    author: Author
+}
+
+export interface CreatedComment {
+    id: number, 
+    postId: number, 
+    body: string,
+    replyToId?: number,
+    owner: string,
+    created: string,
 }
 
 export interface PostWithComments extends Post {
-    comments: Comment[]
+    comments: PostComment[]
 }
-interface Author {
+export interface Author {
     name: string, 
     email: string,
     avatar: Avatar,
@@ -28,10 +35,7 @@ interface Avatar {
     url: string,
     alt: string
 }
-interface Banner {
-    url: string,
-    alt: string
-}
+
 
 export interface Media {
     url: string, 
@@ -79,6 +83,26 @@ interface GetPostResponse {
     data: PostWithComments,
     meta: Meta
 }
+interface CreateComment {
+    body: string,
+    replyToId?: number,
+}
+
+interface CommentResponse {
+    data: CreateCommentData,
+    meta: object
+}
+
+interface CreateCommentData {
+    body: string,
+    replyToId?: number,
+    id: number,
+    postId: number,
+    owner: string,
+    created: string,
+}
+
+
 
 export async function getPosts(page: number = 1, limit: number = 100): Promise<GetPostsResponse> {
 const response = await get<GetPostsResponse>(`${POSTS_ENDPOINT}?page=${page}&limit=${limit}&_author=true&_reactions=true`);
@@ -104,4 +128,17 @@ export async function getPostById(postId: number): Promise<PostWithComments | nu
    return response.data;
 }
 
+/// ADD A COMMENT ON A POST ///
+
+
+
+    export async function postComment(postId: number, comment: string, replyToId?: number): Promise<CommentResponse> {
+        const bodyContent: CreateComment = { body: comment, replyToId: replyToId }
+        const response = await post<CommentResponse>(`${POSTS_ENDPOINT}/${postId}/comment`, bodyContent);
+        
+        if (!response) {
+            throw new Error('Something went wrong');
+        }
+        return response;
+    }
 

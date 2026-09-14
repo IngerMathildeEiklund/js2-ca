@@ -1,6 +1,7 @@
 import { getPosts } from "../api/postsService";
 import { toastNotification } from "../messages/toastnotification";
 import { getPostById } from "../api/postsService";
+import { buildCreatedComment } from "./addComment";
 
 import type { Post } from "../api/postsService";
 import type { PostWithComments } from "../api/postsService";
@@ -12,7 +13,7 @@ const renderOnePostContainer = document.getElementById(
   "render-one-post-container"
 );
 
-function transformDate(date: string): string {
+export function transformDate(date: string): string {
   return new Date(date).toDateString();
 }
 
@@ -134,13 +135,14 @@ function buildPost(post: Post): HTMLElement {
     postImageWrapper.classList.add("image-wrapper");
     postImageWrapper.appendChild(postImage);
     postElement.appendChild(postImageWrapper);
+  }    
+
     timeCommentsReactionsWrapper.appendChild(timestamp);
     timeCommentsReactionsWrapper.appendChild(updatedTimestamp);
     timeCommentsReactionsWrapper.appendChild(comments);
     timeCommentsReactionsWrapper.appendChild(reactions);
     postElement.appendChild(timeCommentsReactionsWrapper);
     postElement.appendChild(postTags);
-  }
   return postElement;
 }
 
@@ -152,7 +154,7 @@ export function renderPostCard(post: Post): HTMLElement {
   return postElement;
 }
 
-function buildComments(post: PostWithComments): HTMLElement {
+export function buildComments(post: PostWithComments): HTMLElement {
   const commentsContainer = document.getElementById("comments");
   if (!commentsContainer) {
     throw new Error("Could not find the element in the DOM.");
@@ -164,28 +166,9 @@ function buildComments(post: PostWithComments): HTMLElement {
     return commentsContainer;
   }
   post.comments.forEach((comment) => {
-    const commentWrapper = document.createElement("div");
-    const commentOwner = document.createElement("p");
-    const avatarImage = document.createElement("img");
+    
+    commentsContainer.appendChild(buildCreatedComment(comment))
 
-    const ownerImgWrapper = document.createElement("div");
-    const commentBody = document.createElement("p");
-    const createdAt = document.createElement("p");
-
-    commentOwner.textContent = comment.owner;
-    avatarImage.src = comment.author.avatar.url;
-    avatarImage.alt = comment.author.avatar.alt;
-    commentBody.textContent = comment.body;
-    createdAt.textContent = transformDate(comment.created);
-
-    ownerImgWrapper.classList.add("avatar-image-wrapper");
-    commentsContainer.classList.add("comments-container");
-
-    ownerImgWrapper.append(avatarImage, commentOwner);
-    commentWrapper.appendChild(ownerImgWrapper);
-    commentWrapper.append(commentBody, createdAt);
-
-    commentsContainer.appendChild(commentWrapper);
   });
   return commentsContainer;
 }

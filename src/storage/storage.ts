@@ -1,3 +1,5 @@
+import type { Author } from "../api/postsService";
+
 export const storage = {
   save<T>(key: string, value: T): void {
     const serializedValue = JSON.stringify(value);
@@ -19,5 +21,10 @@ export const storage = {
   remove(key: string): void {
     localStorage.removeItem(key);
   }
-};
+}
+
+
+export function getLoggedInUser(): Author | null {
+  return storage.load<Author>('profile');
+}
 

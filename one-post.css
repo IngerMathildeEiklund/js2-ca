@@ -72,3 +72,6 @@ width: 100%;
     display: flex;
     padding-left: 1rem;
 }
+.textarea {
+    resize: vertical;
+}
