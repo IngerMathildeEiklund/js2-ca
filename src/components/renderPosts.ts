@@ -2,7 +2,7 @@ import { getPosts } from "../api/postsService";
 import { toastNotification } from "../messages/toastnotification";
 import { getPostById } from "../api/postsService";
 import { buildCreatedComment } from "./addComment";
-import { publishNewPost } from "../api/postsService";
+import { buildComments } from "./addComment";
 
 import type { Post } from "../api/postsService";
 import type { PostWithComments } from "../api/postsService";
@@ -12,6 +12,7 @@ const renderPostsContainer = document.getElementById("render-posts");
 const renderOnePostContainer = document.getElementById(
   "render-one-post-container"
 );
+
 
 export function transformDate(date: string): string {
   return new Date(date).toDateString();
@@ -35,6 +36,12 @@ export async function renderPosts(): Promise<void> {
     toastNotification("Error fetching posts", "error");
     return;
   }
+}
+
+export function reRenderPosts() {
+  if (!renderPostsContainer) return;
+  renderPostsContainer.innerHTML = '';
+  renderPosts();
 }
 
 export async function renderOnePost(): Promise<void> {
@@ -154,24 +161,7 @@ export function renderPostCard(post: Post): HTMLElement {
   return postElement;
 }
 
-export function buildComments(post: PostWithComments): HTMLElement {
-  const commentsContainer = document.getElementById("comments");
-  if (!commentsContainer) {
-    throw new Error("Could not find the element in the DOM.");
-  }
-  if (post.comments.length === 0) {
-    const errormessage = document.createElement("p");
-    errormessage.textContent = "No comments yet, start a discussion!";
-    commentsContainer.appendChild(errormessage);
-    return commentsContainer;
-  }
-  post.comments.forEach((comment) => {
-    
-    commentsContainer.appendChild(buildCreatedComment(comment))
 
-  });
-  return commentsContainer;
-}
 
  
 renderPosts();
