@@ -1,6 +1,6 @@
 import { publishNewPost } from "../api/postsService";
 import { toastNotification } from "../messages/toastnotification";
-import { renderPosts } from "./renderPosts";
+import { fetchAndRenderPosts } from "./renderPosts";
 import { reRenderPosts } from "./renderPosts";
 
 const publishPostForm = document.getElementById(
@@ -17,7 +17,7 @@ interface PublishPostFormElements extends HTMLFormControlsCollection {
   publishPost: HTMLTextAreaElement;
   tags: HTMLInputElement;
 }
-  publishPostForm.addEventListener("submit", async (event) => {
+  publishPostForm?.addEventListener("submit", async (event) => {
   event.preventDefault(); 
 
   const elements = publishPostForm.elements as PublishPostFormElements;
@@ -43,7 +43,7 @@ interface PublishPostFormElements extends HTMLFormControlsCollection {
   try {
 
     await publishNewPost(formData.title, formData.publishPost, formData.tags);
-    renderPosts();
+    fetchAndRenderPosts();
     publishPostForm.reset();
     reRenderPosts();
 

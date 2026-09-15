@@ -1,25 +1,57 @@
 import { getPosts } from "../api/postsService";
 import { toastNotification } from "../messages/toastnotification";
 import { getPostById } from "../api/postsService";
-import { buildCreatedComment } from "./addComment";
 import { buildComments } from "./addComment";
+import { searchForPosts } from "../api/postsService";
+import { createPopUp } from "../messages/popUp";
 
 import type { Post } from "../api/postsService";
-import type { PostWithComments } from "../api/postsService";
-
+import { getLoggedInUser } from "../storage/storage";
 
 const renderPostsContainer = document.getElementById("render-posts");
 const renderOnePostContainer = document.getElementById(
   "render-one-post-container"
 );
 
+const searchbar = document.getElementById("searchbar") as HTMLInputElement;
+searchbar?.addEventListener("input", async () => {
+  if (!searchbar) {
+    return;
+  }
+  const query = searchbar.value.trim();
+
+  if (!query) {
+    return;
+  }
+  try {
+    const result = await searchForPosts(query);
+    renderPosts(result.data);
+  } catch (error) {
+    console.log(error);
+  }
+});
 
 export function transformDate(date: string): string {
   return new Date(date).toDateString();
 }
 
-export async function renderPosts(): Promise<void> {
+export function renderPosts(posts: Post[]): void {
   if (!renderPostsContainer) return;
+  renderPostsContainer.innerHTML = "";
+
+  if (posts.length === 0) {
+    const errorMSG = document.createElement("p");
+    errorMSG.textContent = "No posts found";
+    renderPostsContainer.appendChild(errorMSG);
+    return;
+  }
+  posts.forEach((post) => {
+    const postElement = renderPostCard(post);
+    renderPostsContainer.appendChild(postElement);
+  });
+}
+
+export async function fetchAndRenderPosts(): Promise<void> {
   try {
     const response = await getPosts(1, 100);
     if (!response?.data) {
@@ -27,21 +59,15 @@ export async function renderPosts(): Promise<void> {
       return;
     }
     const data = response.data;
-
-    data.forEach((post) => {
-      const postElement = renderPostCard(post);
-      renderPostsContainer.appendChild(postElement);
-    });
+    renderPosts(data);
   } catch (error) {
-    toastNotification("Error fetching posts", "error");
-    return;
+    toastNotification("Error loading posts", "error");
   }
 }
 
 export function reRenderPosts() {
   if (!renderPostsContainer) return;
-  renderPostsContainer.innerHTML = '';
-  renderPosts();
+  fetchAndRenderPosts();
 }
 
 export async function renderOnePost(): Promise<void> {
@@ -63,8 +89,6 @@ export async function renderOnePost(): Promise<void> {
   }
   try {
     const post = await getPostById(id);
-    console.log(post);
-    console.log("Comments array: ", post?.comments);
 
     if (!post) {
       return;
@@ -72,6 +96,25 @@ export async function renderOnePost(): Promise<void> {
     const postElement = buildPost(post);
     renderOnePostContainer.appendChild(postElement);
     buildComments(post);
+     const loggedInUser = getLoggedInUser();
+  const isOwnPost = loggedInUser?.name === post.author.name;
+
+  if (isOwnPost) {
+    const editDeleteBTNWrapper = document.createElement("div");
+    const editBTN = document.createElement("button");
+    const deleteBTN = document.createElement("button");
+
+    editBTN.textContent = "Edit post";
+    deleteBTN.textContent = "Delete post";
+    editDeleteBTNWrapper.classList.add("edit-delete-wrapper");
+    editDeleteBTNWrapper.append(editBTN, deleteBTN);
+    postElement.appendChild(editDeleteBTNWrapper);
+
+    deleteBTN.addEventListener('click', () => {
+      createPopUp(post.id)
+      console.log("post successfully deleted.");
+    })
+  }
   } catch (error) {
     toastNotification("Something went wrong ", "error");
     console.log(error);
@@ -128,6 +171,7 @@ function buildPost(post: Post): HTMLElement {
   if (post.tags.length === 0) {
     postTags.classList.add("hidden");
   }
+
   creatorAvatarWrapper.append(creatorAvatar, postCreator);
   postElement.appendChild(creatorAvatarWrapper);
   postElement.appendChild(postTitle);
@@ -142,14 +186,15 @@ function buildPost(post: Post): HTMLElement {
     postImageWrapper.classList.add("image-wrapper");
     postImageWrapper.appendChild(postImage);
     postElement.appendChild(postImageWrapper);
-  }    
-
-    timeCommentsReactionsWrapper.appendChild(timestamp);
-    timeCommentsReactionsWrapper.appendChild(updatedTimestamp);
-    timeCommentsReactionsWrapper.appendChild(comments);
-    timeCommentsReactionsWrapper.appendChild(reactions);
-    postElement.appendChild(timeCommentsReactionsWrapper);
-    postElement.appendChild(postTags);
+  }
+ 
+  
+  timeCommentsReactionsWrapper.appendChild(timestamp);
+  timeCommentsReactionsWrapper.appendChild(updatedTimestamp);
+  timeCommentsReactionsWrapper.appendChild(comments);
+  timeCommentsReactionsWrapper.appendChild(reactions);
+  postElement.appendChild(timeCommentsReactionsWrapper);
+  postElement.appendChild(postTags);
   return postElement;
 }
 
@@ -161,8 +206,5 @@ export function renderPostCard(post: Post): HTMLElement {
   return postElement;
 }
 
-
-
- 
-renderPosts();
+fetchAndRenderPosts();
 renderOnePost();

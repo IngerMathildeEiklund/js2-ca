@@ -10,6 +10,7 @@
     padding: 1rem;
     background-color: #f5f5f5;
     cursor: pointer;
+    position: relative;
 }
 
 .image-wrapper {
@@ -37,4 +38,31 @@ width: 100%;
 #publish-post {
     display: flex;
     flex-direction: column;
+}
+#searchbar-form {
+    display: flex;
+    flex-direction: column;
+}
+.edit-delete-wrapper {
+    position: absolute;
+    right: 1rem;
+    top: 5rem;
+    display: flex;
+    justify-content: space-between;
+    gap: 3rem;
+}
+
+.popUpContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    z-index: 9999;
+    position: absolute;
+}
+
+.confirm-and-cancel-button-wrapper {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+
 }

@@ -1,4 +1,4 @@
-import { get, post } from "./apiClient";
+import { get, post, del, put } from "./apiClient";
 
 export const POSTS_ENDPOINT = "/social/posts";
 
@@ -149,6 +149,8 @@ export async function postComment(
   }
   return response;
 }
+// PUBLISH A NEW POST /// 
+
 
 interface PublishPost {
   title: string;
@@ -189,3 +191,27 @@ export async function publishNewPost(
   }
   return response;
 }
+/// SEARCH FOR POST ///
+
+interface SearchPostsResponse {
+  data: Post[],
+  meta: object
+}
+
+export async function searchForPosts(query: string): Promise<SearchPostsResponse> {
+const response = await get<SearchPostsResponse>(`${POSTS_ENDPOINT}/search?q=${encodeURIComponent(query)}&_author=true&_comments=true&_reactions=true`);
+
+if (!response) {
+  throw new Error('Something went wrong.');
+}
+return response;
+}
+
+// DELETE YOUR OWN POST //
+
+
+export async function deletePost(postId: number): Promise<void> {
+await del(`${POSTS_ENDPOINT}/${postId}`);
+
+}
+

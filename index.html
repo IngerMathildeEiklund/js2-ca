@@ -8,7 +8,8 @@
   </head>
   <body>
     <main>
-      <h1>Newest posts</h1>
+
+      
       <form id="publish-post">
         <label for="post-title">Post title</label>
         <input type="text" id="post-title" name="title" />
@@ -24,7 +25,14 @@
         <label for="tags"> Tags: Optional</label>
         <input type="text" id="tags" name="tags" />
         <button id="publish-post-button" type="submit">Publish post</button>
-      </form>
+      </form>      
+      
+        <div> 
+      <label for="searchbar"> Search for a post </label>
+      <input id="searchbar" type="text"> 
+    </div>
+    
+    <h1>Newest posts</h1>
       <section id="render-posts"></section>
     </main>
     <script src="/src/main.ts" type="module"></script>
