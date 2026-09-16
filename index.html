@@ -13,7 +13,7 @@
       <form id="publish-post">
         <label for="post-title">Post title</label>
         <input type="text" id="post-title" name="title" />
-        <label for="publish-post-textarea"> Publish a new post </label>
+        <label for="publish-post-textarea"> Post body: Optional </label>
         <textarea
           id="publish-post-textarea"
           name="publishPost"
@@ -22,6 +22,20 @@
           required
         >
         </textarea>
+
+        <button id="add-image-button" type="button"> Add an image </button>
+
+        <div class="optional-image-container hidden"> 
+                  <details>
+          Note! Not all urls can be used. Get the right format by right clicking an image and selecting "Copy image address".
+        </details>
+        <label for="url-string"> Image:</label>
+        <input id="url-string" type="url" name="imageUrl" placeholder="eg. https://unsplash.com/photos/lifeguard-chair-on-sandy-beach-8Ug4F8iM8NQ ">
+        <label for="image-alt"> Describe your image: </label>
+        <input type="text" id="image-alt" name="imageAlt" placeholder="eg. A lifeguard chair on a beach">
+      </div>
+
+
         <label for="tags"> Tags: Optional</label>
         <input type="text" id="tags" name="tags" />
         <button id="publish-post-button" type="submit">Publish post</button>
