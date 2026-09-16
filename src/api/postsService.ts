@@ -1,6 +1,8 @@
 import { get, post, del, put } from "./apiClient";
+import { storage } from "../storage/storage";
 
 export const POSTS_ENDPOINT = "/social/posts";
+const PROFILES_ENDPOINT = '/social/profiles';
 
 export interface PostComment {
   id: number;
@@ -214,4 +216,40 @@ export async function deletePost(postId: number): Promise<void> {
 await del(`${POSTS_ENDPOINT}/${postId}`);
 }
 
+
+/// FOLLOW OR UNFOLLOW USER ///
+
+export interface Profile {
+  name: string,
+  email: string,
+  bio: string,
+  banner: Media,
+  avatar: Media
+}
+
+export interface FollowResponse {
+  data: {
+    followers: Profile[],
+    following: Profile[];
+  }
+  meta: Record<string, unknown>;
+}
+
+export async function followUser(name: string): Promise<FollowResponse> {
+const response = await put<FollowResponse>(`${PROFILES_ENDPOINT}/${name}/follow`, undefined);
+
+if (!response) {
+throw new Error('Something went wrong.')
+}
+return response;
+}
+
+export async function unfollowUser(name: string): Promise<FollowResponse> {
+  const response = await put<FollowResponse>(`${PROFILES_ENDPOINT}/${name}/unfollow`, undefined);
+
+  if (!response) {
+    throw new Error('Something went wrong.')
+  }
+  return response;
+}
 

@@ -127,6 +127,7 @@ function buildPost(post: Post): HTMLElement {
   const creatorAvatar = document.createElement("img");
   const creatorAvatarWrapper = document.createElement("div");
   const postTitle = document.createElement("p");
+  const followBTN = document.createElement('button');
 
   const postBody = document.createElement("p");
   const postTags = document.createElement("p");
@@ -136,6 +137,7 @@ function buildPost(post: Post): HTMLElement {
   const reactions = document.createElement("p");
 
   postCreator.textContent = post.author.name;
+  followBTN.textContent = 'Follow';
 
   creatorAvatar.src = post.author.avatar.url ?? null;
   creatorAvatar.alt = post.author.avatar.alt ?? "No image added";
@@ -172,7 +174,7 @@ function buildPost(post: Post): HTMLElement {
     postTags.classList.add("hidden");
   }
 
-  creatorAvatarWrapper.append(creatorAvatar, postCreator);
+  creatorAvatarWrapper.append(creatorAvatar, postCreator, followBTN);
   postElement.appendChild(creatorAvatarWrapper);
   postElement.appendChild(postTitle);
 

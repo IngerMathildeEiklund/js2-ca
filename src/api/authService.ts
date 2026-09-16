@@ -106,7 +106,6 @@ export async function registerUser(
       );
     }
     storage.save<UserProfile>("profile", profile);
-    console.log(profile);
     return profile;
   } catch (error: unknown) {
     console.error("Registration failed", error);
