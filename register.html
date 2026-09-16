@@ -47,7 +47,17 @@
             title="Please match the previously entered password"
             required
           />
+          <button id="add-optional-image" type="button"> Add an avatar image </button>
+          <div class="add-optional-image-alt-container"> 
+            <details>
+              Note! Right click an image and select "copy image address" for proper format.
+            </details>
+          <label for="register-image-url"> Add an avatar image: Optional </label>
+          <input type="url" id="register-image-url" name="avatarUrl">
 
+          <label for="register-image-alt"> Describe your avatar image </label>
+          <input type="text" id="register-image-alt" name="avatarAlt">
+</div>
           <button type="submit" id="submit-button">Sign up</button>
         </form>
       </section>

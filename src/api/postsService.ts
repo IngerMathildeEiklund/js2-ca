@@ -212,6 +212,6 @@ return response;
 
 export async function deletePost(postId: number): Promise<void> {
 await del(`${POSTS_ENDPOINT}/${postId}`);
-
 }
+
 

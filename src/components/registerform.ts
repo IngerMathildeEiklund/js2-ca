@@ -6,6 +6,10 @@ interface RegisterUser {
   name: string;
   email: string;
   password: string;
+avatar?: {
+  url: string,
+  alt: string
+}
 }
 
 interface RegisterFormElements extends HTMLFormControlsCollection {
@@ -13,6 +17,8 @@ interface RegisterFormElements extends HTMLFormControlsCollection {
   email: HTMLInputElement;
   password: HTMLInputElement;
   confirmPassword: HTMLInputElement;
+  avatarUrl: HTMLInputElement,
+  avatarAlt: HTMLInputElement
 }
 
 const registrationForm = document.getElementById(
@@ -26,10 +32,15 @@ registrationForm?.addEventListener("submit", async (event) => {
 
   const elements = registrationForm.elements as RegisterFormElements;
 
+  const avatarUrl = elements.avatarUrl.value.trim();
+  const avatarAlt = elements.avatarAlt.value.trim();
+
   const formData: RegisterUser = {
     name: elements.name.value.trim(),
     email: elements.email.value.trim(),
-    password: elements.password.value.trim()
+    password: elements.password.value.trim(),
+    avatar: avatarUrl ? { url: avatarUrl, alt: avatarAlt || 'No image added.'} : undefined
+
   };
   const confirmPassword = elements.confirmPassword.value;
 
@@ -60,6 +71,7 @@ registrationForm?.addEventListener("submit", async (event) => {
     return;
   }
   if (submitBTN) submitBTN.disabled = true;
+
   try {
     await registerUser(formData);
     toastNotification("Successful registration!", "success");

@@ -63,6 +63,10 @@ interface RegisterUser {
   name: string;
   email: string;
   password: string;
+  avatar?: {
+    url: string,
+    alt: string
+  }
 }
 
 interface RegisterResponse {

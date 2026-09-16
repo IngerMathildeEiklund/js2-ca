@@ -4,6 +4,7 @@ import { getPostById } from "../api/postsService";
 import { buildComments } from "./addComment";
 import { searchForPosts } from "../api/postsService";
 import { createPopUp } from "../messages/popUp";
+import { storage } from "../storage/storage";
 
 import type { Post } from "../api/postsService";
 import { getLoggedInUser } from "../storage/storage";
@@ -55,7 +56,6 @@ export async function fetchAndRenderPosts(): Promise<void> {
   try {
     const response = await getPosts(1, 100);
     if (!response?.data) {
-      console.log("No posts found");
       return;
     }
     const data = response.data;
@@ -112,8 +112,8 @@ export async function renderOnePost(): Promise<void> {
 
     deleteBTN.addEventListener('click', () => {
       createPopUp(post.id)
-      console.log("post successfully deleted.");
     })
+
   }
   } catch (error) {
     toastNotification("Something went wrong ", "error");
@@ -205,6 +205,10 @@ export function renderPostCard(post: Post): HTMLElement {
   });
   return postElement;
 }
-
+      if (storage.load('postDeleted')) {
+        toastNotification('Post successfully deleted.', 'success');
+        storage.remove('postDeleted');
+      }
+      
 fetchAndRenderPosts();
 renderOnePost();

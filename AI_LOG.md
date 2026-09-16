@@ -108,3 +108,25 @@ CLAUDE AI.
 
 
 
+15.09.2026 12:34:
+
+Prompt: what is wrong with my searchForPost function?
+
+Changes made: Was missing `encodeURIComponent` in the query.
+
+CLAUDE AI.
+
+
+
+
+
+16.09.2026 09:48:
+
+Prompt: How can I implement adding images to my publishPost function? 
+
+Changes made: Added the needed properties in the two interfaces so it would also include image urls and image alts. Also needed to const a media variable and using a ternary operator that if `formData.imageUrl`is truthy; create an object with url and alt properties, if it is falsy, media is set to undefined. 
+
+CLAUDE AI.
+
+
+

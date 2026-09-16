@@ -1,4 +1,5 @@
 import { deletePost } from "../api/postsService";
+import { storage } from "../storage/storage";
 
 export function createPopUp(postId: number): HTMLElement {
     const popUpContainer = document.getElementById('pop-up-container');
@@ -18,6 +19,7 @@ export function createPopUp(postId: number): HTMLElement {
   confirmBTN.addEventListener("click", async () => {
     try {
       await deletePost(postId);
+      storage.save('postDeleted', 'true');
       window.location.href = '/index.html';
     } catch (error) {
       console.log(error);
