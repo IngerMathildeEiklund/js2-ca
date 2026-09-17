@@ -1,4 +1,4 @@
-import type { Author } from "../api/postsService";
+import type { UserProfile } from "../api/authService";
 
 export const storage = {
   save<T>(key: string, value: T): void {
@@ -24,7 +24,7 @@ export const storage = {
 }
 
 
-export function getLoggedInUser(): Author | null {
-  return storage.load<Author>('profile');
+export function getLoggedInUser(): UserProfile | null {
+  return storage.load<UserProfile>('profile');
 }
 

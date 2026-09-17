@@ -17,7 +17,7 @@ interface AuthResponse {
   };
 }
 
-interface UserProfile {
+export interface UserProfile {
   name: string;
   email: string;
   avatar?: {
@@ -53,6 +53,7 @@ export async function loginUser(
 export function logOut(): void {
   storage.remove("accessToken");
   storage.remove("profile");
+  window.location.href = './login.html';
 }
 
 /// REGISTER //

@@ -5,14 +5,22 @@ import { buildComments } from "./addComment";
 import { searchForPosts } from "../api/postsService";
 import { createPopUp } from "../messages/popUp";
 import { storage } from "../storage/storage";
+import { followUser, unfollowUser } from "../api/postsService";
+import { getLoggedInUser } from "../storage/storage";
+import { getFollowing } from "../api/postsService";
 
 import type { Post } from "../api/postsService";
-import { getLoggedInUser } from "../storage/storage";
+import type { Profile } from "../api/postsService";
+import { header } from "./loggedInUser";
 
 const renderPostsContainer = document.getElementById("render-posts");
 const renderOnePostContainer = document.getElementById(
   "render-one-post-container"
 );
+const loggedInUserAndAddNewPostContainer = document.getElementById('loggedin-and-make-post-container');
+
+
+
 
 const searchbar = document.getElementById("searchbar") as HTMLInputElement;
 searchbar?.addEventListener("input", async () => {
@@ -121,6 +129,60 @@ export async function renderOnePost(): Promise<void> {
   }
 }
 
+
+
+function renderFollowing(profiles: Profile[]): void {
+
+  const followingContainer = document.getElementById('following');
+  console.log('following container: ', followingContainer);
+if (!followingContainer) return;
+
+followingContainer.innerHTML = '';
+if (profiles.length === 0) {
+  
+const notFollowingAnyone = document.createElement('p');
+notFollowingAnyone.textContent = 'You are not following anyone yet.';
+followingContainer.appendChild(notFollowingAnyone);
+}
+profiles.forEach((profile) => {
+
+  const userContainer = document.createElement('li');
+  const userAvatar = document.createElement('img');
+  const userName = document.createElement('span');
+
+  userAvatar.src = profile.avatar?.url ?? '';
+  userAvatar.alt = profile.avatar?.alt ?? '';
+  userName.textContent = profile.name;
+
+  userAvatar.classList.add('following-user-image');
+  userContainer.classList.add('following-user-container');
+  userContainer.append(userAvatar, userName);
+  followingContainer.appendChild(userContainer);
+})
+
+
+} 
+let followingArray: Profile[] = [];
+
+ async function  fetchAndRenderFollowing(): Promise<void> {
+  const loggedInUser = getLoggedInUser();
+
+  if (!loggedInUser) {
+    return;
+  }
+  try {
+    const profileResponse = await getFollowing(loggedInUser.name);
+    renderFollowing(profileResponse.data.following ?? []);
+    followingArray = profileResponse.data.following?? [];
+    renderFollowing(followingArray);
+
+  }catch(error) {
+    console.log(error);
+  }
+}
+
+
+
 function buildPost(post: Post): HTMLElement {
   const postElement = document.createElement("div");
   const postCreator = document.createElement("p");
@@ -135,9 +197,45 @@ function buildPost(post: Post): HTMLElement {
   const updatedTimestamp = document.createElement("p");
   const comments = document.createElement("p");
   const reactions = document.createElement("p");
+  const currentUser = getLoggedInUser()
 
   postCreator.textContent = post.author.name;
-  followBTN.textContent = 'Follow';
+  let isFollowing = followingArray.some((profile) => profile.name === post.author.name) 
+  followBTN.textContent = isFollowing ? 'Unfollow' : 'Follow';
+
+      if (currentUser?.name === post.author.name) {
+      followBTN.classList.add('hidden');
+    }else {
+     followBTN.addEventListener('click', async (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+    followBTN.disabled = true;
+
+    try {
+      if (isFollowing) {
+        await unfollowUser(post.author.name);
+        toastNotification(`Successfully unfollowed user ${post.author.name}`, 'success');
+      }
+      else {
+      await followUser(post.author.name);
+      reRenderPosts();
+      toastNotification(`You are now following ${post.author.name}`, 'success');
+      }
+      isFollowing = !isFollowing;
+      followBTN.textContent = isFollowing ? 'Unfollow' : 'Follow';
+      await fetchAndRenderFollowing();
+    }catch(error) {
+      
+      
+      toastNotification('Something went wrong', 'warning');
+    }finally{
+      followBTN.disabled = false;
+
+    }
+
+  }) 
+    }
+  
 
   creatorAvatar.src = post.author.avatar.url ?? null;
   creatorAvatar.alt = post.author.avatar.alt ?? "No image added";
@@ -211,6 +309,19 @@ export function renderPostCard(post: Post): HTMLElement {
         toastNotification('Post successfully deleted.', 'success');
         storage.remove('postDeleted');
       }
-      
-fetchAndRenderPosts();
-renderOnePost();
+    
+async function init(): Promise<void> {
+  const headerElement = header();
+  if (headerElement) {
+    loggedInUserAndAddNewPostContainer?.prepend(headerElement);
+  }
+
+  await fetchAndRenderFollowing();
+  await fetchAndRenderPosts();
+  await renderOnePost();
+}
+
+
+init();
+
+

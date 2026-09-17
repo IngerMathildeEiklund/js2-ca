@@ -130,3 +130,11 @@ CLAUDE AI.
 
 
 
+17.09.2026: 12:01:
+
+Prompt: Im struggling to understand the API documentation for the put request for follow and unfollowing user. Can you help me undestand?
+
+Changes made: My interfaces were wrong and not catering to the correct data, added following and followers on the Profile interface, and a proper PostResponse interface with data and meta with `Record<string, unknown>;` Then I managed to follow users, but when i wanted to log the following data, nothing worked. I then needed to create another function to actually get the information to display it. Then I had problems inside the followBTN event handler, where the state of the button was "Follow" on page reload, regardless if the user was followed or not. So I had to get the "followingArray" into the event handler for the follow button so that if the name displayed in the post also appears in the followingArray, the text content will be 'Unfollow'.  This was by far the hardest part of the assignment (thus far) as I had so many hiccups a long the way.
+
+CLAUDE AI.
+

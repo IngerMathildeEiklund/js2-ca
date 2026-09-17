@@ -25,7 +25,7 @@ interface PublishPostFormElements extends HTMLFormControlsCollection {
 const addOptionalImageBTN = document.getElementById(
   "add-image-button"
 ) as HTMLButtonElement;
-addOptionalImageBTN.addEventListener("click", (event) => {
+addOptionalImageBTN?.addEventListener("click", (event) => {
   event.preventDefault();
   const optionalImageContainer = document.querySelector(
     ".optional-image-container"

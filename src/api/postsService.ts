@@ -1,5 +1,4 @@
 import { get, post, del, put } from "./apiClient";
-import { storage } from "../storage/storage";
 
 export const POSTS_ENDPOINT = "/social/posts";
 const PROFILES_ENDPOINT = '/social/profiles';
@@ -225,18 +224,17 @@ export interface Profile {
   bio: string,
   banner: Media,
   avatar: Media
+  following?: Profile[],
+  followers?: Profile[];
 }
 
-export interface FollowResponse {
-  data: {
-    followers: Profile[],
-    following: Profile[];
-  }
+export interface ProfileResponse {
+  data: Profile;
   meta: Record<string, unknown>;
 }
 
-export async function followUser(name: string): Promise<FollowResponse> {
-const response = await put<FollowResponse>(`${PROFILES_ENDPOINT}/${name}/follow`, undefined);
+export async function followUser(name: string): Promise<ProfileResponse> {
+const response = await put<ProfileResponse>(`${PROFILES_ENDPOINT}/${name}/follow`, undefined);
 
 if (!response) {
 throw new Error('Something went wrong.')
@@ -244,8 +242,18 @@ throw new Error('Something went wrong.')
 return response;
 }
 
-export async function unfollowUser(name: string): Promise<FollowResponse> {
-  const response = await put<FollowResponse>(`${PROFILES_ENDPOINT}/${name}/unfollow`, undefined);
+export async function getFollowing(loggedInUserName: string): Promise<ProfileResponse> {
+const response = await get<ProfileResponse>(`${PROFILES_ENDPOINT}/${loggedInUserName}?_following=true`)
+
+if (!response) {
+  throw new Error('Something went wrong.');
+}
+return response;
+}
+
+
+export async function unfollowUser(name: string): Promise<ProfileResponse> {
+  const response = await put<ProfileResponse>(`${PROFILES_ENDPOINT}/${name}/unfollow`, undefined);
 
   if (!response) {
     throw new Error('Something went wrong.')
