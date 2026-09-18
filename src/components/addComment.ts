@@ -6,6 +6,7 @@ import type { PostWithComments } from "../api/postsService";
 import type { PostComment } from "../api/postsService";
 
 const commentsContainer = document.getElementById("comments") as HTMLElement;
+export const NO_AVATAR_IMAGE = '/src/images/user.svg';
 
 const addCommentForm = document.getElementById(
   "add-comment"
@@ -84,8 +85,8 @@ export function buildCreatedComment(comment: PostComment): HTMLElement {
   const createdAt = document.createElement("p");
 
   commentOwner.textContent = comment.owner;
-  avatarImage.src = comment.author.avatar.url;
-  avatarImage.alt = comment.author.avatar.alt;
+  avatarImage.src = comment.author.avatar?.url ?? NO_AVATAR_IMAGE;
+  avatarImage.alt = comment.author.avatar?.alt ?? '';
   commentBody.textContent = comment.body;
   createdAt.textContent = transformDate(comment.created);
 

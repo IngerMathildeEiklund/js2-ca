@@ -28,11 +28,11 @@ export interface PostWithComments extends Post {
 export interface Author {
   name: string;
   email: string;
-  avatar: Avatar;
-  bio: string;
+  avatar?: Avatar;
+  bio?: string;
 }
 
-interface Avatar {
+export interface Avatar {
   url: string;
   alt: string;
 }
@@ -261,3 +261,38 @@ export async function unfollowUser(name: string): Promise<ProfileResponse> {
   return response;
 }
 
+
+
+/// GET ONE PROFILE ///
+
+interface Banner {
+  url: string,
+  alt: string,
+}
+
+interface Count {
+  posts: number,
+  followers: number,
+  following: number,
+}
+export interface OneProfile {
+  name: string,
+  email: string,
+  bio: string,
+  banner: Banner,
+  avatar: Avatar,
+  _count: Count;
+}
+
+interface OneProfileResponse {
+  data: OneProfile,
+  meta: object;
+}
+
+export async function getOneProfile(name: string): Promise<OneProfileResponse> {
+const response = await get<OneProfileResponse>(`${PROFILES_ENDPOINT}/${name}`);
+if (!response) {
+  throw new Error('Something went wrong');
+}
+return response;
+}

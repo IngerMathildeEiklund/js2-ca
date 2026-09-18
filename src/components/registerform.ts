@@ -6,6 +6,7 @@ interface RegisterUser {
   name: string;
   email: string;
   password: string;
+  bio?: string,
 avatar?: {
   url: string,
   alt: string
@@ -17,6 +18,7 @@ interface RegisterFormElements extends HTMLFormControlsCollection {
   email: HTMLInputElement;
   password: HTMLInputElement;
   confirmPassword: HTMLInputElement;
+  bio: HTMLInputElement;
   avatarUrl: HTMLInputElement,
   avatarAlt: HTMLInputElement
 }
@@ -39,6 +41,7 @@ registrationForm?.addEventListener("submit", async (event) => {
     name: elements.name.value.trim(),
     email: elements.email.value.trim(),
     password: elements.password.value.trim(),
+    bio: elements.bio.value.trim(),
     avatar: avatarUrl ? { url: avatarUrl, alt: avatarAlt || 'No image added.'} : undefined
 
   };

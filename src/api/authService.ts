@@ -20,6 +20,7 @@ interface AuthResponse {
 export interface UserProfile {
   name: string;
   email: string;
+  bio?: string,
   avatar?: {
     url: string,
     alt: string
