@@ -94,7 +94,6 @@ width: 100%;
     flex-direction: row;
     justify-content: space-between;
     gap: 1rem;
-    border-radius: 3rem;
     background-color: rgb(246, 249, 250);
     justify-content: center;
     align-items: center;
@@ -122,4 +121,30 @@ width: 100%;
 #loggedin-and-make-post-container{
     display: grid;
     grid-template-columns: 1fr 1fr;
+}
+
+.profile-avatar-image {
+    height:20rem;
+    width:20rem;
+    object-fit: cover;
+    flex-shrink: 0;
+    border-radius: 50%;
+}
+.profile-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    padding: 1rem;
+}
+
+.profile-username {
+    font-weight: 500;
+    font-size: 1.5rem;
+}
+#edit-post-form {
+    display: flex;
+    flex-direction: column;
 }

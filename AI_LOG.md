@@ -138,3 +138,16 @@ Changes made: My interfaces were wrong and not catering to the correct data, add
 
 CLAUDE AI.
 
+
+
+
+18.09.2026 12:13:
+
+Prompt: When clicking the userimage or username I am taken to the correct html page, but nothing renders on the page except the hardcoded elements, what is my code missing? 
+
+Changes made: Separated concerns, One function to render the profile, and one that takes care of fetching and then displaying. Also needed to get the name from the url query to get the user. 
+
+CLAUDE AI.
+
+
+

@@ -1,7 +1,7 @@
 import { get, post, del, put } from "./apiClient";
 
 export const POSTS_ENDPOINT = "/social/posts";
-const PROFILES_ENDPOINT = '/social/profiles';
+const PROFILES_ENDPOINT = "/social/profiles";
 
 export interface PostComment {
   id: number;
@@ -150,8 +150,7 @@ export async function postComment(
   }
   return response;
 }
-// PUBLISH A NEW POST /// 
-
+// PUBLISH A NEW POST ///
 
 interface PublishPost {
   title: string;
@@ -180,7 +179,6 @@ export async function publishNewPost(
   body?: string,
   tags?: string[],
   media?: Media
-
 ): Promise<CreatePublishPostresponse> {
   const postContent: PublishPost = { title, body, tags, media };
   const response = await post<CreatePublishPostresponse>(
@@ -195,36 +193,38 @@ export async function publishNewPost(
 /// SEARCH FOR POST ///
 
 interface SearchPostsResponse {
-  data: Post[],
-  meta: object
+  data: Post[];
+  meta: object;
 }
 
-export async function searchForPosts(query: string): Promise<SearchPostsResponse> {
-const response = await get<SearchPostsResponse>(`${POSTS_ENDPOINT}/search?q=${encodeURIComponent(query)}&_author=true&_comments=true&_reactions=true`);
+export async function searchForPosts(
+  query: string
+): Promise<SearchPostsResponse> {
+  const response = await get<SearchPostsResponse>(
+    `${POSTS_ENDPOINT}/search?q=${encodeURIComponent(query)}&_author=true&_comments=true&_reactions=true`
+  );
 
-if (!response) {
-  throw new Error('Something went wrong.');
-}
-return response;
+  if (!response) {
+    throw new Error("Something went wrong.");
+  }
+  return response;
 }
 
 // DELETE YOUR OWN POST //
 
-
 export async function deletePost(postId: number): Promise<void> {
-await del(`${POSTS_ENDPOINT}/${postId}`);
+  await del(`${POSTS_ENDPOINT}/${postId}`);
 }
-
 
 /// FOLLOW OR UNFOLLOW USER ///
 
 export interface Profile {
-  name: string,
-  email: string,
-  bio: string,
-  banner: Media,
-  avatar: Media
-  following?: Profile[],
+  name: string;
+  email: string;
+  bio: string;
+  banner: Media;
+  avatar: Media;
+  following?: Profile[];
   followers?: Profile[];
 }
 
@@ -234,65 +234,114 @@ export interface ProfileResponse {
 }
 
 export async function followUser(name: string): Promise<ProfileResponse> {
-const response = await put<ProfileResponse>(`${PROFILES_ENDPOINT}/${name}/follow`, undefined);
-
-if (!response) {
-throw new Error('Something went wrong.')
-}
-return response;
-}
-
-export async function getFollowing(loggedInUserName: string): Promise<ProfileResponse> {
-const response = await get<ProfileResponse>(`${PROFILES_ENDPOINT}/${loggedInUserName}?_following=true`)
-
-if (!response) {
-  throw new Error('Something went wrong.');
-}
-return response;
-}
-
-
-export async function unfollowUser(name: string): Promise<ProfileResponse> {
-  const response = await put<ProfileResponse>(`${PROFILES_ENDPOINT}/${name}/unfollow`, undefined);
+  const response = await put<ProfileResponse>(
+    `${PROFILES_ENDPOINT}/${name}/follow`,
+    undefined
+  );
 
   if (!response) {
-    throw new Error('Something went wrong.')
+    throw new Error("Something went wrong.");
   }
   return response;
 }
 
+export async function getFollowing(
+  loggedInUserName: string
+): Promise<ProfileResponse> {
+  const response = await get<ProfileResponse>(
+    `${PROFILES_ENDPOINT}/${loggedInUserName}?_following=true`
+  );
 
+  if (!response) {
+    throw new Error("Something went wrong.");
+  }
+  return response;
+}
+
+export async function unfollowUser(name: string): Promise<ProfileResponse> {
+  const response = await put<ProfileResponse>(
+    `${PROFILES_ENDPOINT}/${name}/unfollow`,
+    undefined
+  );
+
+  if (!response) {
+    throw new Error("Something went wrong.");
+  }
+  return response;
+}
 
 /// GET ONE PROFILE ///
 
 interface Banner {
-  url: string,
-  alt: string,
+  url: string;
+  alt: string;
 }
 
 interface Count {
-  posts: number,
-  followers: number,
-  following: number,
+  posts: number;
+  followers: number;
+  following: number;
 }
 export interface OneProfile {
-  name: string,
-  email: string,
-  bio: string,
-  banner: Banner,
-  avatar: Avatar,
+  name: string;
+  email: string;
+  bio: string;
+  banner: Banner;
+  avatar: Avatar;
   _count: Count;
 }
 
 interface OneProfileResponse {
-  data: OneProfile,
+  data: OneProfile;
   meta: object;
 }
 
 export async function getOneProfile(name: string): Promise<OneProfileResponse> {
-const response = await get<OneProfileResponse>(`${PROFILES_ENDPOINT}/${name}`);
+  const response = await get<OneProfileResponse>(
+    `${PROFILES_ENDPOINT}/${name}`
+  );
+  if (!response) {
+    throw new Error("Something went wrong");
+  }
+  return response;
+}
+
+// EDIT POST ///
+
+interface EditPost {
+  title: string;
+  body?: string;
+  tags?: string[];
+  media?: Media;
+}
+
+interface PostContent {
+    id: number;
+    created: string;
+    updated: string;
+    title: string;
+    body: string;
+    tags: string[];
+    media: Media;
+    _count: {
+      comments: number;
+      reactions: number;
+    };
+}
+
+interface EditPostResponse {
+  data: PostContent,
+    meta: object;
+}
+
+export async function editOwnPost(postId: number, content: EditPost): Promise<EditPostResponse> {
+const response = await put<EditPostResponse>(`${POSTS_ENDPOINT}/${postId}`, content);
+
 if (!response) {
   throw new Error('Something went wrong');
 }
 return response;
 }
+
+
+

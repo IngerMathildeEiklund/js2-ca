@@ -1,6 +1,5 @@
 import { publishNewPost } from "../api/postsService";
 import { toastNotification } from "../messages/toastnotification";
-import { fetchAndRenderPosts } from "./renderPosts";
 import { reRenderPosts } from "./renderPosts";
 
 const publishPostForm = document.getElementById(

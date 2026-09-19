@@ -9,6 +9,7 @@ import { followUser, unfollowUser } from "../api/postsService";
 import { getLoggedInUser } from "../storage/storage";
 import { getFollowing } from "../api/postsService";
 import { renderOneProfilePage } from "./oneProfile";
+import { createEditPostPopUp } from "../messages/popUp";
 
 import type { Post } from "../api/postsService";
 import type { Profile } from "../api/postsService";
@@ -122,7 +123,12 @@ export async function renderOnePost(): Promise<void> {
       deleteBTN.addEventListener("click", () => {
         createPopUp(post.id);
       });
+      editBTN.addEventListener('click', () => {
+        createEditPostPopUp();
+      } )
     }
+
+    
   } catch (error) {
     toastNotification("Something went wrong ", "error");
     console.log(error);
@@ -271,7 +277,6 @@ function buildPost(post: Post): HTMLElement {
     }catch(error) {
       console.log('HELLO MI AMOR, IT DID NOT WORK');
     }
-    // WHEN USER CLICKS HERE, RELOCATES TO ONE-PROFILE.HTML, AWAIT A FETCH FOR GET ONE PROFILE, AFTER GETTING PROFILE, RENDER PROFILE./// 
 
   })
   creatorAvatarWrapper.append(creatorAvatar, postCreator, followBTN);

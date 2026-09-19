@@ -16,6 +16,10 @@ avatarImage.alt = profile.avatar?.alt ?? '';
 userName.textContent = profile.name;
 userBio.textContent = profile.bio ?? '';
 
+avatarImage.classList.add('profile-avatar-image');
+profileContainer.classList.add('profile-container');
+userName.classList.add('profile-username');
+
 
 
 profileContainer.append(avatarImage, userName, userBio);
