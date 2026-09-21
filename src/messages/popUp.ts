@@ -3,6 +3,9 @@ import { storage } from "../storage/storage";
 import { editOwnPost } from "../api/postsService";
 import { toastNotification } from "./toastnotification";
 import { renderOnePost } from "../components/renderPosts";
+import { getPostById } from "../api/postsService";
+import type { PostWithComments, PublishPost } from "../api/postsService";
+import type { EditPost } from "../api/postsService";
 
 export function createPopUp(postId: number): HTMLElement {
   const popUpContainer = document.getElementById("pop-up-container");
@@ -49,7 +52,7 @@ interface EditPostElements extends HTMLFormControlsCollection {
   imageUrl: HTMLInputElement;
   imageAlt: HTMLInputElement;
 }
-interface EditPostFormat {
+/* interface EditPostFormat {
   title: string;
   body?: string;
   tags?: string[];
@@ -57,19 +60,37 @@ interface EditPostFormat {
     url: string,
     alt: string,
   } | null;
+} */
+export async function createEditPostPopUp() {    
+  const urlParams = new URLSearchParams(window.location.search);
+    const id = urlParams.get('id');
+    const postId = Number(id);
+
+let post: PublishPost;
+
+try {
+  const response = await getPostById(postId);
+  if(!response) {
+    toastNotification('Post not found', 'error');
+    return;
+  }
+  post = response;
+}catch(error) {
+  toastNotification('Something went wrong', 'error');
+  return;
 }
-export function createEditPostPopUp() {
+
   const popUpContainer = document.getElementById(
     "edit-post-popup-container"
   ) as HTMLDialogElement;
   popUpContainer.innerHTML = '';
   const popUp = document.createElement("div");
   const popUpTitle = document.createElement("p");
-
+  
   popUpTitle.textContent = "Edit post";
   const formContainer = document.createElement("div");
   if (formContainer) {
-    formContainer.innerHTML = renderEditPostForm();
+    formContainer.innerHTML = renderEditPostForm(post);
   }
   popUpContainer.showModal();
 
@@ -95,7 +116,7 @@ export function createEditPostPopUp() {
     const elements = editPostForm.elements as EditPostElements;
     const media = elements.imageUrl?.value.trim() ? { url: elements.imageUrl.value.trim(), alt: elements.imageAlt?.value.trim() ?? 'No image added.'}: null;
     
-    const updatedFormData: EditPostFormat = {
+    const updatedFormData: EditPost = {
       title: elements.title.value.trim(),
       body: elements.body?.value.trim(),
       tags: elements.tags?.value
@@ -109,20 +130,20 @@ export function createEditPostPopUp() {
       toastNotification('Must contain a title.', 'warning')
     }
     
-    const urlParams = new URLSearchParams(window.location.search);
-    const id = urlParams.get('id');
-    const postId = Number(id);
+
     console.log(id);
-    if (!postId && Number.isNaN(postId) ) {
+    if (!postId || Number.isNaN(postId) ) {
       toastNotification('No post with such ID found.', 'error');
       return
     }
+    
+    
     console.log(updatedFormData);
 
     try {
-      const result = await editOwnPost(postId, updatedFormData);
-      console.log('API response: ', result);
-      console.log(result.data.media);
+      await editOwnPost(postId, updatedFormData);
+
+
       renderOnePost();
       popUpContainer.close();
       editPostForm.reset();
@@ -137,11 +158,11 @@ export function createEditPostPopUp() {
   });
 }
 
-function renderEditPostForm() {
+function renderEditPostForm(post: PublishPost) {
   return `
    <form id="edit-post-form">
         <label for="post-title">Post title</label>
-        <input type="text" id="post-title" name="title" />
+        <input type="text" id="post-title" name="title" value="${post.title}" />
         <label for="publish-post-textarea"> Post body: Optional </label>
         <textarea
           id="publish-post-textarea"
@@ -149,20 +170,20 @@ function renderEditPostForm() {
           rows="5"
           cols="40"
           required
-        >
+        > ${post.body ?? ''}
         </textarea>
         <details>
         Right click and image and "Copy image address" to get an accessible url.
         </details>
         <label for="url-string"> Image:</label>
-        <input id="url-string" type="url" name="imageUrl" placeholder="eg. https://unsplash.com/photos/lifeguard-chair-on-sandy-beach-8Ug4F8iM8NQ ">
+        <input id="url-string" type="url" name="imageUrl" value="${post.media?.url ?? ''}" placeholder="eg. https://unsplash.com/photos/lifeguard-chair-on-sandy-beach-8Ug4F8iM8NQ ">
         <label for="image-alt"> Describe your image: </label>
-        <input type="text" id="image-alt" name="imageAlt" placeholder="eg. A lifeguard chair on a beach">
+        <input type="text" id="image-alt" name="imageAlt" value="${post.media?.alt ?? ''}" placeholder="eg. A lifeguard chair on a beach">
       
 
 
         <label for="tags"> Tags: Optional</label>
-        <input type="text" id="tags" name="tags" />
+        <input type="text" id="tags" name="tags" value="${post.tags?.join(', ') ?? ''}" />
         <div> 
         <button id="save-changes-button" type="submit"> Save changes </button>
         <button id="cancel-changes-button" type="button"> Cancel </button>

@@ -13,6 +13,7 @@ import { createEditPostPopUp } from "../messages/popUp";
 
 import type { Post } from "../api/postsService";
 import type { Profile } from "../api/postsService";
+import type { Meta } from "../api/postsService";
 import { header } from "./loggedInUser";
 import { NO_AVATAR_IMAGE } from "./addComment";
 
@@ -68,6 +69,7 @@ export async function fetchAndRenderPosts(): Promise<void> {
     if (!response?.data) {
       return;
     }
+    console.log(response);
     const data = response.data;
     renderPosts(data);
   } catch (error) {
@@ -317,11 +319,22 @@ if (storage.load("postDeleted")) {
   storage.remove("postDeleted");
 }
 
+
+async function getMetaInfo(): Promise<Meta> {
+
+  const result = await getPosts(1,100);
+  const metaInfo = result.meta;
+  console.log(metaInfo);
+  return metaInfo;
+}
+getMetaInfo();
+
 async function init(): Promise<void> {
   const headerElement = header();
   if (headerElement) {
     loggedInUserAndAddNewPostContainer?.prepend(headerElement);
   }
+
 
   await fetchAndRenderFollowing();
   await fetchAndRenderPosts();

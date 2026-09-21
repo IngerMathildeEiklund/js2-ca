@@ -17,6 +17,7 @@ const addCommentBTN = document.getElementById(
 const textArea = document.getElementById("comment-text") as HTMLTextAreaElement;
 
 export function buildComments(post: PostWithComments): HTMLElement {
+  commentsContainer.innerHTML = '';
   if (!commentsContainer) {
     throw new Error("Could not find the element in the DOM.");
   }

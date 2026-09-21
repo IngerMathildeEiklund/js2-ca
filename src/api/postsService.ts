@@ -65,7 +65,7 @@ export interface Post {
   _count: PostCount;
 }
 
-interface Meta {
+export interface Meta {
   isFirstPage: boolean;
   isLastPage: boolean;
   currentPage: number;
@@ -152,7 +152,7 @@ export async function postComment(
 }
 // PUBLISH A NEW POST ///
 
-interface PublishPost {
+export interface PublishPost {
   title: string;
   body?: string;
   tags?: string[];
