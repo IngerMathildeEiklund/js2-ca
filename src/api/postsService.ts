@@ -308,11 +308,14 @@ export async function getOneProfile(name: string): Promise<OneProfileResponse> {
 
 // EDIT POST ///
 
-interface EditPost {
+export interface EditPost {
   title: string;
   body?: string;
   tags?: string[];
-  media?: Media;
+  media?: { 
+    url: string;
+    alt: String;
+  }| null;
 }
 
 interface PostContent {

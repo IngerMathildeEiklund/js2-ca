@@ -23,14 +23,14 @@ Changes made: Added a second guard for the payload. My original code only checke
 
 CLAUDE AI
 
+
+
+
+
+
+
+
 28.08.2026 10:35:
-
-
-
-
-
-
-
 
 
 Prompt: Can I write this code cleaner?
@@ -38,6 +38,16 @@ Prompt: Can I write this code cleaner?
 Changes made: Made the error handling for the different server error codes in the registration form into a switch instead of a hard to read if else statements.
 
 CLAUDE AI.
+
+
+
+21.09.2026 11:13: 
+
+Prompt: I can log my variable with the updated fields for my update post function, and get the correct properties, but only the title and tags get updated on the rendering of the post. What am I doing wrong? 
+
+Changes made: Name collision, the interface `EditPost` needed body, I had given the text area the name "editPost" and used it in the wrong place. Also added the functionality that if there is no image, the whole media part is omitted. 
+
+CLAUDE AI. 
 
 
 

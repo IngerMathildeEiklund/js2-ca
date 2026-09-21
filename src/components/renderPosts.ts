@@ -84,6 +84,7 @@ export async function renderOnePost(): Promise<void> {
   if (!renderOnePostContainer) {
     return;
   }
+  renderOnePostContainer.innerHTML = '';
   const urlParams = new URLSearchParams(window.location.search);
   const idParam = urlParams.get("id");
 
