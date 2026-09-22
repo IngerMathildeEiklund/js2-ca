@@ -1,23 +1,17 @@
-import { getPosts } from "../api/postsService";
+
 import { toastNotification } from "../messages/toastnotification";
 import { getPostById } from "../api/postsService";
-import { buildComments } from "./addComment";
-import { searchForPosts } from "../api/postsService";
-import { createPopUp } from "../messages/popUp";
-import { storage } from "../storage/storage";
-import { followUser, unfollowUser } from "../api/postsService";
-import { getLoggedInUser } from "../storage/storage";
-import { getFollowing } from "../api/postsService";
+import { buildComments, NO_AVATAR_IMAGE } from "./addComment";
+import { createPopUp, createEditPostPopUp } from "../messages/popUp";
+import { storage, getLoggedInUser, requireLogin } from "../storage/storage";
+import { followUser, unfollowUser, getFollowing } from "../api/postsService";
 import { renderOneProfilePage } from "./oneProfile";
-import { createEditPostPopUp } from "../messages/popUp";
 import { getErrorMessage } from "../errors/apiError";
-import { requireLogin } from "../storage/storage";
+import { getCurrentPage, loadPage, setActiveQuery } from "./pagination";
 
 import type { Post } from "../api/postsService";
 import type { Profile } from "../api/postsService";
-import type { Meta } from "../api/postsService";
 import { header } from "./loggedInUser";
-import { NO_AVATAR_IMAGE } from "./addComment";
 
 const renderPostsContainer = document.getElementById("render-posts");
 const renderOnePostContainer = document.getElementById(
@@ -27,29 +21,27 @@ const loggedInUserAndAddNewPostContainer = document.getElementById(
   "loggedin-and-make-post-container"
 );
 
+
+
+
 const searchbar = document.getElementById("searchbar") as HTMLInputElement;
 searchbar?.addEventListener("input", async () => {
   if (!searchbar) {
     return;
   }
   const query = searchbar.value.trim();
-
-  if (!query) {
-    return;
-  }
-  try {
-    const result = await searchForPosts(query);
-    renderPosts(result.data);
-  } catch (error) {
-    toastNotification(getErrorMessage(error), 'error');
-  }
+  setActiveQuery(query || null);
+  await loadPage(1);
 });
 
 export function transformDate(date: string): string {
   return new Date(date).toDateString();
 }
 
-export function renderPosts(posts: Post[], container: HTMLElement | null = renderPostsContainer): void {
+export function renderPosts(
+  posts: Post[],
+  container: HTMLElement | null = renderPostsContainer
+): void {
   if (!container) return;
   container.innerHTML = "";
 
@@ -64,31 +56,16 @@ export function renderPosts(posts: Post[], container: HTMLElement | null = rende
     container.appendChild(postElement);
   });
 }
-
-export async function fetchAndRenderPosts(): Promise<void> {
-  try {
-    const response = await getPosts(1, 100);
-    if (!response?.data) {
-      return;
-    }
-    console.log(response);
-    const data = response.data;
-    renderPosts(data);
-  } catch (error) {
-    toastNotification(getErrorMessage(error), "error");
-  }
-}
-
 export function reRenderPosts() {
   if (!renderPostsContainer) return;
-  fetchAndRenderPosts();
+  loadPage(getCurrentPage());
 }
 
 export async function renderOnePost(): Promise<void> {
   if (!renderOnePostContainer) {
     return;
   }
-  renderOnePostContainer.innerHTML = '';
+  renderOnePostContainer.innerHTML = "";
   const urlParams = new URLSearchParams(window.location.search);
   const idParam = urlParams.get("id");
 
@@ -128,12 +105,10 @@ export async function renderOnePost(): Promise<void> {
       deleteBTN.addEventListener("click", () => {
         createPopUp(post.id);
       });
-      editBTN.addEventListener('click', () => {
+      editBTN.addEventListener("click", () => {
         createEditPostPopUp();
-      } )
+      });
     }
-
-    
   } catch (error) {
     toastNotification(getErrorMessage(error), "error");
   }
@@ -179,7 +154,7 @@ async function fetchAndRenderFollowing(): Promise<void> {
     followingArray = profileResponse.data.following ?? [];
     renderFollowing(followingArray);
   } catch (error) {
-    toastNotification(getErrorMessage(error), 'error');
+    toastNotification(getErrorMessage(error), "error");
   }
 }
 
@@ -216,14 +191,14 @@ function buildPost(post: Post): HTMLElement {
       try {
         if (isFollowing) {
           await unfollowUser(post.author.name);
-          fetchAndRenderPosts()
+          loadPage(getCurrentPage());
           toastNotification(
             `Successfully unfollowed user ${post.author.name}`,
             "success"
           );
         } else {
           await followUser(post.author.name);
-          fetchAndRenderPosts();
+          loadPage(getCurrentPage());
           toastNotification(
             `You are now following ${post.author.name}`,
             "success"
@@ -274,15 +249,13 @@ function buildPost(post: Post): HTMLElement {
   if (post.tags.length === 0) {
     postTags.classList.add("hidden");
   }
-  creatorAvatarWrapper.addEventListener('click', async () => {
-
+  creatorAvatarWrapper.addEventListener("click", async () => {
     try {
-      window.location.href = `/one-profile.html?name=${encodeURIComponent(post.author.name)}`
-    }catch(error) {
-      toastNotification(getErrorMessage(error), 'error');
+      window.location.href = `/one-profile.html?name=${encodeURIComponent(post.author.name)}`;
+    } catch (error) {
+      toastNotification(getErrorMessage(error), "error");
     }
-
-  })
+  });
   creatorAvatarWrapper.append(creatorAvatar, postCreator, followBTN);
   postElement.appendChild(creatorAvatarWrapper);
   postElement.appendChild(postTitle);
@@ -320,28 +293,27 @@ if (storage.load("postDeleted")) {
   storage.remove("postDeleted");
 }
 
-
-
 async function init(): Promise<void> {
-  if (!renderPostsContainer && !renderOnePostContainer && !loggedInUserAndAddNewPostContainer) {
+  if (
+    !renderPostsContainer &&
+    !renderOnePostContainer &&
+    !loggedInUserAndAddNewPostContainer
+  ) {
     return;
   }
   requireLogin();
-  
+
   if (!getLoggedInUser()) {
     return;
-  } 
-  
-
+  }
 
   const headerElement = header();
   if (headerElement) {
     loggedInUserAndAddNewPostContainer?.prepend(headerElement);
   }
 
-  
   await fetchAndRenderFollowing();
-  await fetchAndRenderPosts();
+  await loadPage(1);
   await renderOnePost();
   await renderOneProfilePage();
 }

@@ -193,3 +193,12 @@ CLAUDE AI.
 
 
 
+22:09:2026 16:35: 
+
+Prompt: My pagination logic works well when loading all posts, but it disappear when I try to seach for a post. How can I adjust my searchPosts function to accept pagination?
+
+Changes made: Changed the url in the get function, and allowed the searchPosts function to take parameters of page and limit like getPosts(all). Needed to add a ternary operator on the response `const response = activeQuery ? await searchForPosts(activeQuery, page, POSTS_PER_PAGE) : await getPosts(page, POSTS_PER_PAGE);`.
+
+
+CLAUDE AI.
+

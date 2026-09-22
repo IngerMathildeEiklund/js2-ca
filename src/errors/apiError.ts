@@ -13,6 +13,7 @@ export class ApiError extends Error {
 
 
 export function getErrorMessage(error: unknown): string {
+  console.log(error);
 if (error instanceof ApiError) {
   return error.message;
 }

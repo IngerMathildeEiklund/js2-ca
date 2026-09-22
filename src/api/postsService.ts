@@ -194,14 +194,14 @@ export async function publishNewPost(
 
 interface SearchPostsResponse {
   data: Post[];
-  meta: object;
+  meta: Meta;
 }
 
 export async function searchForPosts(
-  query: string
+  query: string, page: number = 1, limit: number = 100
 ): Promise<SearchPostsResponse> {
   const response = await get<SearchPostsResponse>(
-    `${POSTS_ENDPOINT}/search?q=${encodeURIComponent(query)}&_author=true&_comments=true&_reactions=true`
+    `${POSTS_ENDPOINT}/search?q=${encodeURIComponent(query)}&page=${page}&limit=${limit}&_author=true&_comments=true&_reactions=true`
   );
 
   if (!response) {
