@@ -169,3 +169,14 @@ Changes made: Reused my getPostById to get the post, use template literals in th
 
 CLAUDE AI.
 
+
+
+22:09:2026 12:56:
+
+Promt: How can I use the toast notification that I already have to display actual messages to the user, and not just generic hardcoded ones? 
+
+Changes made: Created a `createErrorMessage` function that returns a string, and implemented that in my toastNotification across the app. 
+
+CLAUDE AI.
+
+
