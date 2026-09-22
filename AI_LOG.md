@@ -173,10 +173,23 @@ CLAUDE AI.
 
 22:09:2026 12:56:
 
-Promt: How can I use the toast notification that I already have to display actual messages to the user, and not just generic hardcoded ones? 
+Prompt: How can I use the toast notification that I already have to display actual messages to the user, and not just generic hardcoded ones? 
 
 Changes made: Created a `createErrorMessage` function that returns a string, and implemented that in my toastNotification across the app. 
 
 CLAUDE AI.
+
+
+
+
+22:09:2026 13:36: 
+
+Prompt: How do I safely guard the login page so that it doesnt get the error of missing authorization header on the login page? 
+
+Changes made: Added a guard clause in the init that if these containers arent found, return.
+
+CLAUDE AI. 
+
+
 
 

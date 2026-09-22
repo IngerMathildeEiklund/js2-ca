@@ -11,6 +11,7 @@ import { getFollowing } from "../api/postsService";
 import { renderOneProfilePage } from "./oneProfile";
 import { createEditPostPopUp } from "../messages/popUp";
 import { getErrorMessage } from "../errors/apiError";
+import { requireLogin } from "../storage/storage";
 
 import type { Post } from "../api/postsService";
 import type { Profile } from "../api/postsService";
@@ -322,6 +323,16 @@ if (storage.load("postDeleted")) {
 
 
 async function init(): Promise<void> {
+  if (!renderPostsContainer && !renderOnePostContainer && !loggedInUserAndAddNewPostContainer) {
+    return;
+  }
+  requireLogin();
+  
+  if (!getLoggedInUser()) {
+    return;
+  } 
+  
+
 
   const headerElement = header();
   if (headerElement) {

@@ -28,3 +28,14 @@ export function getLoggedInUser(): UserProfile | null {
   return storage.load<UserProfile>('profile');
 }
 
+export function requireLogin(): void {
+  const profile = storage.load<UserProfile>('profile');
+  const accessToken = storage.load('accessToken');
+  const isLoggedIn = !!profile && !!accessToken;
+
+  const onLoginPage = window.location.pathname.endsWith('login.html');
+
+  if (!isLoggedIn && !onLoginPage) {
+    window.location.href = './login.html';
+  }
+}

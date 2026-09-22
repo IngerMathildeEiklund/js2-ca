@@ -69,7 +69,7 @@ export async function createEditPostPopUp() {
     }
     post = response;
   } catch (error) {
-    toastNotification("Something went wrong", "error");
+    toastNotification(getErrorMessage(error), "error");
     return;
   }
 
