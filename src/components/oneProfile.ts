@@ -4,6 +4,7 @@ import { toastNotification } from "../messages/toastnotification";
 import { getOneProfile } from "../api/postsService";
 import { renderPosts } from "./renderPosts";
 import { getPosts } from "../api/postsService";
+import { getErrorMessage } from "../errors/apiError";
 
 export function renderOneProfile(profile: OneProfile): HTMLElement{
 const profileContainer = document.createElement('div');
@@ -62,7 +63,7 @@ renderPosts(allPostOwn, ownPostsContainer);
 }
 
 }catch(error) {
-console.log('hello!');
+toastNotification(getErrorMessage(error), 'error');
 }
 }
 

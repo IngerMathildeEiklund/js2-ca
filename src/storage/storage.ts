@@ -3,11 +3,11 @@ import type { UserProfile } from "../api/authService";
 export const storage = {
   save<T>(key: string, value: T): void {
     const serializedValue = JSON.stringify(value);
-    localStorage.setItem(key, serializedValue);
+    sessionStorage.setItem(key, serializedValue);
   },
 
   load<T>(key: string): T | null {
-    const item = localStorage.getItem(key);
+    const item = sessionStorage.getItem(key);
     if (!item) return null;
 
     try {
@@ -19,7 +19,7 @@ export const storage = {
   },
 
   remove(key: string): void {
-    localStorage.removeItem(key);
+    sessionStorage.removeItem(key);
   }
 }
 

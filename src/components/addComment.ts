@@ -4,6 +4,8 @@ import { getLoggedInUser } from "../storage/storage";
 import { transformDate } from "./renderPosts";
 import type { PostWithComments } from "../api/postsService";
 import type { PostComment } from "../api/postsService";
+import { getErrorMessage } from "../errors/apiError";
+import { renderOnePost } from "./renderPosts";
 
 const commentsContainer = document.getElementById("comments") as HTMLElement;
 export const NO_AVATAR_IMAGE = '/src/images/user.svg';
@@ -39,39 +41,33 @@ const postId = idParam ? Number(idParam) : null;
 
 addCommentForm?.addEventListener("submit", async (event) => {
   event.preventDefault();
+
   if (postId === null || Number.isNaN(postId)) {
     toastNotification("Could not find correct post to comment on", "error");
     return;
   }
 
-  const commentBody = textArea.value;
-
-  if (!commentBody) {
-    return;
-  }
-  try {
-    addCommentBTN.disabled = true;
-    const response = await postComment(postId, commentBody);
-    const currentUser = getLoggedInUser();
+  const currentUser = getLoggedInUser();
     if (!currentUser) {
       toastNotification("You must be logged in to comment", "error");
-      addCommentBTN.disabled = false;
       return;
     }
 
-    const newComment: PostComment = {
-      ...response.data,
-      author: currentUser
-    };
-    const commentElement = buildCreatedComment(newComment);
-    commentsContainer?.appendChild(commentElement);
+  const commentBody = textArea.value.trim();
+  if (!commentBody) {
+    toastNotification('Cannot leave an empty comment.', 'warning');
+    return;
+  }
 
+  addCommentBTN.disabled = true;
+
+  try {
+    await postComment(postId, commentBody);
     textArea.value = "";
-    buildCreatedComment(newComment);
-    window.location.reload();
+    await renderOnePost();
     toastNotification("Comment added", "success");
   } catch (error) {
-    console.error(error);
+    toastNotification(getErrorMessage(error), 'error');
   } finally {
     addCommentBTN.disabled = false;
   }

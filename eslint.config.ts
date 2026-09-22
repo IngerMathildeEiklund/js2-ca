@@ -23,6 +23,14 @@ export default defineConfig([
     files: ["**/*.css"],
     plugins: { css },
     language: "css/css",
-    extends: ["css/recommended"]
+    extends: ["css/recommended"],
+    rules: {
+      "css/no-invalid-properties": [
+        "warn",
+        {
+          ignoreProperties: ["/^--/"],
+        },
+      ],
+    },
   }
 ]);

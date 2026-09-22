@@ -1,4 +1,6 @@
 import { loginUser } from "../api/authService";
+import { getErrorMessage } from "../errors/apiError";
+import { toastNotification } from "../messages/toastnotification";
 
 interface LoginFormElements extends HTMLFormControlsCollection {
   email: HTMLInputElement;
@@ -10,9 +12,6 @@ const loginForm = document.getElementById(
 
 loginForm?.addEventListener("submit", async (event) => {
   event.preventDefault();
-if (!loginForm) {
-  throw new Error("Login form not found in the DOM.");
-}
   const elements = loginForm.elements as LoginFormElements;
 
   const credentials = {
@@ -23,13 +22,7 @@ if (!loginForm) {
   try {
     await loginUser(credentials);
     window.location.href = "./index.html";
-    
-    // Redirect to register and show a toast notif//
-  } catch (error: unknown) {
-    if (error instanceof Error) {
-      console.error(`Login failed! ${error.message}`);
-    } else {
-      console.error(`An unexpected error occured.`);
-    }
+  } catch (error) {
+      toastNotification(getErrorMessage(error), 'error');
   }
 });

@@ -90,7 +90,7 @@ interface RegisterResponse {
 export async function registerUser(
   registerUser: RegisterUser
 ): Promise<UserProfile> {
-  try {
+  
     const response = await post<RegisterResponse>(
       REGISTER_ENDPOINT,
       registerUser
@@ -109,8 +109,4 @@ export async function registerUser(
     }
     storage.save<UserProfile>("profile", profile);
     return profile;
-  } catch (error: unknown) {
-    console.error("Registration failed", error);
-    throw error;
-  }
 }

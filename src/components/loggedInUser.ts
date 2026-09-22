@@ -1,6 +1,8 @@
 
 import { getLoggedInUser } from "../storage/storage";
 import { logOut } from "../api/authService";
+import { storage } from "../storage/storage";
+import type { UserProfile } from "../api/authService";
 
 
 export function header(): HTMLElement | null{ 

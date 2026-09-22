@@ -1,6 +1,7 @@
 import { registerUser } from "../api/authService";
 import { ApiError } from "../errors/apiError";
 import { toastNotification } from "../messages/toastnotification";
+import { getErrorMessage } from "../errors/apiError";
 
 interface RegisterUser {
   name: string;
@@ -86,7 +87,7 @@ registrationForm?.addEventListener("submit", async (event) => {
 
           break;
         case 400:
-          toastNotification(`${error.message}`, "error");
+          toastNotification(error.message, "error");
 
           break;
           case 429:
@@ -101,13 +102,16 @@ registrationForm?.addEventListener("submit", async (event) => {
           toastNotification("Please try again later.", "error");
       }
     } else if (error instanceof Error) {
-      toastNotification(`${error.message}`, "error");
+      toastNotification(error.message, "error");
     } else {
       toastNotification(
-        "Something unexpected went wrong, please try again later.",
+        getErrorMessage(error),
         "error"
       );
     }
   }
-  if (submitBTN) submitBTN.disabled = false;
+  finally {
+     if (submitBTN) submitBTN.disabled = false;
+  }
+ 
 });

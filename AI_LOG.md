@@ -161,3 +161,11 @@ CLAUDE AI.
 
 
 
+21.09.2026 13:57: 
+
+Prompt: I want the text content that was on the different fields in the post to populate the form when the modal is triggered. How can I do that? 
+
+Changes made: Reused my getPostById to get the post, use template literals in the function that returns the form HTML, and passed post into that function when it was called.
+
+CLAUDE AI.
+

@@ -10,6 +10,7 @@ import { getLoggedInUser } from "../storage/storage";
 import { getFollowing } from "../api/postsService";
 import { renderOneProfilePage } from "./oneProfile";
 import { createEditPostPopUp } from "../messages/popUp";
+import { getErrorMessage } from "../errors/apiError";
 
 import type { Post } from "../api/postsService";
 import type { Profile } from "../api/postsService";
@@ -39,7 +40,7 @@ searchbar?.addEventListener("input", async () => {
     const result = await searchForPosts(query);
     renderPosts(result.data);
   } catch (error) {
-    console.log(error);
+    toastNotification(getErrorMessage(error), 'error');
   }
 });
 
@@ -73,7 +74,7 @@ export async function fetchAndRenderPosts(): Promise<void> {
     const data = response.data;
     renderPosts(data);
   } catch (error) {
-    toastNotification("Error loading posts", "error");
+    toastNotification(getErrorMessage(error), "error");
   }
 }
 
@@ -133,8 +134,7 @@ export async function renderOnePost(): Promise<void> {
 
     
   } catch (error) {
-    toastNotification("Something went wrong ", "error");
-    console.log(error);
+    toastNotification(getErrorMessage(error), "error");
   }
 }
 
@@ -178,7 +178,7 @@ async function fetchAndRenderFollowing(): Promise<void> {
     followingArray = profileResponse.data.following ?? [];
     renderFollowing(followingArray);
   } catch (error) {
-    console.log(error);
+    toastNotification(getErrorMessage(error), 'error');
   }
 }
 
@@ -232,7 +232,7 @@ function buildPost(post: Post): HTMLElement {
         followBTN.textContent = isFollowing ? "Unfollow" : "Follow";
         await fetchAndRenderFollowing();
       } catch (error) {
-        toastNotification("Something went wrong", "warning");
+        toastNotification(getErrorMessage(error), "warning");
       } finally {
         followBTN.disabled = false;
       }
@@ -278,7 +278,7 @@ function buildPost(post: Post): HTMLElement {
     try {
       window.location.href = `/one-profile.html?name=${encodeURIComponent(post.author.name)}`
     }catch(error) {
-      console.log('HELLO MI AMOR, IT DID NOT WORK');
+      toastNotification(getErrorMessage(error), 'error');
     }
 
   })
@@ -320,22 +320,15 @@ if (storage.load("postDeleted")) {
 }
 
 
-async function getMetaInfo(): Promise<Meta> {
-
-  const result = await getPosts(1,100);
-  const metaInfo = result.meta;
-  console.log(metaInfo);
-  return metaInfo;
-}
-getMetaInfo();
 
 async function init(): Promise<void> {
+
   const headerElement = header();
   if (headerElement) {
     loggedInUserAndAddNewPostContainer?.prepend(headerElement);
   }
 
-
+  
   await fetchAndRenderFollowing();
   await fetchAndRenderPosts();
   await renderOnePost();

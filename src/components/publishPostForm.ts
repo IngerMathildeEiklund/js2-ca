@@ -1,6 +1,7 @@
 import { publishNewPost } from "../api/postsService";
 import { toastNotification } from "../messages/toastnotification";
 import { reRenderPosts } from "./renderPosts";
+import { getErrorMessage } from "../errors/apiError";
 
 const publishPostForm = document.getElementById(
   "publish-post"
@@ -52,7 +53,6 @@ publishPostForm?.addEventListener("submit", async (event) => {
     imageAlt: elements.imageAlt.value.trim()
   };
 
-  publishPostBTN.disabled = true;
   if (!formData.title) {
     toastNotification(
       "Missing input! Please fill out required fields before submitting,",
@@ -63,6 +63,7 @@ publishPostForm?.addEventListener("submit", async (event) => {
   const media = formData.imageUrl
     ? { url: formData.imageUrl, alt: formData.imageAlt || "No image added." }
     : undefined;
+
   publishPostBTN.disabled = true;
 
   try {
@@ -75,8 +76,9 @@ publishPostForm?.addEventListener("submit", async (event) => {
     publishPostForm.reset();
     reRenderPosts();
   } catch (error) {
-    toastNotification("Something went wrong!", "error");
-    console.log("error");
+    toastNotification(getErrorMessage(error), "error");
+  }finally {
+     publishPostBTN.disabled = false;
   }
-  publishPostBTN.disabled = false;
+ 
 });

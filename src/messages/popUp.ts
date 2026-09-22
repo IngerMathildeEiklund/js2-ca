@@ -6,6 +6,7 @@ import { renderOnePost } from "../components/renderPosts";
 import { getPostById } from "../api/postsService";
 import type { PostWithComments, PublishPost } from "../api/postsService";
 import type { EditPost } from "../api/postsService";
+import { getErrorMessage } from "../errors/apiError";
 
 export function createPopUp(postId: number): HTMLElement {
   const popUpContainer = document.getElementById("pop-up-container");
@@ -28,7 +29,7 @@ export function createPopUp(postId: number): HTMLElement {
       storage.save("postDeleted", "true");
       window.location.href = "/index.html";
     } catch (error) {
-      console.log(error);
+      toastNotification(getErrorMessage(error), 'error');
     }
   });
 
@@ -149,7 +150,7 @@ try {
       editPostForm.reset();
 
     }catch (error) {
-      console.log('Something went wrong, code no work');
+      toastNotification(getErrorMessage(error), 'error');
     }
   });
 

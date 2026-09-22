@@ -146,7 +146,7 @@ export async function postComment(
   );
 
   if (!response) {
-    throw new Error("Something went wrong");
+    throw new Error("Error posting comment.");
   }
   return response;
 }
@@ -186,7 +186,7 @@ export async function publishNewPost(
     postContent
   );
   if (!response) {
-    throw new Error("Something went wrong.");
+    throw new Error("Error publishing post.");
   }
   return response;
 }
@@ -205,7 +205,7 @@ export async function searchForPosts(
   );
 
   if (!response) {
-    throw new Error("Something went wrong.");
+    throw new Error("Error searching for posts.");
   }
   return response;
 }
@@ -240,7 +240,7 @@ export async function followUser(name: string): Promise<ProfileResponse> {
   );
 
   if (!response) {
-    throw new Error("Something went wrong.");
+    throw new Error("Error trying to follow user.");
   }
   return response;
 }
@@ -253,7 +253,7 @@ export async function getFollowing(
   );
 
   if (!response) {
-    throw new Error("Something went wrong.");
+    throw new Error("Error trying to get following.");
   }
   return response;
 }
@@ -265,7 +265,7 @@ export async function unfollowUser(name: string): Promise<ProfileResponse> {
   );
 
   if (!response) {
-    throw new Error("Something went wrong.");
+    throw new Error("Error unfollowing user.");
   }
   return response;
 }
@@ -301,7 +301,7 @@ export async function getOneProfile(name: string): Promise<OneProfileResponse> {
     `${PROFILES_ENDPOINT}/${name}`
   );
   if (!response) {
-    throw new Error("Something went wrong");
+    throw new Error("Error trying to get profile.");
   }
   return response;
 }
@@ -341,7 +341,7 @@ export async function editOwnPost(postId: number, content: EditPost): Promise<Ed
 const response = await put<EditPostResponse>(`${POSTS_ENDPOINT}/${postId}`, content);
 
 if (!response) {
-  throw new Error('Something went wrong');
+  throw new Error('Error trying to edit post.');
 }
 return response;
 }
