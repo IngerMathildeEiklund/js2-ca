@@ -1,4 +1,3 @@
-
 import { toastNotification } from "../messages/toastnotification";
 import { getPostById } from "../api/postsService";
 import { buildComments, NO_AVATAR_IMAGE } from "./addComment";
@@ -21,9 +20,6 @@ const loggedInUserAndAddNewPostContainer = document.getElementById(
   "loggedin-and-make-post-container"
 );
 
-
-
-
 const searchbar = document.getElementById("searchbar") as HTMLInputElement;
 searchbar?.addEventListener("input", async () => {
   if (!searchbar) {
@@ -35,7 +31,15 @@ searchbar?.addEventListener("input", async () => {
 });
 
 export function transformDate(date: string): string {
-  return new Date(date).toDateString();
+  const d = new Date(date);
+  return d.toLocaleDateString("en-US", {
+    month: "short",
+    day: "2-digit",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+    timeZone: "Europe/Oslo"
+  });
 }
 
 export function renderPosts(
@@ -116,7 +120,6 @@ export async function renderOnePost(): Promise<void> {
 
 function renderFollowing(profiles: Profile[]): void {
   const followingContainer = document.getElementById("following");
-  console.log("following container: ", followingContainer);
   if (!followingContainer) return;
 
   followingContainer.innerHTML = "";
@@ -167,11 +170,10 @@ function buildPost(post: Post): HTMLElement {
   const followBTN = document.createElement("button");
 
   const postBody = document.createElement("p");
-  const postTags = document.createElement("p");
+  const postTags = document.createElement("div");
   const timestamp = document.createElement("p");
   const updatedTimestamp = document.createElement("p");
   const comments = document.createElement("p");
-  const reactions = document.createElement("p");
   const currentUser = getLoggedInUser();
 
   postCreator.textContent = post.author.name;
@@ -179,6 +181,7 @@ function buildPost(post: Post): HTMLElement {
     (profile) => profile.name === post.author.name
   );
   followBTN.textContent = isFollowing ? "Unfollow" : "Follow";
+  followBTN.classList.add(isFollowing ? "button-unfollow" : "button-follow");
 
   if (currentUser?.name === post.author.name) {
     followBTN.classList.add("hidden");
@@ -191,14 +194,16 @@ function buildPost(post: Post): HTMLElement {
       try {
         if (isFollowing) {
           await unfollowUser(post.author.name);
-          loadPage(getCurrentPage());
+          followBTN.classList.remove("button-unfollow");
+          followBTN.classList.add("button-follow");
           toastNotification(
             `Successfully unfollowed user ${post.author.name}`,
             "success"
           );
         } else {
           await followUser(post.author.name);
-          loadPage(getCurrentPage());
+          followBTN.classList.remove("button-follow");
+          followBTN.classList.add("button-unfollow");
           toastNotification(
             `You are now following ${post.author.name}`,
             "success"
@@ -206,7 +211,9 @@ function buildPost(post: Post): HTMLElement {
         }
         isFollowing = !isFollowing;
         followBTN.textContent = isFollowing ? "Unfollow" : "Follow";
+
         await fetchAndRenderFollowing();
+        loadPage(getCurrentPage());
       } catch (error) {
         toastNotification(getErrorMessage(error), "warning");
       } finally {
@@ -222,16 +229,13 @@ function buildPost(post: Post): HTMLElement {
   postBody.textContent = post.body;
   postTags.textContent = `Tags: ${post.tags.join(", ")}`;
   timestamp.textContent = transformDate(post.created);
-  updatedTimestamp.textContent = "Last updated: " + transformDate(post.updated);
+  if (post.updated > post.created) {
+    timestamp.classList.add("hidden");
+  }
   comments.textContent = `Comments: ${post._count.comments}`;
-  reactions.textContent = `Reactions: ${post._count.reactions}`;
 
   if (post._count.comments === 0) {
-    comments.textContent = "No comments yet";
-  }
-
-  if (post._count.reactions === 0) {
-    reactions.classList.add("hidden");
+    comments.textContent = "No comments";
   }
 
   postElement.classList.add("post-element");
@@ -242,7 +246,7 @@ function buildPost(post: Post): HTMLElement {
   creatorAvatarWrapper.classList.add("avatar-image-wrapper");
   const postWasUpdated = post.updated !== post.created;
   if (postWasUpdated) {
-    updatedTimestamp.textContent = `Updated: ${transformDate(post.updated)}`;
+    updatedTimestamp.textContent = `Edited: ${transformDate(post.updated)}`;
   } else {
     updatedTimestamp.classList.add("hidden");
   }
@@ -275,7 +279,7 @@ function buildPost(post: Post): HTMLElement {
   timeCommentsReactionsWrapper.appendChild(timestamp);
   timeCommentsReactionsWrapper.appendChild(updatedTimestamp);
   timeCommentsReactionsWrapper.appendChild(comments);
-  timeCommentsReactionsWrapper.appendChild(reactions);
+
   postElement.appendChild(timeCommentsReactionsWrapper);
   postElement.appendChild(postTags);
   return postElement;

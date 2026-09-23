@@ -1,8 +1,6 @@
 
 import { getLoggedInUser } from "../storage/storage";
 import { logOut } from "../api/authService";
-import { storage } from "../storage/storage";
-import type { UserProfile } from "../api/authService";
 
 
 export function header(): HTMLElement | null{ 
@@ -24,6 +22,7 @@ export function header(): HTMLElement | null{
     userName.textContent = `Welcome back, ${currentProfile?.name ?? ''}!`;
 
     const logOutBTN = document.createElement('button');
+    logOutBTN.classList.add('button-log-out');
     logOutBTN.textContent = 'Log out';
     avatarNameImageContainer.append(avatarImage, userName, logOutBTN);
     avatarNameImageContainer.classList.add('avatar-username-container');

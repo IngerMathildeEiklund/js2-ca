@@ -14,9 +14,9 @@
 }
 
 body {
-  background-color: rgb(214, 214, 214);
+  background-color: rgb(182, 196, 199);
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  color: rgb(48, 38, 29);
+  color: rgb(10, 10, 10);
 }
 
 .hidden {
@@ -24,8 +24,52 @@ body {
 }
 
 main {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
+  padding: 0.3rem;
+  max-width: 70rem;
+  justify-self: center;
+}
+
+input,
+textarea {
+  padding: 0.2rem;
+  border-radius: 0.3rem;
+  border: none;
+}
+
+button {
+  padding: 0.5rem;
+  width: fit-content;
+  justify-self: center;
+  align-self: center;
+  border: none;
+  border-radius: 0.3rem;
+  color: white;
+  cursor: pointer;
+  background-color: rgb(3, 73, 121);
+  font-weight: 400;
 }
 
 
+
+button:disabled {
+  background-color: rgb(108, 107, 109);
+  cursor:not-allowed;
+}
+details {
+  list-style: none;
+  word-wrap: break-word;
+}
+
+fieldset {
+  background-color: white;
+  padding: 1rem;
+  border-radius: 0.3rem;
+  border: none;
+}
+
+legend {
+  list-style: none;
+  background-color: white;
+}

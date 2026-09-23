@@ -9,59 +9,70 @@
   <body>
     <main>
       <div id="toast-container" aria-live="polite" aria-atomic="true"></div>
-      <div id="loggedin-and-make-post-container"> 
+      <div id="loggedin-and-make-post-container">
+        <form id="publish-post">
+          <p class="heading-p">Create a new post</p>
+          <label for="post-title">Post title</label>
+          <input type="text" id="post-title" name="title" />
+          <label for="publish-post-textarea"> Post body: Optional </label>
+          <textarea
+            id="publish-post-textarea"
+            name="publishPost"
+            rows="5"
+            cols="40"
+            required
+          >
+          </textarea>
 
-      <form id="publish-post">
-        <label for="post-title">Post title</label>
-        <input type="text" id="post-title" name="title" />
-        <label for="publish-post-textarea"> Post body: Optional </label>
-        <textarea
-          id="publish-post-textarea"
-          name="publishPost"
-          rows="5"
-          cols="40"
-          required
-        >
-        </textarea>
+          <button id="add-image-button" type="button">Add an image</button>
 
-        <button id="add-image-button" type="button"> Add an image </button>
+          <div class="optional-image-container hidden">
+            <details>
+              Note! Not all urls can be used. Get the right format by right
+              clicking an image and selecting "Copy image address".
+            </details>
+            <label for="url-string"> Image:</label>
+            <input
+              id="url-string"
+              type="url"
+              name="imageUrl"
+              placeholder="eg. https://unsplash.com/photos/lifeguard-chair-on-sandy-beach-8Ug4F8iM8NQ "
+            />
+            <label for="image-alt"> Describe your image: </label>
+            <input
+              type="text"
+              id="image-alt"
+              name="imageAlt"
+              placeholder="eg. A lifeguard chair on a beach"
+            />
+          </div>
 
-        <div class="optional-image-container hidden"> 
-                  <details>
-          Note! Not all urls can be used. Get the right format by right clicking an image and selecting "Copy image address".
-        </details>
-        <label for="url-string"> Image:</label>
-        <input id="url-string" type="url" name="imageUrl" placeholder="eg. https://unsplash.com/photos/lifeguard-chair-on-sandy-beach-8Ug4F8iM8NQ ">
-        <label for="image-alt"> Describe your image: </label>
-        <input type="text" id="image-alt" name="imageAlt" placeholder="eg. A lifeguard chair on a beach">
+          <label for="tags"> Tags: Optional</label>
+          <input type="text" id="tags" name="tags" />
+          <button id="publish-post-button" type="submit">Publish post</button>
+        </form>
       </div>
-      
 
 
-        <label for="tags"> Tags: Optional</label>
-        <input type="text" id="tags" name="tags" />
-        <button id="publish-post-button" type="submit">Publish post</button>
-      </form>      
+        <div class="following-container"> 
+          <p class="heading-p"> Profiles you follow </p>
+        <ul id="following"></ul>
       </div>
 
-
-
-      <fieldset> 
-        <legend>Profiles you follow</legend>
-      <ul id="following">
-      </ul>
-        </fieldset>         
+      <div class="searchbar-div">
         <label for="searchbar"> Search for a post </label>
-      <input id="searchbar" type="text">  
-    <h1>Newest posts</h1>
+        <input id="searchbar" type="text" />
+      </div>
+      <h1>Newest posts</h1>
+
       <section id="render-posts"></section>
 
-        <div class="pagination-controls">
-          <button id="prev-button"> Previous</button>
-          <button id="next-button"> Next </button>
-          <p id="total-pages"></p>
-        </div>
+      <div class="pagination-controls">
+        <button id="prev-button">Previous</button>
+        <p id="total-pages"></p>
+        <button id="next-button">Next</button>
         
+      </div>
     </main>
     <script src="/src/main.ts" type="module"></script>
   </body>
