@@ -10,7 +10,7 @@
     <main>
       <div id="toast-container" aria-live="polite" aria-atomic="true"></div>
       <section>
-        <h1>welcome to my great project</h1>
+        <h1 class="centered-h1">Register</h1>
         <form id="registration-form">
           <label for="registration-username"> Username</label>
           <input
@@ -50,17 +50,16 @@
           <label for="bio">Bio: Optional</label>
           <input type="text" name="bio" id="bio">
           
-          <button id="add-optional-image" type="button"> Add an avatar image </button>
-          <div class="add-optional-image-alt-container"> 
-            <details>
-              Note! Right click an image and select "copy image address" for proper format.
+          
+            <details class="image-details">
+             Right click an image and select "copy image address" for proper format.
             </details>
           <label for="register-image-url"> Add an avatar image: Optional </label>
           <input type="url" id="register-image-url" name="avatarUrl">
 
           <label for="register-image-alt"> Describe your avatar image </label>
           <input type="text" id="register-image-alt" name="avatarAlt">
-</div>
+
           <button type="submit" id="submit-button">Sign up</button>
         </form>
       </section>

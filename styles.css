@@ -28,14 +28,16 @@ main {
   flex-direction: column;
   padding: 0.3rem;
   max-width: 70rem;
-  justify-self: center;
+  margin: 0 auto;
+  background-color: rgb(217, 226, 228);
+  border-radius: 0.3rem;
 }
 
 input,
 textarea {
   padding: 0.2rem;
   border-radius: 0.3rem;
-  border: none;
+  border: 1px solid rgb(156, 156, 156);
 }
 
 button {
@@ -72,4 +74,20 @@ fieldset {
 legend {
   list-style: none;
   background-color: white;
+}
+
+dialog {
+  border: 1px solid gray;
+}
+.centered-h1 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.8rem;
+  padding-bottom: 1rem;
+}
+
+.image-details {
+  justify-content: center;
+  align-items: center;
 }

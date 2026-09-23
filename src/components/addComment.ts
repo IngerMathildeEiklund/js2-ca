@@ -78,8 +78,9 @@ export function buildCreatedComment(comment: PostComment): HTMLElement {
   const commentOwner = document.createElement("p");
   const avatarImage = document.createElement("img");
   const ownerImgWrapper = document.createElement("div");
-  const commentBody = document.createElement("div");
+  const commentBody = document.createElement("p");
   const createdAt = document.createElement("p");
+  const commentAndDateContainer = document.createElement('div');
 
   commentOwner.textContent = comment.owner;
   avatarImage.src = comment.author.avatar?.url ?? NO_AVATAR_IMAGE;
@@ -88,10 +89,13 @@ export function buildCreatedComment(comment: PostComment): HTMLElement {
   createdAt.textContent = transformDate(comment.created);
 
   ownerImgWrapper.classList.add("avatar-image-wrapper");
+  commentAndDateContainer.classList.add('comment-body-date-container')
+
+  commentAndDateContainer.append(commentBody, createdAt);
   ownerImgWrapper.append(avatarImage, commentOwner);
 
   commentWrapper.appendChild(ownerImgWrapper);
-  commentWrapper.append(commentBody, createdAt);
+  commentWrapper.append(commentAndDateContainer);
   return commentWrapper;
 }
 

@@ -296,12 +296,14 @@ if (storage.load("postDeleted")) {
   toastNotification("Post successfully deleted.", "success");
   storage.remove("postDeleted");
 }
-
+ const oneProfileContainer = document.getElementById('one-profile-container');
+ 
 async function init(): Promise<void> {
   if (
     !renderPostsContainer &&
     !renderOnePostContainer &&
-    !loggedInUserAndAddNewPostContainer
+    !loggedInUserAndAddNewPostContainer &&
+    !oneProfileContainer
   ) {
     return;
   }

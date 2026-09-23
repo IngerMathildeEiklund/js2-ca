@@ -1,17 +1,15 @@
-import { deletePost } from "../api/postsService";
+import { deletePost, editOwnPost, getPostById,  } from "../api/postsService";
 import { storage } from "../storage/storage";
-import { editOwnPost } from "../api/postsService";
 import { toastNotification } from "./toastnotification";
 import { renderOnePost } from "../components/renderPosts";
-import { getPostById } from "../api/postsService";
-import type { PublishPost } from "../api/postsService";
-import type { EditPost } from "../api/postsService";
+import type { PublishPost, EditPost } from "../api/postsService";
 import { getErrorMessage } from "../errors/apiError";
 
 export function createPopUp(postId: number): HTMLElement {
   const popUpContainer = document.getElementById(
     "pop-up-container"
   ) as HTMLDialogElement;
+  popUpContainer.innerHTML = '';
   const popUpTitle = document.createElement("p");
   const popUpBody = document.createElement("p");
   const buttonsWrapper = document.createElement("div");
@@ -19,7 +17,8 @@ export function createPopUp(postId: number): HTMLElement {
   const cancelBTN = document.createElement("button");
   popUpContainer.showModal();
 
-  popUpTitle.textContent = "Are you sure you want to delete post?";
+  popUpTitle.textContent = "Delete post?";
+  popUpTitle.classList.add('heading-p');
   popUpBody.textContent = "This action cannot be undone.";
 
   confirmBTN.textContent = "Delete";
@@ -36,7 +35,7 @@ export function createPopUp(postId: number): HTMLElement {
   });
 
   cancelBTN.addEventListener("click", () => {
-    popUpContainer.remove();
+    popUpContainer.close();
   });
 
   buttonsWrapper.classList.add("confirm-and-cancel-button-wrapper");
@@ -81,6 +80,7 @@ export async function createEditPostPopUp() {
   const popUpTitle = document.createElement("p");
 
   popUpTitle.textContent = "Edit post";
+  popUpTitle.classList.add('heading-p')
   const formContainer = document.createElement("div");
   if (formContainer) {
     formContainer.innerHTML = renderEditPostForm(post);
@@ -134,8 +134,6 @@ export async function createEditPostPopUp() {
       return;
     }
 
-    console.log(updatedFormData);
-
     try {
       await editOwnPost(postId, updatedFormData);
 
@@ -178,7 +176,7 @@ function renderEditPostForm(post: PublishPost) {
 
         <label for="tags"> Tags: Optional</label>
         <input type="text" id="tags" name="tags" value="${post.tags?.join(", ") ?? ""}" />
-        <div> 
+        <div class="submit-cancel-buttons-container"> 
         <button id="save-changes-button" type="submit"> Save changes </button>
         <button id="cancel-changes-button" type="button"> Cancel </button>
       <div>

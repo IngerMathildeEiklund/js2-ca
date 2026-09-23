@@ -3,8 +3,13 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 1rem;
+  gap: 1.2rem;
 }
+
+#registration-form input {
+  width: 80%;
+}
+
 
 .add-optional-image-alt-container {
   display: flex;

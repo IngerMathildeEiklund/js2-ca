@@ -1,8 +1,13 @@
 #login-form {
   display: flex;
   flex-direction: column;
-  max-width: 80%;
   justify-content: center;
   align-items: center;
   gap: 1rem;
+}
+
+#login-section {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
 }
