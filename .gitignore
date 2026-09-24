@@ -1,5 +1,9 @@
 # .gitignore
 
+node_modules
 config.ts
+dist
+
+
 
 
