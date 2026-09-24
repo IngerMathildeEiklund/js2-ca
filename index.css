@@ -16,9 +16,9 @@
 }
 
 .image-wrapper {
-display: flex;
-justify-content: left;
-align-items: center;
+  display: flex;
+  justify-content: left;
+  align-items: center;
 }
 
 .image {
@@ -47,7 +47,6 @@ align-items: center;
   display: flex;
   flex-direction: column;
 }
-
 
 .popUpContainer {
   display: flex;
@@ -148,9 +147,9 @@ align-items: center;
   gap: 1rem;
 }
 .submit-cancel-buttons-container {
-    display: flex;
-    gap: 1rem;
-    justify-content: center;
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
 }
 
 .heading-p {
@@ -159,67 +158,71 @@ align-items: center;
 }
 
 .button-log-out {
-    background-color: rgb(58, 58, 58);
+  background-color: rgb(58, 58, 58);
 }
 
 .button-follow {
-    background-color: green;
-    color: white;
+  background-color: green;
+  color: white;
 }
 
 .button-unfollow {
-    background-color: rgb(165, 80, 0);
-    color: white;
+  background-color: rgb(165, 80, 0);
+  color: white;
 }
 
 .searchbar-div {
-    display: flex;
-    flex-direction: column;
-    padding: 1rem;
-    gap: 1rem;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  gap: 1rem;
 }
 .searchbar-div label {
-    font-size: 1.2rem;
-    font-weight: 500;
+  font-size: 1.2rem;
+  font-weight: 500;
 }
 
 .following-container {
-    padding: 1rem;
+  padding: 1rem;
 }
 
 .pagination-controls {
-    display: flex;
-    flex-direction: row;
-    padding: 1rem;
-    gap: 1rem;
-    justify-content: center;
+  display: flex;
+  flex-direction: row;
+  padding: 1rem;
+  gap: 1rem;
+  justify-content: center;
 }
 .logged-in-user-greeting {
-    background-color:#f5f5f5;
-    padding: 1rem;
-    border-radius: 0.3rem;
-    font-weight: 500;
+  background-color: #f5f5f5;
+  padding: 1rem;
+  border-radius: 0.3rem;
+  font-weight: 500;
+}
+.header-logo {
+  padding-inline: 1rem;
+  background-color: rgb(58, 58, 58);
+  border-radius: 0.3rem;
+  max-width: 70rem;
+  margin: 0 auto;
+  margin-bottom: 1rem;
 }
 
 @media (min-width: 768px) {
-
-
-    #following {
-        grid-template-columns: 1fr 1fr;
-    }
-    .avatar-image-wrapper-header {
-        height: 15rem;
-        width: 15rem;
-    }
-
+  #following {
+    grid-template-columns: 1fr 1fr;
+  }
+  .avatar-image-wrapper-header {
+    height: 15rem;
+    width: 15rem;
+  }
 }
 
 @media (min-width: 1280px) {
-    #following {
-        grid-template-columns: 1fr 1fr 1fr;
-    }    
-    #loggedin-and-make-post-container {
-        grid-template-columns: 1fr 1fr;
-    }
+  #following {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+  #loggedin-and-make-post-container {
+    grid-template-columns: 1fr 1fr;
+  }
 }
-

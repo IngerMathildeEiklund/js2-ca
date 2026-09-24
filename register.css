@@ -3,15 +3,21 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 1.2rem;
+  gap: 1.5rem;
 }
 
 #registration-form input {
   width: 80%;
 }
 
-
 .add-optional-image-alt-container {
   display: flex;
   flex-direction: column;
+}
+
+
+@media (min-width: 768px) {
+#registration-form input {
+  width: 50%;
+}
 }

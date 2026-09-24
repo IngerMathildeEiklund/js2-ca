@@ -1,6 +1,16 @@
 import { loginUser } from "../api/authService";
 import { getErrorMessage } from "../errors/apiError";
 import { toastNotification } from "../messages/toastnotification";
+import { storage } from "../storage/storage";
+
+export function checkRegister(): void {
+  if (storage.load('successfulRegister')) {
+    storage.remove('successfulRegister');
+    toastNotification('Register successful! You can now log in.', 'success');
+  }
+}
+
+checkRegister();
 
 interface LoginFormElements extends HTMLFormControlsCollection {
   email: HTMLInputElement;

@@ -2,6 +2,7 @@ import { registerUser } from "../api/authService";
 import { ApiError } from "../errors/apiError";
 import { toastNotification } from "../messages/toastnotification";
 import { getErrorMessage } from "../errors/apiError";
+import { storage } from "../storage/storage";
 
 interface RegisterUser {
   name: string;
@@ -40,7 +41,7 @@ registrationForm?.addEventListener("submit", async (event) => {
 
   const formData: RegisterUser = {
     name: elements.name.value.trim(),
-    email: elements.email.value.trim(),
+    email: elements.email.value.trim().toLocaleLowerCase(),
     password: elements.password.value.trim(),
     bio: elements.bio.value.trim(),
     avatar: avatarUrl ? { url: avatarUrl, alt: avatarAlt || 'No image added.'} : undefined
@@ -78,7 +79,8 @@ registrationForm?.addEventListener("submit", async (event) => {
 
   try {
     await registerUser(formData);
-    toastNotification("Successful registration!", "success");
+    storage.save('successfulRegister', '1');
+    window.location.href = './login.html';
   } catch (error) {
     if (error instanceof ApiError) {
       switch (error.status) {

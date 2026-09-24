@@ -1,6 +1,8 @@
 
 import { getLoggedInUser } from "../storage/storage";
 import { logOut } from "../api/authService";
+import { toastNotification } from "../messages/toastnotification";
+import { getErrorMessage } from "../errors/apiError";
 
 
 export function header(): HTMLElement | null{ 
@@ -20,6 +22,13 @@ export function header(): HTMLElement | null{
     avatarImage.alt = currentProfile?.avatar?.alt ?? '';
     userName.textContent = `Good to see you, ${currentProfile?.name ?? ''}!`;
 
+    avatarImage.addEventListener('click', async () => {
+    try {
+      window.location.href = `/one-profile.html?name=${encodeURIComponent(currentProfile.name)}`;
+    } catch (error) {
+      toastNotification(getErrorMessage(error), "error");
+    }
+    });
     const logOutBTN = document.createElement('button');
     logOutBTN.classList.add('button-log-out');
     userName.classList.add('logged-in-user-greeting');
