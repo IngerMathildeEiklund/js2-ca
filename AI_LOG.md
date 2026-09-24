@@ -202,3 +202,13 @@ Changes made: Changed the url in the get function, and allowed the searchPosts f
 
 CLAUDE AI.
 
+
+
+24:09:2026 10:42:
+
+Prompt: My function to check if the user came from 'register.html' works, but it also triggers on refresh, which is technically correct, but stupid. How can I improve? 
+
+Changes made: Saved a "successfulRegister" to storage and loaded that on the `checkRegister()`.
+
+CLAUDE AI.
+
