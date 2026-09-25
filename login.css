@@ -11,3 +11,17 @@
   flex-direction: column;
   gap: 2rem;
 }
+
+#login-form input {
+width: 50%;
+}
+
+
+@media (min-width: 768px) {
+  #registration-form input {
+    width: 50%;
+  }
+  #login-section {
+    padding: 5rem;
+  }
+}

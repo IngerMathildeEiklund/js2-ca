@@ -7,7 +7,7 @@
 }
 
 #registration-form input {
-  width: 80%;
+  width: 65%;
 }
 
 .add-optional-image-alt-container {
@@ -18,5 +18,8 @@
 @media (min-width: 768px) {
   #registration-form input {
     width: 50%;
+  }
+  .register-section {
+   padding: 5rem;
   }
 }

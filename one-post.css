@@ -3,14 +3,7 @@
   grid-template-columns: 1fr;
   gap: 1rem;
 }
-.post-element {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  padding: 1rem;
-  background-color: #f5f5f5;
-  cursor: pointer;
-}
+
 
 .time-comments-reactions-wrapper {
   display: flex;
@@ -45,11 +38,20 @@
 .edit-delete-wrapper {
   position: absolute;
   right: 1rem;
-  top: 7rem;
+  top: 6rem;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: space-between;
   gap: 1rem;
+}
+
+.edit-delete-wrapper svg {
+  height: 1rem;
+  width: 1rem;
+}
+
+.edit-delete-wrapper button {
+padding: 0.8rem;
 }
 #pop-up-container {
   border-radius: 0.3rem;
@@ -106,4 +108,11 @@
   flex-direction: column;
   gap: 3rem;
   width: 100%;
+}
+
+@media (min-width: 768px) {
+  .edit-delete-wrapper svg {
+  height: 1.2rem;
+  width: 1.2rem;
+}
 }

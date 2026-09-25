@@ -8,11 +8,35 @@
   </head>
   <body>
     <header class="header-logo">
-      <a href="/index.html"
-        ><img src="src/images/logo3.png" alt="company logo" />
-      </a>
+      <nav>
+        <a href="/index.html"
+          ><img src="src/images/logo3.png" alt="company logo" />
+        </a>
+      </nav>
     </header>
+
     <main>
+      <div> 
+          <button id="back-button" class="border-button">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        class="icon icon-tabler icons-tabler-outline icon-tabler-arrow-narrow-left"
+      >
+        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+        <path d="M5 12l14 0" />
+        <path d="M5 12l4 4" />
+        <path d="M5 12l4 -4" />
+      </svg>
+    </button>
+  </div>
       <div id="toast-container" aria-live="polite" aria-atomic="true"></div>
       <div id="loggedin-and-make-post-container">
         <form id="publish-post">
@@ -29,7 +53,9 @@
           >
           </textarea>
 
-          <button id="add-image-button" type="button">Add an image</button>
+          <button id="add-image-button" class="border-button" type="button">
+            Add an image
+          </button>
 
           <div class="optional-image-container hidden">
             <details>
@@ -41,14 +67,14 @@
               id="url-string"
               type="url"
               name="imageUrl"
-              placeholder="eg. https://unsplash.com/photos/lifeguard-chair-on-sandy-beach-8Ug4F8iM8NQ "
+              placeholder="eg. https://images.unsplash.com/photo-1582794543139-8ac9cb0f7b11?q=80&w=927&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
             />
             <label for="image-alt"> Describe your image: </label>
             <input
               type="text"
               id="image-alt"
               name="imageAlt"
-              placeholder="eg. A lifeguard chair on a beach"
+              placeholder="eg. A bouquet of pink roses"
             />
           </div>
 
@@ -63,7 +89,7 @@
         <ul id="following"></ul>
       </div>
 
-      <h1>Newest posts</h1>
+      <h1 class="centered-h1">Newest posts</h1>
       <div class="searchbar-div">
         <label for="searchbar"> Search for a post </label>
         <input id="searchbar" type="text" />
