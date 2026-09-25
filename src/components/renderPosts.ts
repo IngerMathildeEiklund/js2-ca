@@ -196,7 +196,7 @@ function buildPost(post: Post): HTMLElement {
   let isFollowing = followingArray.some(
     (profile) => profile.name === post.author.name
   );
-  followBTN.textContent = isFollowing ? "Unfollow" : "Follow";
+  followBTN.textContent = isFollowing ? "Following" : "Follow";
   followBTN.classList.add(isFollowing ? "button-unfollow" : "button-follow");
 
   if (currentUser?.name === post.author.name) {
@@ -226,7 +226,7 @@ function buildPost(post: Post): HTMLElement {
           );
         }
         isFollowing = !isFollowing;
-        followBTN.textContent = isFollowing ? "Unfollow" : "Follow";
+        followBTN.textContent = isFollowing ? "Following" : "Follow";
 
         await fetchAndRenderFollowing();
         loadPage(getCurrentPage());
