@@ -1,14 +1,15 @@
 import { postComment } from "../api/postsService";
 import { toastNotification } from "../messages/toastnotification";
 import { getLoggedInUser } from "../storage/storage";
-import { transformDate } from "./renderPosts";
+import { transformDate, renderOnePost } from "./renderPosts";
+import { getErrorMessage } from "../errors/apiError";
+
 import type { PostWithComments } from "../api/postsService";
 import type { PostComment } from "../api/postsService";
-import { getErrorMessage } from "../errors/apiError";
-import { renderOnePost } from "./renderPosts";
 
 const commentsContainer = document.getElementById("comments") as HTMLElement;
-export const NO_AVATAR_IMAGE = '/src/images/user.svg';
+
+export const NO_AVATAR_IMAGE = "/src/images/user.svg";
 
 const addCommentForm = document.getElementById(
   "add-comment"
@@ -19,7 +20,7 @@ const addCommentBTN = document.getElementById(
 const textArea = document.getElementById("comment-text") as HTMLTextAreaElement;
 
 export function buildComments(post: PostWithComments): HTMLElement {
-  commentsContainer.innerHTML = '';
+  commentsContainer.innerHTML = "";
   if (!commentsContainer) {
     throw new Error("Could not find the element in the DOM.");
   }
@@ -48,14 +49,14 @@ addCommentForm?.addEventListener("submit", async (event) => {
   }
 
   const currentUser = getLoggedInUser();
-    if (!currentUser) {
-      toastNotification("You must be logged in to comment", "error");
-      return;
-    }
+  if (!currentUser) {
+    toastNotification("You must be logged in to comment", "error");
+    return;
+  }
 
   const commentBody = textArea.value.trim();
   if (!commentBody) {
-    toastNotification('Cannot leave an empty comment.', 'warning');
+    toastNotification("Cannot leave an empty comment.", "warning");
     return;
   }
 
@@ -67,7 +68,7 @@ addCommentForm?.addEventListener("submit", async (event) => {
     await renderOnePost();
     toastNotification("Comment added", "success");
   } catch (error) {
-    toastNotification(getErrorMessage(error), 'error');
+    toastNotification(getErrorMessage(error), "error");
   } finally {
     addCommentBTN.disabled = false;
   }
@@ -80,16 +81,16 @@ export function buildCreatedComment(comment: PostComment): HTMLElement {
   const ownerImgWrapper = document.createElement("div");
   const commentBody = document.createElement("p");
   const createdAt = document.createElement("p");
-  const commentAndDateContainer = document.createElement('div');
+  const commentAndDateContainer = document.createElement("div");
 
   commentOwner.textContent = comment.owner;
   avatarImage.src = comment.author.avatar?.url ?? NO_AVATAR_IMAGE;
-  avatarImage.alt = comment.author.avatar?.alt ?? '';
+  avatarImage.alt = comment.author.avatar?.alt ?? "";
   commentBody.textContent = comment.body;
   createdAt.textContent = transformDate(comment.created);
 
   ownerImgWrapper.classList.add("avatar-image-wrapper");
-  commentAndDateContainer.classList.add('comment-body-date-container')
+  commentAndDateContainer.classList.add("comment-body-date-container");
 
   commentAndDateContainer.append(commentBody, createdAt);
   ownerImgWrapper.append(avatarImage, commentOwner);
@@ -98,5 +99,3 @@ export function buildCreatedComment(comment: PostComment): HTMLElement {
   commentWrapper.append(commentAndDateContainer);
   return commentWrapper;
 }
-
-

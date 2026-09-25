@@ -7,8 +7,10 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-        <header class="header-logo">
-      <a href="/index.html"><img src="src/images/logo3.png" alt="company logo"> </a>
+    <header class="header-logo">
+      <a href="/index.html"
+        ><img src="src/images/logo3.png" alt="company logo" />
+      </a>
     </header>
     <main>
       <div id="toast-container" aria-live="polite" aria-atomic="true"></div>
@@ -20,7 +22,9 @@
             id="registration-username"
             type="text"
             name="name"
-            title="Only letters, numbers and underscores are allowed." required maxlength="30"
+            title="Only letters, numbers and underscores are allowed."
+            required
+            maxlength="30"
             required
           />
 
@@ -32,7 +36,7 @@
             title="Please only use a 'stud@noroff.no' format"
             required
           />
-          
+
           <label for="registration-password"> Password </label>
           <input
             id="registration-password"
@@ -51,17 +55,19 @@
             required
           />
           <label for="bio">Bio: Optional</label>
-          <input type="text" name="bio" id="bio">
-          
-          
-            <details class="image-details">
-             Right click an image and select "copy image address" for proper format.
-            </details>
-          <label for="register-image-url"> Add an avatar image: Optional </label>
-          <input type="url" id="register-image-url" name="avatarUrl">
+          <input type="text" name="bio" id="bio" />
+
+          <details class="image-details">
+            Right click an image and select "copy image address" for proper
+            format.
+          </details>
+          <label for="register-image-url">
+            Add an avatar image: Optional
+          </label>
+          <input type="url" id="register-image-url" name="avatarUrl" />
 
           <label for="register-image-alt"> Describe your avatar image </label>
-          <input type="text" id="register-image-alt" name="avatarAlt">
+          <input type="text" id="register-image-alt" name="avatarAlt" />
 
           <button type="submit" id="submit-button">Sign up</button>
         </form>

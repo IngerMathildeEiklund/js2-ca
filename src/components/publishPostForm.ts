@@ -77,9 +77,8 @@ publishPostForm?.addEventListener("submit", async (event) => {
     reRenderPosts();
   } catch (error) {
     toastNotification(getErrorMessage(error), "error");
-  }finally {
-     publishPostBTN.disabled = false;
-     publishPostForm.reset();
+  } finally {
+    publishPostBTN.disabled = false;
+    publishPostForm.reset();
   }
- 
 });

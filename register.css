@@ -15,9 +15,8 @@
   flex-direction: column;
 }
 
-
 @media (min-width: 768px) {
-#registration-form input {
-  width: 50%;
-}
+  #registration-form input {
+    width: 50%;
+  }
 }

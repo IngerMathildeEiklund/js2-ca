@@ -3,8 +3,8 @@ import { ApiError } from "../errors/apiError";
 
 const BASE_URL = "https://v2.api.noroff.dev";
 
-interface ApiOptions extends RequestInit {
-  body?: any;
+interface ApiOptions extends Omit<RequestInit, "body"> {
+  body?: unknown;
 }
 
 async function apiClient<T>(

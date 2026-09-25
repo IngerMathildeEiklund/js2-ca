@@ -3,6 +3,7 @@ import { storage } from "../storage/storage";
 import { API_KEY } from "../storage/config";
 
 const LOGIN_ENDPOINT = "/auth/login";
+const REGISTER_ENDPOINT = "/auth/register";
 
 interface Credentials {
   email: string;
@@ -20,11 +21,11 @@ interface AuthResponse {
 export interface UserProfile {
   name: string;
   email: string;
-  bio?: string,
+  bio?: string;
   avatar?: {
-    url: string,
-    alt: string
-  }
+    url: string;
+    alt: string;
+  };
 }
 
 /**
@@ -54,28 +55,24 @@ export async function loginUser(
 export function logOut(): void {
   storage.remove("accessToken");
   storage.remove("profile");
-  window.location.href = './login.html';
+  window.location.href = "./login.html";
 }
-
-/// REGISTER //
-
-const REGISTER_ENDPOINT = "/auth/register";
 
 interface RegisterUser {
   name: string;
   email: string;
   password: string;
   avatar?: {
-    url: string,
-    alt: string
-  }
+    url: string;
+    alt: string;
+  };
 }
 
 interface RegisterResponse {
   data: {
     name: string;
     email: string;
-    [key: string]: any;
+    [key: string]: unknown;
   };
 }
 /**
@@ -90,23 +87,22 @@ interface RegisterResponse {
 export async function registerUser(
   registerUser: RegisterUser
 ): Promise<UserProfile> {
-  
-    const response = await post<RegisterResponse>(
-      REGISTER_ENDPOINT,
-      registerUser
+  const response = await post<RegisterResponse>(
+    REGISTER_ENDPOINT,
+    registerUser
+  );
+
+  if (!response) {
+    throw new Error("Registration failed, no response from server");
+  }
+
+  const profile = response.data;
+
+  if (!profile?.name || !profile?.email) {
+    throw new Error(
+      "Registration succeeded, but no profile data was returned."
     );
-
-    if (!response) {
-      throw new Error("Registration failed, no response from server");
-    }
-
-    const profile = response.data;
-
-    if (!profile?.name || !profile?.email) {
-      throw new Error(
-        "Registration succeeded, but no profile data was returned."
-      );
-    }
-    storage.save<UserProfile>("profile", profile);
-    return profile;
+  }
+  storage.save<UserProfile>("profile", profile);
+  return profile;
 }

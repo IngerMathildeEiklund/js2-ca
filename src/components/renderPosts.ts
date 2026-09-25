@@ -1,16 +1,20 @@
 import { toastNotification } from "../messages/toastnotification";
-import { getPostById } from "../api/postsService";
+import {
+  getPostById,
+  followUser,
+  unfollowUser,
+  getFollowing
+} from "../api/postsService";
 import { buildComments, NO_AVATAR_IMAGE } from "./addComment";
 import { createPopUp, createEditPostPopUp } from "../messages/popUp";
 import { storage, getLoggedInUser, requireLogin } from "../storage/storage";
-import { followUser, unfollowUser, getFollowing } from "../api/postsService";
 import { renderOneProfilePage } from "./oneProfile";
 import { getErrorMessage } from "../errors/apiError";
 import { getCurrentPage, loadPage, setActiveQuery } from "./pagination";
+import { header } from "./loggedInUser";
 
 import type { Post } from "../api/postsService";
 import type { Profile } from "../api/postsService";
-import { header } from "./loggedInUser";
 
 const renderPostsContainer = document.getElementById("render-posts");
 const renderOnePostContainer = document.getElementById(
@@ -296,8 +300,8 @@ if (storage.load("postDeleted")) {
   toastNotification("Post successfully deleted.", "success");
   storage.remove("postDeleted");
 }
- const oneProfileContainer = document.getElementById('one-profile-container');
- 
+const oneProfileContainer = document.getElementById("one-profile-container");
+
 async function init(): Promise<void> {
   if (
     !renderPostsContainer &&

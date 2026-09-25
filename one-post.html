@@ -7,37 +7,38 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-        <header class="header-logo">
-      <a href="/index.html"><img src="src/images/logo3.png" alt="company logo"> </a>
+    <header class="header-logo">
+      <a href="/index.html"
+        ><img src="src/images/logo3.png" alt="company logo" />
+      </a>
     </header>
-    <main> 
-    <div id="toast-container" aria-live="polite" aria-atomic="true"></div>
-    <dialog id="pop-up-container"> 
-    </dialog>
-    <dialog id="edit-post-popup-container">
-    </dialog>
-    <div class="post-comments-add-comment-container"> 
-    <section id="render-one-post-container"></section>
-    <section id="comments">
-    </section>
-    <section>
-      <form id="add-comment">
-        <label for="comment-text" class="heading-p"> Write a comment </label>
-        <textarea
-          class="textarea"
-          id="comment-text"
-          name="comment"
-          rows="5"
-          cols="40"
-          placeholder="Add a comment"
-          required
-        >
-        </textarea>
-        <button id="add-comment-button" type="submit">Add comment</button>
-      </form>
-    </section>
-</div>
-  </main>
+    <main>
+      <div id="toast-container" aria-live="polite" aria-atomic="true"></div>
+      <dialog id="pop-up-container"></dialog>
+      <dialog id="edit-post-popup-container"></dialog>
+      <div class="post-comments-add-comment-container">
+        <section id="render-one-post-container"></section>
+        <section id="comments"></section>
+        <section>
+          <form id="add-comment">
+            <label for="comment-text" class="heading-p">
+              Write a comment
+            </label>
+            <textarea
+              class="textarea"
+              id="comment-text"
+              name="comment"
+              rows="5"
+              cols="40"
+              placeholder="Add a comment"
+              required
+            >
+            </textarea>
+            <button id="add-comment-button" type="submit">Add comment</button>
+          </form>
+        </section>
+      </div>
+    </main>
     <script src="./src/main.ts" type="module"></script>
   </body>
 </html>

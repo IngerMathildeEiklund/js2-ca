@@ -1,18 +1,17 @@
 import { registerUser } from "../api/authService";
-import { ApiError } from "../errors/apiError";
+import { ApiError, getErrorMessage } from "../errors/apiError";
 import { toastNotification } from "../messages/toastnotification";
-import { getErrorMessage } from "../errors/apiError";
 import { storage } from "../storage/storage";
 
 interface RegisterUser {
   name: string;
   email: string;
   password: string;
-  bio?: string,
-avatar?: {
-  url: string,
-  alt: string
-}
+  bio?: string;
+  avatar?: {
+    url: string;
+    alt: string;
+  };
 }
 
 interface RegisterFormElements extends HTMLFormControlsCollection {
@@ -21,8 +20,8 @@ interface RegisterFormElements extends HTMLFormControlsCollection {
   password: HTMLInputElement;
   confirmPassword: HTMLInputElement;
   bio: HTMLInputElement;
-  avatarUrl: HTMLInputElement,
-  avatarAlt: HTMLInputElement
+  avatarUrl: HTMLInputElement;
+  avatarAlt: HTMLInputElement;
 }
 
 const registrationForm = document.getElementById(
@@ -44,8 +43,9 @@ registrationForm?.addEventListener("submit", async (event) => {
     email: elements.email.value.trim().toLocaleLowerCase(),
     password: elements.password.value.trim(),
     bio: elements.bio.value.trim(),
-    avatar: avatarUrl ? { url: avatarUrl, alt: avatarAlt || 'No image added.'} : undefined
-
+    avatar: avatarUrl
+      ? { url: avatarUrl, alt: avatarAlt || "No image added." }
+      : undefined
   };
   const confirmPassword = elements.confirmPassword.value;
 
@@ -79,8 +79,8 @@ registrationForm?.addEventListener("submit", async (event) => {
 
   try {
     await registerUser(formData);
-    storage.save('successfulRegister', '1');
-    window.location.href = './login.html';
+    storage.save("successfulRegister", "1");
+    window.location.href = "./login.html";
   } catch (error) {
     if (error instanceof ApiError) {
       switch (error.status) {
@@ -92,8 +92,11 @@ registrationForm?.addEventListener("submit", async (event) => {
           toastNotification(error.message, "error");
 
           break;
-          case 429:
-          toastNotification("Too many requests, please try again later.", "error");
+        case 429:
+          toastNotification(
+            "Too many requests, please try again later.",
+            "error"
+          );
 
           break;
         case 500:
@@ -106,14 +109,9 @@ registrationForm?.addEventListener("submit", async (event) => {
     } else if (error instanceof Error) {
       toastNotification(error.message, "error");
     } else {
-      toastNotification(
-        getErrorMessage(error),
-        "error"
-      );
+      toastNotification(getErrorMessage(error), "error");
     }
+  } finally {
+    if (submitBTN) submitBTN.disabled = false;
   }
-  finally {
-     if (submitBTN) submitBTN.disabled = false;
-  }
- 
 });

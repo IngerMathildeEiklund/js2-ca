@@ -212,3 +212,15 @@ Changes made: Saved a "successfulRegister" to storage and loaded that on the `ch
 
 CLAUDE AI.
 
+
+
+25:09:2026 10:09:
+
+Prompt: ESlint does not like my `any` type here, but this code is from the school curriculum, and I don't exactly know what to change as just changing the any to an unknown flags something else and this is such a foundational "pillar" in the code. What do I change here? 
+
+Changes made: Replaced the ApiOptions with this: 
+
+interface ApiOptions extends Omit<RequestInit, "body"> {
+  body?: unknown;
+}
+

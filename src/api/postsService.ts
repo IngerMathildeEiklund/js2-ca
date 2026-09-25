@@ -117,8 +117,6 @@ export async function getPosts(
   return response;
 }
 
-//// GET ONE POST BY ID ////
-
 export async function getPostById(
   postId: number
 ): Promise<PostWithComments | null> {
@@ -131,8 +129,6 @@ export async function getPostById(
   }
   return response.data;
 }
-
-/// ADD A COMMENT ON A POST ///
 
 export async function postComment(
   postId: number,
@@ -150,7 +146,6 @@ export async function postComment(
   }
   return response;
 }
-// PUBLISH A NEW POST ///
 
 export interface PublishPost {
   title: string;
@@ -190,7 +185,6 @@ export async function publishNewPost(
   }
   return response;
 }
-/// SEARCH FOR POST ///
 
 interface SearchPostsResponse {
   data: Post[];
@@ -198,7 +192,9 @@ interface SearchPostsResponse {
 }
 
 export async function searchForPosts(
-  query: string, page: number = 1, limit: number = 100
+  query: string,
+  page: number = 1,
+  limit: number = 100
 ): Promise<SearchPostsResponse> {
   const response = await get<SearchPostsResponse>(
     `${POSTS_ENDPOINT}/search?q=${encodeURIComponent(query)}&page=${page}&limit=${limit}&_author=true&_comments=true&_reactions=true`
@@ -210,13 +206,9 @@ export async function searchForPosts(
   return response;
 }
 
-// DELETE YOUR OWN POST //
-
 export async function deletePost(postId: number): Promise<void> {
   await del(`${POSTS_ENDPOINT}/${postId}`);
 }
-
-/// FOLLOW OR UNFOLLOW USER ///
 
 export interface Profile {
   name: string;
@@ -270,8 +262,6 @@ export async function unfollowUser(name: string): Promise<ProfileResponse> {
   return response;
 }
 
-/// GET ONE PROFILE ///
-
 interface Banner {
   url: string;
   alt: string;
@@ -306,45 +296,46 @@ export async function getOneProfile(name: string): Promise<OneProfileResponse> {
   return response;
 }
 
-// EDIT POST ///
-
 export interface EditPost {
   title: string;
   body?: string;
   tags?: string[];
-  media?: { 
+  media?: {
     url: string;
-    alt: String;
-  }| null;
+    alt: string;
+  } | null;
 }
 
 interface PostContent {
-    id: number;
-    created: string;
-    updated: string;
-    title: string;
-    body: string;
-    tags: string[];
-    media: Media;
-    _count: {
-      comments: number;
-      reactions: number;
-    };
+  id: number;
+  created: string;
+  updated: string;
+  title: string;
+  body: string;
+  tags: string[];
+  media: Media;
+  _count: {
+    comments: number;
+    reactions: number;
+  };
 }
 
 interface EditPostResponse {
-  data: PostContent,
-    meta: object;
+  data: PostContent;
+  meta: object;
 }
 
-export async function editOwnPost(postId: number, content: EditPost): Promise<EditPostResponse> {
-const response = await put<EditPostResponse>(`${POSTS_ENDPOINT}/${postId}`, content);
+export async function editOwnPost(
+  postId: number,
+  content: EditPost
+): Promise<EditPostResponse> {
+  const response = await put<EditPostResponse>(
+    `${POSTS_ENDPOINT}/${postId}`,
+    content
+  );
 
-if (!response) {
-  throw new Error('Error trying to edit post.');
+  if (!response) {
+    throw new Error("Error trying to edit post.");
+  }
+  return response;
 }
-return response;
-}
-
-
-

@@ -10,15 +10,13 @@ export class ApiError extends Error {
   }
 }
 
-
-
 export function getErrorMessage(error: unknown): string {
   console.log(error);
-if (error instanceof ApiError) {
-  return error.message;
-}
-if (error instanceof Error) {
-  return error.message;
-}
-return 'Something went wrong, please try again.';
+  if (error instanceof ApiError) {
+    return error.message;
+  }
+  if (error instanceof Error) {
+    return error.message;
+  }
+  return "Something went wrong, please try again.";
 }

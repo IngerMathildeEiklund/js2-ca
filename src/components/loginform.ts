@@ -4,9 +4,9 @@ import { toastNotification } from "../messages/toastnotification";
 import { storage } from "../storage/storage";
 
 export function checkRegister(): void {
-  if (storage.load('successfulRegister')) {
-    storage.remove('successfulRegister');
-    toastNotification('Register successful! You can now log in.', 'success');
+  if (storage.load("successfulRegister")) {
+    storage.remove("successfulRegister");
+    toastNotification("Register successful! You can now log in.", "success");
   }
 }
 
@@ -33,6 +33,6 @@ loginForm?.addEventListener("submit", async (event) => {
     await loginUser(credentials);
     window.location.href = "./index.html";
   } catch (error) {
-      toastNotification(getErrorMessage(error), 'error');
+    toastNotification(getErrorMessage(error), "error");
   }
 });

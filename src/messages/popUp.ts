@@ -1,4 +1,4 @@
-import { deletePost, editOwnPost, getPostById,  } from "../api/postsService";
+import { deletePost, editOwnPost, getPostById } from "../api/postsService";
 import { storage } from "../storage/storage";
 import { toastNotification } from "./toastnotification";
 import { renderOnePost } from "../components/renderPosts";
@@ -9,7 +9,7 @@ export function createPopUp(postId: number): HTMLElement {
   const popUpContainer = document.getElementById(
     "pop-up-container"
   ) as HTMLDialogElement;
-  popUpContainer.innerHTML = '';
+  popUpContainer.innerHTML = "";
   const popUpTitle = document.createElement("p");
   const popUpBody = document.createElement("p");
   const buttonsWrapper = document.createElement("div");
@@ -18,7 +18,7 @@ export function createPopUp(postId: number): HTMLElement {
   popUpContainer.showModal();
 
   popUpTitle.textContent = "Delete post?";
-  popUpTitle.classList.add('heading-p');
+  popUpTitle.classList.add("heading-p");
   popUpBody.textContent = "This action cannot be undone.";
 
   confirmBTN.textContent = "Delete";
@@ -80,7 +80,7 @@ export async function createEditPostPopUp() {
   const popUpTitle = document.createElement("p");
 
   popUpTitle.textContent = "Edit post";
-  popUpTitle.classList.add('heading-p')
+  popUpTitle.classList.add("heading-p");
   const formContainer = document.createElement("div");
   if (formContainer) {
     formContainer.innerHTML = renderEditPostForm(post);
