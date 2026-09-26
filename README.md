@@ -20,11 +20,11 @@ This is a social media application where the user can create a profile, add post
 - Responsive design (mobile, tablet and desktop)
 
 
-### How to use WHIMZY
+## How to use WHIMZY
 
 Visit the site [here](https://whimzysocial.netlify.app/index.html), create an account using a "@stud.noroff.no" email and start posting!
 
-#### Usage guidelines 
+## Usage guidelines 
 
 Contribute to the environment by:
 
@@ -32,7 +32,7 @@ Contribute to the environment by:
 - Post friendly content.
 
 
-##### Tech stack
+## Tech stack
 
 - TypeScript
 - HTML
@@ -40,12 +40,12 @@ Contribute to the environment by:
 
 No frameworks were used.
 
-#####  Why this project
+##  Why this project
 
 This project was created to implement the course material from JavaScript 2, and create a functional social media application using CRUD operations. The choice was to choose between plain JavaScript or use TypeScript. 
 
 
-###### Licence
+## Licence
 
 This project is a course assignment for JavaScript 2 at Noroff University. It was created using the Noroff API. 
 
