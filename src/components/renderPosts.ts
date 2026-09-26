@@ -244,7 +244,7 @@ function buildPost(post: Post): HTMLElement {
 
   postBody.textContent = post.body;
   postTags.textContent = `Tags: ${post.tags.join(", ")}`;
-  postTags.classList.add('tags')
+  postTags.classList.add("tags");
   timestamp.textContent = transformDate(post.created);
   if (post.updated > post.created) {
     timestamp.classList.add("hidden");

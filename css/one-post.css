@@ -4,7 +4,6 @@
   gap: 1rem;
 }
 
-
 .time-comments-reactions-wrapper {
   display: flex;
   justify-content: space-between;
@@ -51,7 +50,7 @@
 }
 
 .edit-delete-wrapper button {
-padding: 0.8rem;
+  padding: 0.8rem;
 }
 #pop-up-container {
   border-radius: 0.3rem;
@@ -112,7 +111,7 @@ padding: 0.8rem;
 
 @media (min-width: 768px) {
   .edit-delete-wrapper svg {
-  height: 1.2rem;
-  width: 1.2rem;
-}
+    height: 1.2rem;
+    width: 1.2rem;
+  }
 }

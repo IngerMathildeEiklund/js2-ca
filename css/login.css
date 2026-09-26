@@ -13,9 +13,8 @@
 }
 
 #login-form input {
-width: 50%;
+  width: 50%;
 }
-
 
 @media (min-width: 768px) {
   #registration-form input {

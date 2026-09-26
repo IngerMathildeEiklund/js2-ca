@@ -2,7 +2,7 @@
 
 # WHIMZY
 
-This is a social media application where the user can create a profile, add posts, comment on other posts and follow other users. 
+This is a social media application where the user can create a profile, add posts, comment on other posts and follow other users.
 
 [WHIMZY Live Demo](https://whimzysocial.netlify.app/index.html)
 
@@ -19,18 +19,16 @@ This is a social media application where the user can create a profile, add post
 - Viewing one users profile containing avatar image, bio and their posts
 - Responsive design (mobile, tablet and desktop)
 
-
 ## How to use WHIMZY
 
 Visit the site [here](https://whimzysocial.netlify.app/index.html), create an account using a "@stud.noroff.no" email and start posting!
 
-## Usage guidelines 
+## Usage guidelines
 
 Contribute to the environment by:
 
 - Using respectable language.
 - Post friendly content.
-
 
 ## Tech stack
 
@@ -40,26 +38,14 @@ Contribute to the environment by:
 
 No frameworks were used.
 
-##  Why this project
+## Why this project
 
-This project was created to implement the course material from JavaScript 2, and create a functional social media application using CRUD operations. The choice was to choose between plain JavaScript or use TypeScript. 
-
+This project was created to implement the course material from JavaScript 2, and create a functional social media application using CRUD operations. The choice was to choose between plain JavaScript or use TypeScript.
 
 ## Licence
 
-This project is a course assignment for JavaScript 2 at Noroff University. It was created using the Noroff API. 
+This project is a course assignment for JavaScript 2 at Noroff University. It was created using the Noroff API.
 
 ###### Author
 
 Inger Mathilde Eiklund
-
-
-
-
-
-
-
-
-
-
-

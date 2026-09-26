@@ -8,8 +8,8 @@ export default defineConfig({
         login: "login.html",
         register: "register.html",
         onePost: "one-post.html",
-        oneProfile: "one-profile.html",
-      },
-    },
-  },
+        oneProfile: "one-profile.html"
+      }
+    }
+  }
 });

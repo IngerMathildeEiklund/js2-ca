@@ -113,7 +113,6 @@
   padding: 1rem;
   border-radius: 0.3rem;
   border-radius: 0.3rem;
-  
 }
 
 .avatar-username-container {
@@ -123,7 +122,7 @@
   justify-content: center;
   align-items: center;
 }
-#one-profile-container{
+#one-profile-container {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -160,8 +159,6 @@
   padding: 1rem;
   width: fit-content;
   justify-self: center;
-
-  
 }
 
 .profile-username {
@@ -272,11 +269,11 @@
     font-weight: 500;
   }
   .heading-p {
-  font-size: 1.5rem;
-}
-.post-element {
-  padding: 1rem;
-}
+    font-size: 1.5rem;
+  }
+  .post-element {
+    padding: 1rem;
+  }
 }
 
 @media (min-width: 1280px) {
@@ -287,7 +284,6 @@
     grid-template-columns: 1fr 1fr;
   }
   .post-title {
-
-  max-width: 100%;
-}
+    max-width: 100%;
+  }
 }

@@ -7,7 +7,7 @@ import { defineConfig } from "eslint/config";
 
 export default defineConfig([
   {
-     ignores: [
+    ignores: [
       "dist/**",
       "node_modules/**",
       "package-lock.json",
@@ -36,9 +36,9 @@ export default defineConfig([
       "css/no-invalid-properties": [
         "warn",
         {
-          allowUnknownVariables: true,
-        },
-      ],
-    },
+          allowUnknownVariables: true
+        }
+      ]
+    }
   }
 ]);
