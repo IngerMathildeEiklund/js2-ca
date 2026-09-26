@@ -122,6 +122,11 @@
   justify-content: center;
   align-items: center;
 }
+#one-profile-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
 .avatar-image-wrapper-header {
   height: 10rem;
