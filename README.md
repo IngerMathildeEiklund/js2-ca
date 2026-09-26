@@ -40,6 +40,10 @@ Contribute to the environment by:
 
 No frameworks were used.
 
+#####  Why this project
+
+This project was created to implement the course material from JavaScript 2, and create a functional social media application using CRUD operations. The choice was to choose between plain JavaScript or use TypeScript. 
+
 
 ###### Licence
 
