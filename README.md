@@ -2,13 +2,13 @@
 
 # WHIMZY
 
-WHIMZY is a social media application where the user can create a profile, add posts, comment on other posts and follow other users. 
+This is a social media application where the user can create a profile, add posts, comment on other posts and follow other users. 
 
-[WHIMZY](https://whimzysocial.netlify.app/index.html)
+[WHIMZY Live Demo](https://whimzysocial.netlify.app/index.html)
 
-<img width="427" height="924" alt="image" src="https://github.com/user-attachments/assets/68d9be18-e017-4451-a3e0-5d35e018bd98" />
-<img width="413" height="1115" alt="image" src="https://github.com/user-attachments/assets/7f5bdf75-3d8a-43dd-8634-93a48a7ea208" />
-<img width="424" height="1033" alt="image" src="https://github.com/user-attachments/assets/f2bd6c28-4d17-43b0-aa87-865fa5ad9fcb" />
+<img width="1179" height="845" alt="image" src="https://github.com/user-attachments/assets/dcfa8c9c-2ec5-43ab-9234-8f0c2684d1b0" />
+<img width="1142" height="1061" alt="image" src="https://github.com/user-attachments/assets/69b0396c-1cbf-492e-b615-26425aa58935" />
+<img width="1170" height="982" alt="image" src="https://github.com/user-attachments/assets/b7b852c4-aebe-4a69-8ad3-ee7554d661f5" />
 
 ## Features
 
