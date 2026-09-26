@@ -1,8 +1,8 @@
-@import url(login.css);
-@import url(register.css);
-@import url(messages.css);
-@import url(index.css);
-@import url(one-post.css);
+@import url(./css/index.css);
+@import url(./css/register.css);
+@import url(./css/messages.css);
+@import url(./css/login.css);
+@import url(./css/one-post.css);
 
 :root {
   --background-error: #f8c6c6;
