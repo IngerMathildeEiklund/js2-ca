@@ -96,7 +96,10 @@ main > div:first-child {
 button:disabled {
   background-color: transparent;
   cursor: not-allowed;
+  color: rgb(58, 58, 58);
 }
+
+
 details {
   list-style: none;
   word-wrap: break-word;

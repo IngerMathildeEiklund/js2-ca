@@ -245,6 +245,13 @@
   margin: 0 auto;
   margin-bottom: 1rem;
 }
+.tags {
+  background-color: rgb(58, 58, 58);
+  width: fit-content;
+  padding: 0.5rem;
+  border-radius: 0.3rem;
+  color: white;
+}
 
 @media (min-width: 768px) {
   #following {

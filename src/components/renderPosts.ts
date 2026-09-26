@@ -213,7 +213,7 @@ function buildPost(post: Post): HTMLElement {
           followBTN.classList.remove("button-unfollow");
           followBTN.classList.add("button-follow");
           toastNotification(
-            `Successfully unfollowed user ${post.author.name}`,
+            `You unfollowed user ${post.author.name}`,
             "success"
           );
         } else {
@@ -244,6 +244,7 @@ function buildPost(post: Post): HTMLElement {
 
   postBody.textContent = post.body;
   postTags.textContent = `Tags: ${post.tags.join(", ")}`;
+  postTags.classList.add('tags')
   timestamp.textContent = transformDate(post.created);
   if (post.updated > post.created) {
     timestamp.classList.add("hidden");
