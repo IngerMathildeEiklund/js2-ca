@@ -37,6 +37,7 @@ Contribute to the environment by:
 - TypeScript
 - HTML
 - CSS
+
 No frameworks were used.
 
 
