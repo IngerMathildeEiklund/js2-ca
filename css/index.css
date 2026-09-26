@@ -41,6 +41,7 @@
 .post-title {
   font-size: 1.2rem;
   font-weight: 600;
+  max-width: 25ch;
 }
 
 #publish-post {
@@ -285,4 +286,8 @@
   #loggedin-and-make-post-container {
     grid-template-columns: 1fr 1fr;
   }
+  .post-title {
+
+  max-width: 100%;
+}
 }

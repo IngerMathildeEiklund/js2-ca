@@ -1,5 +1,3 @@
-import { storage } from "../storage/storage";
-
 type MessageType = "success" | "warning" | "error";
 
 export function toastNotification(message: string, type: MessageType): void {
@@ -22,10 +20,7 @@ export function toastNotification(message: string, type: MessageType): void {
   });
 }
 
-const backBTN = document.getElementById('back-button') as HTMLButtonElement;
- backBTN.disabled =  !storage.load('profile');
-
-  backBTN?.addEventListener('click', () => {
+const backBTN = document.getElementById("back-button") as HTMLButtonElement;
+backBTN?.addEventListener("click", () => {
   history.back();
 });
-

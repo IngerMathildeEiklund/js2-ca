@@ -101,7 +101,12 @@ interface CreateCommentData {
   owner: string;
   created: string;
 }
-
+/**
+ *
+ * @param pagelimit page param is the page you want from the api, limit is the amount of posts.
+ * @returns a data object with the page and 100 posts.
+ * @throws {Error} if there is an issue fetching the posts.
+ */
 export async function getPosts(
   page: number = 1,
   limit: number = 100

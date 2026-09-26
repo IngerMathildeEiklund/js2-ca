@@ -162,8 +162,7 @@ function renderEditPostForm(post: PublishPost) {
           rows="5"
           cols="40"
           required
-        > ${post.body ?? ""}
-        </textarea>
+        > ${post.body ?? ""}</textarea>
         <details>
         Right click and image and "Copy image address" to get an accessible url.
         </details>
@@ -171,9 +170,6 @@ function renderEditPostForm(post: PublishPost) {
         <input id="url-string" type="url" name="imageUrl" value="${post.media?.url ?? ""}" placeholder="eg. https://unsplash.com/photos/lifeguard-chair-on-sandy-beach-8Ug4F8iM8NQ ">
         <label for="image-alt"> Describe your image: </label>
         <input type="text" id="image-alt" name="imageAlt" value="${post.media?.alt ?? ""}" placeholder="eg. A lifeguard chair on a beach">
-      
-
-
         <label for="tags"> Tags: Optional</label>
         <input type="text" id="tags" name="tags" value="${post.tags?.join(", ") ?? ""}" />
         <div class="submit-cancel-buttons-container"> 

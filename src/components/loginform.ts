@@ -25,7 +25,7 @@ loginForm?.addEventListener("submit", async (event) => {
   const elements = loginForm.elements as LoginFormElements;
 
   const credentials = {
-    email: elements.email.value,
+    email: elements.email.value.trim().toLowerCase(),
     password: elements.password.value
   };
 

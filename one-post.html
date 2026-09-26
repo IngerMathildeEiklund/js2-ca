@@ -3,41 +3,42 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>WHIMZY | One post</title>
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
     <header class="header-logo">
-      <nav> 
-      <a href="/index.html"
-        ><img src="src/images/logo3.png" alt="company logo" />
-      </a></nav>
-    </header>      
+      <nav>
+        <a href="/index.html"
+          ><img src="src/images/logo3.png" alt="company logo" />
+        </a>
+      </nav>
+    </header>
     <div id="toast-container" aria-live="polite" aria-atomic="true"></div>
-      <dialog id="pop-up-container"></dialog>
-      <dialog id="edit-post-popup-container"></dialog>
+    <dialog id="pop-up-container"></dialog>
+    <dialog id="edit-post-popup-container"></dialog>
     <main>
-      <div> 
-    <button id="back-button" class="border-button">
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="24"
-        height="24"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        class="icon icon-tabler icons-tabler-outline icon-tabler-arrow-narrow-left"
-      >
-        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-        <path d="M5 12l14 0" />
-        <path d="M5 12l4 4" />
-        <path d="M5 12l4 -4" />
-      </svg>
-    </button>
-    </div>
+      <div>
+        <button id="back-button" class="border-button">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="icon icon-tabler icons-tabler-outline icon-tabler-arrow-narrow-left"
+          >
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <path d="M5 12l14 0" />
+            <path d="M5 12l4 4" />
+            <path d="M5 12l4 -4" />
+          </svg>
+        </button>
+      </div>
 
       <div class="post-comments-add-comment-container">
         <section id="render-one-post-container"></section>
@@ -55,8 +56,7 @@
               cols="40"
               placeholder="Add a comment"
               required
-            >
-            </textarea>
+            ></textarea>
             <button id="add-comment-button" type="submit">Add comment</button>
           </form>
         </section>

@@ -40,8 +40,8 @@ registrationForm?.addEventListener("submit", async (event) => {
 
   const formData: RegisterUser = {
     name: elements.name.value.trim(),
-    email: elements.email.value.trim().toLocaleLowerCase(),
-    password: elements.password.value.trim(),
+    email: elements.email.value.trim().toLowerCase(),
+    password: elements.password.value,
     bio: elements.bio.value.trim(),
     avatar: avatarUrl
       ? { url: avatarUrl, alt: avatarAlt || "No image added." }
