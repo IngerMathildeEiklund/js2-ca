@@ -1,4 +1,4 @@
-#AI Log
+# AI Log - All AI used was CLAUDE AI.
 
 ### 27.08.2026
 **Prompt:** What does this error mean?
