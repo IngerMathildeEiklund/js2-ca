@@ -10,7 +10,7 @@
     <header class="container px-8 border border-brand-softer rounded-2xl mx-auto">
       <nav>
         <a href="/index.html"
-          ><img src="src/images/logo3.png" alt="company logo" />
+          ><img src="src/images/logo3.png" class="h-15 w-auto md:h-20" alt="company logo" />
         </a>
       </nav>
     </header>
@@ -42,9 +42,9 @@
         
         <form id="publish-post" class="flex flex-col gap-1 p-4 border border-brand-softer rounded-2xl mb-4">
           <p class="text-2xl mb-4">Create a new post</p>
-          <label for="post-title">Post title</label>
-          <input type="text" id="post-title" name="title" class="bg-brand-lighter mb-4" />
-          <label for="publish-post-textarea"> Post body: Optional </label>
+          <label for="post-title">Post title*</label>
+          <input type="text" id="post-title" name="title" class="bg-brand-lighter mb-4" required />
+          <label for="publish-post-textarea"> Post body</label>
           <textarea
             id="publish-post-textarea"
             name="publishPost"
@@ -52,19 +52,19 @@
             cols="40"
             required class="bg-brand-lighter mb-4"
           ></textarea>
-          <div class="flex flex-col mb-4">
+          <div class="flex flex-col">
             <p class="mb-4">
               Note! Not all urls can be used. Get the right format by right
               clicking an image and selecting "Copy image address".
             </p>
-            <label for="url-string"> Image:</label>
+            <label for="url-string"> Image</label>
             <input class="bg-brand-lighter mb-4"
               id="url-string"
               type="url"
               name="imageUrl"
               placeholder="eg. https://images.unsplash.com/photo-1582794543139-8ac9cb0f7b11?q=80&w=927&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
             />
-            <label for="image-alt"> Describe your image: </label>
+            <label for="image-alt"> Describe your image </label>
             <input class="bg-brand-lighter mb-4"
               type="text"
               id="image-alt"
@@ -73,7 +73,7 @@
             />
           </div>
 
-          <label for="tags"> Tags: Optional</label>
+          <label for="tags"> Tags</label>
           <input type="text" class="bg-brand-lighter mb-4" id="tags" name="tags" maxlength="30" />
           <button id="publish-post-button" type="submit">Publish post</button>
         </form>
@@ -81,10 +81,10 @@
 
       <div class="container">
         <p class="text-2xl mb-9">Profiles you follow</p>
-        <ul id="following" class="p-4 grid gap-6 grid-cols-1 border border-brand-softer rounded-2xl md:grid-cols-2 lg:grid-cols-3"></ul>
+        <ul id="following" class="p-4 grid gap-6 grid-cols-1 border border-brand-softer rounded-2xl md:grid-cols-2 lg:grid-cols-3 mb-8"></ul>
       </div>
 
-      <h1 class="centered-h1">Newest posts</h1>
+      <h1 class="text-3xl mx-auto">Posts feed</h1>
       <div class="flex flex-col p-4 gap-4">
         <label for="searchbar"> Search for a post </label>
         <input id="searchbar" type="text" />

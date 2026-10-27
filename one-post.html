@@ -6,18 +6,18 @@
     <title>WHIMZY | One post</title>
     <link rel="stylesheet" href="styles.css" />
   </head>
-  <body>
-    <header class="header-logo">
+   <body class="flex flex-col">
+   <header class="container px-8 border border-brand-softer rounded-2xl mx-auto">
       <nav>
         <a href="/index.html"
-          ><img src="src/images/logo3.png" alt="company logo" />
+          ><img src="src/images/logo3.png" class="h-15 w-auto md:h-20" alt="company logo" />
         </a>
       </nav>
     </header>
     <div id="toast-container" aria-live="polite" aria-atomic="true"></div>
     <dialog id="pop-up-container"></dialog>
     <dialog id="edit-post-popup-container"></dialog>
-    <main>
+    <main class="container flex flex-col mx-auto p-2">
       <div>
         <button id="back-button" class="border-button">
           <svg
@@ -40,16 +40,16 @@
         </button>
       </div>
 
-      <div class="post-comments-add-comment-container">
+      <div class="flex flex-col gap-6">
         <section id="render-one-post-container"></section>
-        <section id="comments"></section>
+        <section id="comments" class="flex flex-col mb-9"></section>
         <section>
-          <form id="add-comment">
+          <form id="add-comment" class="flex flex-col gap-8">
             <label for="comment-text" class="heading-p">
               Write a comment
             </label>
             <textarea
-              class="textarea"
+              class="textarea  bg-brand-lighter"
               id="comment-text"
               name="comment"
               rows="5"

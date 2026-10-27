@@ -8,20 +8,32 @@ import { getErrorMessage } from "../errors/apiError";
 
 export function renderOneProfile(profile: OneProfile): HTMLElement {
   const profileContainer = document.createElement("div");
+  const profileBanner = document.createElement('img');
   const avatarImage = document.createElement("img");
   const userName = document.createElement("p");
   const userBio = document.createElement("p");
+  const bannerWrapper = document.createElement('div');
+  const usernameAndBioWrapper = document.createElement('div');
 
   avatarImage.src = profile.avatar?.url ?? NO_AVATAR_IMAGE;
   avatarImage.alt = profile.avatar?.alt ?? "";
-  userName.textContent = profile.name;
+  profileBanner.src = profile.banner.url;
+  profileBanner.alt = profile.banner.alt;
+  
+
+  profileBanner.classList.add("rounded-2xl");
+  bannerWrapper.classList.add('relative');
+  userName.textContent = `@${profile.name}`;
   userBio.textContent = profile.bio ?? "";
 
-  avatarImage.classList.add("profile-avatar-image");
-  profileContainer.classList.add("profile-container");
-  userName.classList.add("profile-username");
-
-  profileContainer.append(avatarImage, userName, userBio);
+  avatarImage.classList.add("absolute", "left-4", "bottom-0", "translate-y-1/2",
+  "size-30", "object-cover", "shrink-0", "rounded-full", "md:size-60");
+  profileContainer.classList.add("flex", "flex-col", "items-center", "p-4");
+  usernameAndBioWrapper.classList.add("mt-20", "text-left")
+  
+  usernameAndBioWrapper.append(userName, userBio)
+  bannerWrapper.append(profileBanner, avatarImage)
+  profileContainer.append(bannerWrapper, usernameAndBioWrapper);
   return profileContainer;
 }
 
@@ -45,11 +57,7 @@ export async function renderOneProfilePage(): Promise<void> {
     const profileElement = renderOneProfile(response.data);
     oneProfileContainer.appendChild(profileElement);
 
-    const profileTile = document.getElementById("profile-page");
-    if (!profileTile) {
-      return;
-    }
-    profileTile.textContent = `${name}'s Profile`;
+
 
     const allPosts = await getPosts(1, 100);
     const allPostOwn = allPosts.data.filter(

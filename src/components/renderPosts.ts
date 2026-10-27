@@ -197,8 +197,6 @@ function buildPost(post: Post): HTMLElement {
     (profile) => profile.name === post.author.name,
   );
   followBTN.textContent = isFollowing ? "Following" : "Follow";
-/*   followBTN.classList.add(isFollowing ? "button-unfollow" : "button-follow"); */
-
   if (currentUser?.name === post.author.name) {
     followBTN.classList.add("hidden");
   } else {
@@ -218,8 +216,6 @@ function buildPost(post: Post): HTMLElement {
           );
         } else {
           await followUser(post.author.name);
-          followBTN.classList.remove("button-follow");
-          followBTN.classList.add("button-unfollow");
           toastNotification(
             `You are now following ${post.author.name}`,
             "success",

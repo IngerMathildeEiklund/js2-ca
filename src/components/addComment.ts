@@ -27,6 +27,7 @@ export function buildComments(post: PostWithComments): HTMLElement {
   if (post.comments.length === 0) {
     const errormessage = document.createElement("p");
     errormessage.textContent = "No comments yet, start a discussion!";
+    errormessage.classList.add("mx-auto")
     commentsContainer.appendChild(errormessage);
     return commentsContainer;
   }
@@ -89,9 +90,10 @@ export function buildCreatedComment(comment: PostComment): HTMLElement {
   commentBody.textContent = comment.body;
   createdAt.textContent = transformDate(comment.created);
 
-  ownerImgWrapper.classList.add("avatar-image-wrapper");
-  commentAndDateContainer.classList.add("comment-body-date-container");
-
+  avatarImage.classList.add("rounded-full","w-9", "h-9", "object-cover","mb-4" );
+  commentAndDateContainer.classList.add("flex", "flex-col", "gap-6");
+  ownerImgWrapper.classList.add("flex", "flex-row", "items-center", "justify-items-center", "gap-4")
+  commentWrapper.classList.add("flex", "flex-col", "gap-1", "p-4", "border", "border-brand-softer", "rounded-2xl", "mb-4");
   commentAndDateContainer.append(commentBody, createdAt);
   ownerImgWrapper.append(avatarImage, commentOwner);
 
