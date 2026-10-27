@@ -3,7 +3,7 @@ import {
   getPostById,
   followUser,
   unfollowUser,
-  getFollowing
+  getFollowing,
 } from "../api/postsService";
 import { buildComments, NO_AVATAR_IMAGE } from "./addComment";
 import { createPopUp, createEditPostPopUp } from "../messages/popUp";
@@ -18,10 +18,10 @@ import type { Profile } from "../api/postsService";
 
 const renderPostsContainer = document.getElementById("render-posts");
 const renderOnePostContainer = document.getElementById(
-  "render-one-post-container"
+  "render-one-post-container",
 );
 const loggedInUserAndAddNewPostContainer = document.getElementById(
-  "loggedin-and-make-post-container"
+  "loggedin-and-make-post-container",
 );
 
 const searchbar = document.getElementById("searchbar") as HTMLInputElement;
@@ -42,13 +42,13 @@ export function transformDate(date: string): string {
     year: "numeric",
     hour: "2-digit",
     minute: "2-digit",
-    timeZone: "Europe/Oslo"
+    timeZone: "Europe/Oslo",
   });
 }
 
 export function renderPosts(
   posts: Post[],
-  container: HTMLElement | null = renderPostsContainer
+  container: HTMLElement | null = renderPostsContainer,
 ): void {
   if (!container) return;
   container.innerHTML = "";
@@ -153,8 +153,8 @@ function renderFollowing(profiles: Profile[]): void {
     userAvatar.alt = profile.avatar?.alt ?? "";
     userName.textContent = profile.name;
 
-    userAvatar.classList.add("following-user-image");
-    userContainer.classList.add("following-user-container");
+    userAvatar.classList.add("w-8", "h-8", "rounded-full");
+    userContainer.classList.add("flex", "flex-row", "gap-9");
     userContainer.append(userAvatar, userName);
     followingContainer.appendChild(userContainer);
   });
@@ -194,10 +194,10 @@ function buildPost(post: Post): HTMLElement {
 
   postCreator.textContent = post.author.name;
   let isFollowing = followingArray.some(
-    (profile) => profile.name === post.author.name
+    (profile) => profile.name === post.author.name,
   );
   followBTN.textContent = isFollowing ? "Following" : "Follow";
-  followBTN.classList.add(isFollowing ? "button-unfollow" : "button-follow");
+/*   followBTN.classList.add(isFollowing ? "button-unfollow" : "button-follow"); */
 
   if (currentUser?.name === post.author.name) {
     followBTN.classList.add("hidden");
@@ -214,7 +214,7 @@ function buildPost(post: Post): HTMLElement {
           followBTN.classList.add("button-follow");
           toastNotification(
             `You unfollowed user ${post.author.name}`,
-            "success"
+            "success",
           );
         } else {
           await followUser(post.author.name);
@@ -222,7 +222,7 @@ function buildPost(post: Post): HTMLElement {
           followBTN.classList.add("button-unfollow");
           toastNotification(
             `You are now following ${post.author.name}`,
-            "success"
+            "success",
           );
         }
         isFollowing = !isFollowing;
@@ -243,6 +243,7 @@ function buildPost(post: Post): HTMLElement {
   postTitle.textContent = post.title;
 
   postBody.textContent = post.body;
+  postBody.classList.add("mb-9");
   postTags.textContent = `Tags: ${post.tags.join(", ")}`;
   postTags.classList.add("tags");
   timestamp.textContent = transformDate(post.created);
@@ -255,12 +256,39 @@ function buildPost(post: Post): HTMLElement {
     comments.textContent = "No comments";
   }
 
-  postElement.classList.add("post-element");
+  postElement.classList.add(
+    "flex",
+    "flex-col",
+    "justify-between",
+    "p-4",
+    "cursor-pointer",
+    "rounded-2xl",
+    "gap-4",
+    "w-auto",
+    "wrap-break-word",
+    "break-all",
+    "box-border",
+    "relative",
+    "border",
+    "border-brand-softer",
+  );
 
   const timeCommentsReactionsWrapper = document.createElement("div");
-  postTitle.classList.add("post-title");
-  timeCommentsReactionsWrapper.classList.add("time-comments-reactions-wrapper");
-  creatorAvatarWrapper.classList.add("avatar-image-wrapper");
+  postTitle.classList.add("text-heading-sd", "md:text-2xl", "mb-4");
+  timeCommentsReactionsWrapper.classList.add(
+    "flex",
+    "flex-row",
+    "justify-between",
+  );
+  creatorAvatarWrapper.classList.add(
+    "flex",
+    "flex-row",
+    "items-center",
+    "justify-items-center",
+    "gap-4",
+    "rounded-2xl",
+  );
+  creatorAvatar.classList.add("w-10", "h-10", "object-cover", "rounded-full");
   const postWasUpdated = post.updated !== post.created;
   if (postWasUpdated) {
     updatedTimestamp.textContent = `Edited: ${transformDate(post.updated)}`;
@@ -287,7 +315,7 @@ function buildPost(post: Post): HTMLElement {
     const postImageWrapper = document.createElement("div");
     postImage.src = post.media?.url ?? null;
     postImage.alt = post.media?.alt ?? "No image added";
-    postImage.classList.add("image");
+    postImage.classList.add("mb-9");
     postImageWrapper.classList.add("image-wrapper");
     postImageWrapper.appendChild(postImage);
     postElement.appendChild(postImageWrapper);

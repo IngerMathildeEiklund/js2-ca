@@ -44,14 +44,14 @@
   max-width: 25ch;
 }
 
-#publish-post {
+/* #publish-post {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
   padding: 1rem;
   border: 1px solid rgb(185, 185, 185);
   border-radius: 0.3rem;
-}
+} */
 #searchbar-form {
   display: flex;
   flex-direction: column;
@@ -72,10 +72,10 @@
   justify-content: center;
 }
 
-.optional-image-container {
+/* .optional-image-container {
   display: flex;
   flex-direction: column;
-}
+} */
 
 .following-user-image {
   width: 2rem;
@@ -89,7 +89,7 @@
   gap: 1rem;
 }
 
-#following {
+/* #following {
   display: grid;
   grid-template-columns: 1fr;
   gap: 1.5rem;
@@ -99,9 +99,9 @@
   margin-top: 1rem;
   border: 1px solid rgb(185, 185, 185);
   border-radius: 0.3rem;
-}
+} */
 
-.header {
+/* .header {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -113,35 +113,35 @@
   padding: 1rem;
   border-radius: 0.3rem;
   border-radius: 0.3rem;
-}
+} */
 
-.avatar-username-container {
+/* .avatar-username-container {
   display: flex;
   flex-direction: column;
   gap: 1rem;
   justify-content: center;
   align-items: center;
-}
+} */
 #one-profile-container {
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.avatar-image-wrapper-header {
+/* .avatar-image-wrapper-header {
   height: 10rem;
   width: 10rem;
   object-fit: cover;
   flex-shrink: 0;
   border-radius: 50%;
-}
-#loggedin-and-make-post-container {
+} */
+/* #loggedin-and-make-post-container {
   display: grid;
   grid-template-columns: 1fr;
   align-self: center;
   gap: 1rem;
   width: 100%;
-}
+} */
 
 .profile-avatar-image {
   height: 20rem;
@@ -209,16 +209,16 @@
   background-color: #c21720;
 }
 
-.searchbar-div {
+/* .searchbar-div {
   display: flex;
   flex-direction: column;
   padding: 1rem;
   gap: 1rem;
-}
-.searchbar-div label {
+} */
+/* .searchbar-div label {
   font-size: 1.2rem;
   font-weight: 500;
-}
+} */
 
 .following-container {
   padding: 1rem;
@@ -231,14 +231,7 @@
   gap: 1rem;
   justify-content: center;
 }
-.logged-in-user-greeting {
-  background-color: rgb(58, 58, 58);
-  padding: 1rem;
-  border-radius: 0.3rem;
-  color: white;
-  font-family: inherit;
-  font-size: 1rem;
-}
+
 
 .header-logo {
   padding-inline: 1rem;
