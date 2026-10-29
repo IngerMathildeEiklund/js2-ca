@@ -135,8 +135,6 @@ export async function createEditPostPopUp() {
     if (!updatedFormData.title) {
       toastNotification("Must contain a title.", "warning");
     }
-
-    console.log(id);
     if (!postId || Number.isNaN(postId)) {
       toastNotification("No post with such ID found.", "error");
       return;

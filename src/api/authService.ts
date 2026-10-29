@@ -1,9 +1,10 @@
 import { post } from "./apiClient";
 import { storage } from "../storage/storage";
-import { API_KEY } from "../storage/config";
 
 const LOGIN_ENDPOINT = "/auth/login";
 const REGISTER_ENDPOINT = "/auth/register";
+
+const apiKey = import.meta.env.VITE_API_KEY;
 
 interface Credentials {
   email: string;
@@ -46,7 +47,7 @@ export async function loginUser(
   const { accessToken, ...profile } = response.data;
 
   storage.save("accessToken", accessToken);
-  storage.save("apiKey", API_KEY);
+  storage.save("apiKey", apiKey);
   storage.save<UserProfile>("profile", profile);
 
   return profile as UserProfile;

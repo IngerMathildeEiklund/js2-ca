@@ -190,6 +190,8 @@ function buildPost(post: Post): HTMLElement {
 
   followBTN.classList.add('btn');
 
+  creatorAvatarWrapper.dataset.creator = "true";
+
   const postBody = document.createElement("p");
   const postTags = document.createElement("div");
   const timestamp = document.createElement("p");
@@ -197,14 +199,20 @@ function buildPost(post: Post): HTMLElement {
   const comments = document.createElement("p");
   const currentUser = getLoggedInUser();
 
+  postCreator.classList.add('text-heading-sd')
   postCreator.textContent = post.author.name;
   let isFollowing = followingArray.some(
     (profile) => profile.name === post.author.name,
   );
-  followBTN.innerHTML = isFollowing ? `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-check">
+  followBTN.innerHTML = isFollowing ? `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-check">
 	<path stroke="none" d="M0 0h24v24H0z" fill="none" />
 	<path d="M5 12l5 5l10 -10" />
-</svg> Following` : "Follow";
+</svg> Following` : `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-plus">
+	<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+	<path d="M12 5l0 14" />
+	<path d="M5 12l14 0" />
+</svg> Follow`;
+followBTN.classList.add('flex', "flex-row", "gap-2")
   if (currentUser?.name === post.author.name) {
     followBTN.classList.add("hidden");
   } else {
@@ -327,7 +335,6 @@ function buildPost(post: Post): HTMLElement {
     postImage.src = post.media?.url ?? null;
     postImage.alt = post.media?.alt ?? "No image added";
     postImage.classList.add("mb-9");
-    /* postImageWrapper.classList.add("image-wrapper"); */
     postImageWrapper.appendChild(postImage);
     postElement.appendChild(postImageWrapper);
   }
@@ -343,7 +350,9 @@ function buildPost(post: Post): HTMLElement {
 
 export function renderPostCard(post: Post): HTMLElement {
   const postElement = buildPost(post);
-  postElement.addEventListener("click", () => {
+  postElement.addEventListener("click", (event) => {
+    const target = event.target as HTMLElement;
+    if (target.closest("[data-creator]")) return;
     window.location.href = `/one-post.html?id=${post.id}`;
   });
   return postElement;

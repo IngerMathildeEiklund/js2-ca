@@ -15,7 +15,7 @@
   --color-brand-text: #dbfdff;
   --color-brand-softer: #566566;
   --font-sans: "myfont-sans", system-ui, sans-serif;
-  --text-heading-sd: 1.2rem;
+  --text-heading-sd: 1.1rem;
 
 }
 
@@ -29,7 +29,7 @@
 
 @layer components {
   .btn {
-    @apply inline-flex items-center justify-center self-center rounded-full border-2 border-brand-lighter w-fit p-2 px-6 cursor-pointer hover:bg-brand-lighter
+    @apply inline-flex items-center justify-center self-center rounded-full border-2 border-brand-lighter w-fit p-1 px-6 cursor-pointer hover:bg-brand-lighter
   }
 }
 
@@ -47,21 +47,6 @@ textarea {
   white-space: pre-wrap;
   padding: 1rem;
 }
-
-/* button {
-  width: fit-content;
-  justify-self: center;
-  align-self: center;
-  border: none;
-  background-color: var(--color-button);
-  padding: 0.3rem;
-  border-radius: 0.3rem;
-  cursor: pointer;
-  font-size: 0.9rem;
-  padding-inline: 1rem;
-  font-family: var(--font-sans);
-}
- */
 
 #back-button {
   display: flex;
@@ -109,8 +94,6 @@ textarea {
   background-color: var(--background-warning);
 }
 
-
-
 main > div:first-child {
   display: block;
   width: fit-content;
@@ -122,41 +105,4 @@ button:disabled {
   color: rgb(58, 58, 58);
 }
 
-details {
-  list-style: none;
-  word-wrap: break-word;
-}
 
-fieldset {
-  background-color: white;
-  padding: 1rem;
-  border-radius: 0.3rem;
-  border: none;
-}
-
-legend {
-  list-style: none;
-  background-color: white;
-}
-
-dialog {
-  border: 1px solid gray;
-}
-.centered-h1 {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 1.8rem;
-  padding-bottom: 1rem;
-}
-
-.image-details {
-  justify-content: center;
-  align-items: center;
-}
-
-@media (min-width: 768px) {
-  main {
-    padding: 1rem;
-  }
-}

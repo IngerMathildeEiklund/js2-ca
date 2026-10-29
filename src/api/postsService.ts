@@ -301,6 +301,14 @@ export async function getOneProfile(name: string): Promise<OneProfileResponse> {
   return response;
 }
 
+export async function getProfilePosts(name: string, page: number = 1,limit: number = 100): Promise <GetPostsResponse> {
+  const response = await get <GetPostsResponse>(`${PROFILES_ENDPOINT}/${encodeURIComponent(name)}/posts?page=${page}&limit=${limit}&_author=true&reactions=true`)
+  if (!response) {
+    throw new Error(`Failed to fetch profile.`)
+  }
+  return response;
+}
+
 export interface EditPost {
   title: string;
   body?: string;

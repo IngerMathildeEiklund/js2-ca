@@ -79,6 +79,5 @@ publishPostForm?.addEventListener("submit", async (event) => {
     toastNotification(getErrorMessage(error), "error");
   } finally {
     publishPostBTN.disabled = false;
-    publishPostForm.reset();
   }
 });

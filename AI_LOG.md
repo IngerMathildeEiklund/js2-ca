@@ -135,3 +135,51 @@ interface ApiOptions extends Omit<RequestInit, "body"> {
   body?: unknown;
 }
 ```
+
+
+### 29.10.2026, 13:39 
+**Prompt:** The functions that displays all the posts from one creator on their profilepage is a reuse of the getAllPosts that filters after creator. Problem is that this function only shows the first 100 posts. The function also does not use the correct parameters, how can I fix that? 
+
+**Changes made:** Added a new function that uses the correct query parameters. And replaced the code that renders those 100 posts with this: 
+```ts
+import { getOneProfile, getProfilePosts } from "../api/postsService";
+
+try {
+  const [profileResponse, postsResponse] = await Promise.all([
+    getOneProfile(name),
+    getProfilePosts(name),
+  ]);
+
+  oneProfileContainer.appendChild(renderOneProfile(profileResponse.data));
+
+  if (ownPostsContainer) {
+    renderPosts(postsResponse.data, ownPostsContainer);
+  }
+} catch (error) {
+  toastNotification(getErrorMessage(error), "error");
+}
+``` 
+
+
+
+### 29.10.2026, 14:13
+**Prompt:** Clicking the avatar image or name on a post in the feed only takes you to the page to display that post, with comments, not the profile page of the user. How can I solve this? 
+
+**Changes made:** Because of event bubbling the click goes to PostElement that takes you to the page to display one posts (with comments). Added a target in the RenderPostCard function and then marked the wrapper in buildPosts: 
+```ts
+export function renderPostCard(post: Post): HTMLElement {
+  const postElement = buildPost(post);
+  postElement.addEventListener("click", (event) => {
+    const target = event.target as HTMLElement;
+
+    // Ignore clicks on the creator area (avatar, name, follow button)
+    if (target.closest("[data-creator]")) return;
+
+    window.location.href = `/one-post.html?id=${post.id}`;
+  });
+  return postElement;
+}
+
+creatorAvatarWrapper.dataset.creator = "true";
+```
+

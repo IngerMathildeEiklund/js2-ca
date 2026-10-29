@@ -2,9 +2,10 @@ import type { OneProfile } from "../api/postsService";
 
 import { NO_AVATAR_IMAGE } from "./addComment";
 import { toastNotification } from "../messages/toastnotification";
-import { getOneProfile, getPosts } from "../api/postsService";
+import { getOneProfile } from "../api/postsService";
 import { renderPosts } from "./renderPosts";
 import { getErrorMessage } from "../errors/apiError";
+import { getProfilePosts } from "../api/postsService";
 
 export function renderOneProfile(profile: OneProfile): HTMLElement {
   const profileContainer = document.createElement("div");
@@ -53,21 +54,17 @@ export async function renderOneProfilePage(): Promise<void> {
   }
 
   try {
-    const response = await getOneProfile(name);
-    const profileElement = renderOneProfile(response.data);
-    oneProfileContainer.appendChild(profileElement);
 
+    const [profileResponse, postsResponse] = await Promise.all([
+      getOneProfile(name),
+      getProfilePosts(name)
+    ])
+oneProfileContainer.appendChild(renderOneProfile(profileResponse.data));
 
+if (ownPostsContainer) {
+  renderPosts(postsResponse.data, ownPostsContainer);
+}
 
-    const allPosts = await getPosts(1, 100);
-    const allPostOwn = allPosts.data.filter(
-      (post) => post.author.name === name
-    );
-    renderPosts(allPostOwn);
-
-    if (ownPostsContainer) {
-      renderPosts(allPostOwn, ownPostsContainer);
-    }
   } catch (error) {
     toastNotification(getErrorMessage(error), "error");
   }

@@ -51,7 +51,15 @@
           class="flex flex-col justify-center gap-8 p-4 md:gap-16 md:p-9"
         >
           <div class="flex w-full flex-col gap-2 self-center md:w-96">
-            <label for="registration-username"> Username</label>
+            <label for="registration-username" class="flex flex-row gap-2 items-center">Username<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-asterisk">
+	<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+	<path d="M12 12l8 -4.5" />
+	<path d="M12 12v9" />
+	<path d="M12 12l-8 -4.5" />
+	<path d="M12 12l8 4.5" />
+	<path d="M12 3v9" />
+	<path d="M12 12l-8 4.5" />
+</svg> </label>
             <input
               id="registration-username"
               type="text"
@@ -64,7 +72,15 @@
             />
           </div>
           <div class="flex w-full flex-col gap-2 self-center md:w-96">
-            <label for="registration-email"> Email </label>
+            <label for="registration-email" class="flex flex-row gap-2 items-center"> Email <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-asterisk">
+	<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+	<path d="M12 12l8 -4.5" />
+	<path d="M12 12v9" />
+	<path d="M12 12l-8 -4.5" />
+	<path d="M12 12l8 4.5" />
+	<path d="M12 3v9" />
+	<path d="M12 12l-8 4.5" />
+</svg></label>
             <input
               class="bg-brand-lighter mb-4"
               id="registration-email"
@@ -75,7 +91,15 @@
             />
           </div>
           <div class="flex w-full flex-col gap-2 self-center md:w-96">
-            <label for="registration-password"> Password </label>
+            <label for="registration-password" class="flex flex-row gap-2 items-center"> Password <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-asterisk">
+	<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+	<path d="M12 12l8 -4.5" />
+	<path d="M12 12v9" />
+	<path d="M12 12l-8 -4.5" />
+	<path d="M12 12l8 4.5" />
+	<path d="M12 3v9" />
+	<path d="M12 12l-8 4.5" />
+</svg></label>
             <input
               class="bg-brand-lighter mb-4"
               id="registration-password"
@@ -86,7 +110,15 @@
             />
           </div>
           <div class="flex w-full flex-col gap-2 self-center md:w-96">
-            <label for="registration-password-repeat"> Repeat password </label>
+            <label for="registration-password-repeat" class="flex flex-row gap-2 items-center"> Repeat password <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-asterisk">
+	<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+	<path d="M12 12l8 -4.5" />
+	<path d="M12 12v9" />
+	<path d="M12 12l-8 -4.5" />
+	<path d="M12 12l8 4.5" />
+	<path d="M12 3v9" />
+	<path d="M12 12l-8 4.5" />
+</svg></label>
             <input
               class="bg-brand-lighter mb-4"
               id="registration-password-repeat"
@@ -97,7 +129,7 @@
             />
           </div>
           <div class="flex w-full flex-col gap-2 self-center md:w-96">
-            <label for="bio">Bio: Optional</label>
+            <label for="bio">Bio</label>
             <input
               class="bg-brand-lighter mb-4"
               type="text"
@@ -107,7 +139,7 @@
           </div>
           <div class="flex w-full flex-col gap-2 self-center md:w-96">
             <label for="register-image-url">
-              Add an avatar image: Optional
+              Add an avatar image
             </label>
             <input
               type="url"
@@ -122,7 +154,7 @@
           </div>
           <div class="flex w-full flex-col gap-2 self-center md:w-96">
             <label for="register-image-alt">
-              Describe your avatar image: Optional
+              Describe your avatar image
             </label>
             <input
               type="text"
@@ -132,7 +164,7 @@
             />
           </div>
           <div class="flex w-full flex-col gap-2 self-center md:w-96">
-            <label for="banner"> Add a banner: Optional</label>
+            <label for="banner"> Add a banner</label>
             <input
               class="bg-brand-lighter mb-4"
               type="text"
@@ -141,7 +173,7 @@
             />
           </div>
           <div class="flex w-full flex-col gap-2 self-center md:w-96">
-            <label for="banner-alt"> Banner description: Optional </label>
+            <label for="banner-alt"> Banner description</label>
             <input
               type="text"
               class="bg-brand-lighter mb-4"
@@ -153,7 +185,7 @@
             Already have an account? Login
             <a href="/login.html" class="font-bold">here</a>
           </p>
-          <button type="submit" id="submit-button">Sign up</button>
+          <button type="submit" class="btn" id="submit-button">Sign up</button>
         </form>
       </section>
     </main>
