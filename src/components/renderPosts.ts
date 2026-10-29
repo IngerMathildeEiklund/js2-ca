@@ -104,6 +104,9 @@ export async function renderOnePost(): Promise<void> {
       const editBTN = document.createElement("button");
       const deleteBTN = document.createElement("button");
 
+      editBTN.classList.add('btn');
+      deleteBTN.classList.add('btn');
+
       editBTN.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-edit">
 	<path stroke="none" d="M0 0h24v24H0z" fill="none" />
 	<path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1" />
@@ -118,7 +121,7 @@ export async function renderOnePost(): Promise<void> {
 	<path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" />
 	<path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" />
 </svg>`;
-      editDeleteBTNWrapper.classList.add("edit-delete-wrapper");
+      editDeleteBTNWrapper.classList.add("flex", "flex-row", "gap-4");
       editDeleteBTNWrapper.append(editBTN, deleteBTN);
       postElement.appendChild(editDeleteBTNWrapper);
 
@@ -185,6 +188,8 @@ function buildPost(post: Post): HTMLElement {
   const postTitle = document.createElement("p");
   const followBTN = document.createElement("button");
 
+  followBTN.classList.add('btn');
+
   const postBody = document.createElement("p");
   const postTags = document.createElement("div");
   const timestamp = document.createElement("p");
@@ -196,7 +201,10 @@ function buildPost(post: Post): HTMLElement {
   let isFollowing = followingArray.some(
     (profile) => profile.name === post.author.name,
   );
-  followBTN.textContent = isFollowing ? "Following" : "Follow";
+  followBTN.innerHTML = isFollowing ? `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-check">
+	<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+	<path d="M5 12l5 5l10 -10" />
+</svg> Following` : "Follow";
   if (currentUser?.name === post.author.name) {
     followBTN.classList.add("hidden");
   } else {
@@ -246,10 +254,17 @@ function buildPost(post: Post): HTMLElement {
   if (post.updated > post.created) {
     timestamp.classList.add("hidden");
   }
-  comments.textContent = `Comments: ${post._count.comments}`;
+  comments.classList.add("flex", "flex-row", "gap-2");
+  comments.innerHTML = `${post._count.comments} <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-message-circle">
+	<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+	<path d="M3 20l1.3 -3.9c-2.324 -3.437 -1.426 -7.872 2.1 -10.374c3.526 -2.501 8.59 -2.296 11.845 .48c3.255 2.777 3.695 7.266 1.029 10.501c-2.666 3.235 -7.615 4.215 -11.574 2.293l-4.7 1" />
+</svg> `;
 
   if (post._count.comments === 0) {
-    comments.textContent = "No comments";
+    comments.innerHTML = `${post._count.comments} <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-message-circle">
+	<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+	<path d="M3 20l1.3 -3.9c-2.324 -3.437 -1.426 -7.872 2.1 -10.374c3.526 -2.501 8.59 -2.296 11.845 .48c3.255 2.777 3.695 7.266 1.029 10.501c-2.666 3.235 -7.615 4.215 -11.574 2.293l-4.7 1" />
+</svg> `;
   }
 
   postElement.classList.add(
@@ -312,7 +327,7 @@ function buildPost(post: Post): HTMLElement {
     postImage.src = post.media?.url ?? null;
     postImage.alt = post.media?.alt ?? "No image added";
     postImage.classList.add("mb-9");
-    postImageWrapper.classList.add("image-wrapper");
+    /* postImageWrapper.classList.add("image-wrapper"); */
     postImageWrapper.appendChild(postImage);
     postElement.appendChild(postImageWrapper);
   }

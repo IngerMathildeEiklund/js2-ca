@@ -14,6 +14,8 @@ export function header(): HTMLElement | null {
   const avatarImage = document.createElement("img");
   const userName = document.createElement("p");
 
+  avatarImage.classList.add("cursor-pointer");
+
   avatarImage.src = currentProfile?.avatar?.url ?? "";
   avatarImage.alt = currentProfile?.avatar?.alt ?? "";
   userName.textContent = `Good to see you, ${currentProfile?.name ?? ""}!`;
@@ -26,7 +28,7 @@ export function header(): HTMLElement | null {
     }
   });
   const logOutBTN = document.createElement("button");
-  logOutBTN.classList.add("mt-9", "flex", "gap-4");
+  logOutBTN.classList.add("btn", "mt-9", "flex", "gap-4");
   userName.classList.add("logged-in-user-greeting");
   logOutBTN.innerHTML = `Sign out <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-logout">
 	<path stroke="none" d="M0 0h24v24H0z" fill="none" />

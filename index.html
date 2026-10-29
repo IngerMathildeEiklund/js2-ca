@@ -49,8 +49,7 @@
             id="publish-post-textarea"
             name="publishPost"
             rows="5"
-            cols="40"
-            required class="bg-brand-lighter mb-4"
+            cols="40"  class="bg-brand-lighter mb-4"
           ></textarea>
           <div class="flex flex-col">
             <p class="mb-4">
@@ -75,7 +74,7 @@
 
           <label for="tags"> Tags</label>
           <input type="text" class="bg-brand-lighter mb-4" id="tags" name="tags" maxlength="30" />
-          <button id="publish-post-button" type="submit">Publish post</button>
+          <button id="publish-post-button" class="btn" type="submit">Publish post</button>
         </form>
       </div>
 
@@ -87,14 +86,14 @@
       <h1 class="text-3xl mx-auto">Posts feed</h1>
       <div class="flex flex-col p-4 gap-4">
         <label for="searchbar"> Search for a post </label>
-        <input id="searchbar" type="text" />
+        <input id="searchbar" class="bg-brand-lighter mb-4" type="text" />
       </div>
       <section id="render-posts" class="grid grid-cols-1 gap-4"></section>
 
-      <div class="flex flex-row p-4 gap-4 justify-center">
-        <button id="prev-button">Previous</button>
+      <div class="flex flex-row p-4 gap-4 justify-center items-center">
+        <button id="prev-button" class="btn">Previous</button>
         <p id="total-pages"></p>
-        <button id="next-button">Next</button>
+        <button id="next-button" class="btn">Next</button>
       </div>
     </main>
     <script src="./src/main.ts" type="module"></script>

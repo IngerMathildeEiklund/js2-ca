@@ -66,6 +66,10 @@ interface RegisterUser {
     url: string;
     alt: string;
   };
+  banner?: {
+    url: string,
+    alt: string
+  }
 }
 
 interface RegisterResponse {
