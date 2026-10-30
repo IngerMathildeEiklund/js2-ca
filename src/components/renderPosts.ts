@@ -156,12 +156,13 @@ function renderFollowing(profiles: Profile[]): void {
     userAvatar.alt = profile.avatar?.alt ?? "";
     userName.textContent = profile.name;
 
-    userAvatar.classList.add("w-8", "h-8", "rounded-full");
+    userAvatar.classList.add("w-8", "h-8", "rounded-full", "object-cover");
     userContainer.classList.add("flex", "flex-row", "gap-9");
     userContainer.append(userAvatar, userName);
     followingContainer.appendChild(userContainer);
   });
 }
+
 let followingArray: Profile[] = [];
 
 async function fetchAndRenderFollowing(): Promise<void> {
@@ -224,8 +225,6 @@ followBTN.classList.add('flex', "flex-row", "gap-2")
       try {
         if (isFollowing) {
           await unfollowUser(post.author.name);
-          followBTN.classList.remove("button-unfollow");
-          followBTN.classList.add("button-follow");
           toastNotification(
             `You unfollowed user ${post.author.name}`,
             "success",
@@ -255,9 +254,15 @@ followBTN.classList.add('flex', "flex-row", "gap-2")
   postTitle.textContent = post.title;
 
   postBody.textContent = post.body;
-  postBody.classList.add("mb-9");
-  postTags.textContent = `Tags: ${post.tags.join(", ")}`;
-  postTags.classList.add("tags");
+  postBody.classList.add('mb-4');
+  
+  post.tags.forEach((tag) => {
+    const tagElement = document.createElement('span');
+    tagElement.textContent = `${tag}`;
+    tagElement.classList.add('rounded-full', "px-3", "py-1", "border","bg-brand-lighter", "border-brand-lighter", "w-fit");
+    postTags.appendChild(tagElement);
+  })
+  postTags.classList.add("flex", "flex-row", "flex-wrap", "gap-2");
   timestamp.textContent = transformDate(post.created);
   if (post.updated > post.created) {
     timestamp.classList.add("hidden");
@@ -288,8 +293,8 @@ followBTN.classList.add('flex', "flex-row", "gap-2")
     "break-all",
     "box-border",
     "relative",
-    "border",
-    "border-brand-softer",
+    "border-2",
+    "border-brand-lighter"
   );
 
   const timeCommentsReactionsWrapper = document.createElement("div");

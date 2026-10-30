@@ -75,6 +75,7 @@ publishPostForm?.addEventListener("submit", async (event) => {
     );
     publishPostForm.reset();
     reRenderPosts();
+    toastNotification('Comment successfully added.', 'success');
   } catch (error) {
     toastNotification(getErrorMessage(error), "error");
   } finally {

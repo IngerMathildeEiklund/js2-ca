@@ -93,7 +93,7 @@ export function buildCreatedComment(comment: PostComment): HTMLElement {
   avatarImage.classList.add("rounded-full","w-9", "h-9", "object-cover");
   commentAndDateContainer.classList.add("flex", "flex-col", "gap-6","mt-4");
   ownerImgWrapper.classList.add("flex", "flex-row", "items-center", "gap-4")
-  commentWrapper.classList.add("flex", "flex-col", "gap-1", "p-4", "border", "border-brand-softer", "rounded-2xl", "mb-4");
+  commentWrapper.classList.add("flex", "flex-col", "gap-1", "p-4", "border-2", "border-brand-lighter", "rounded-2xl", "mb-4");
   commentAndDateContainer.append(commentBody, createdAt);
   ownerImgWrapper.append(avatarImage, commentOwner);
 

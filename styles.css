@@ -16,49 +16,39 @@
   --color-brand-softer: #566566;
   --font-sans: "myfont-sans", system-ui, sans-serif;
   --text-heading-sd: 1.1rem;
-
+  --color-disabled: #838383;
+  --text-sd: 0.875rem;
+  --text-md: 1rem;
 }
 
 @layer base {
   body {
-    font: var(--font-sans);
+    font-family: var(--font-sans);
     color: var(--color-brand-text);
     background-color: var(--color-brand);
-}
+  }
+  button,
+  p {
+    font-size: var(--text-sd);
+
+    @variant md {
+      font-size: var(--text-md);
+    }
+  }
 }
 
 @layer components {
   .btn {
-    @apply inline-flex items-center justify-center self-center rounded-full border-2 border-brand-lighter w-fit p-1 px-6 cursor-pointer hover:bg-brand-lighter
+    @apply border-brand-lighter hover:bg-brand-lighter inline-flex w-fit cursor-pointer items-center justify-center self-center rounded-full border-2 p-1 px-4;
+  }
+  .btn:disabled {
+    @apply text-disabled cursor-not-allowed bg-transparent;
+  }
+  .input {
+    @apply bg-brand-lighter rounded-2xl border border-none p-2;
   }
 }
 
-input { 
-  padding: 0.2rem;
-  border-radius: 0.3rem;
-  border: 1px solid rgb(156, 156, 156);
-}
-textarea {
-  border-radius: 0.3rem;
-  border: 1px solid rgb(156, 156, 156);
-  padding: 0;
-  resize: vertical;
-  tab-size: 2;
-  white-space: pre-wrap;
-  padding: 1rem;
-}
-
-#back-button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 1rem 0 0 1rem;
-  border: none;
-  cursor: pointer;
-  padding: 0.5rem;
-  margin: 0;
-  background-color: transparent;
-}
 #toast-container {
   position: fixed;
   top: 4.5rem;
@@ -93,16 +83,3 @@ textarea {
   color: var(--text-warning);
   background-color: var(--background-warning);
 }
-
-main > div:first-child {
-  display: block;
-  width: fit-content;
-}
-
-button:disabled {
-  background-color: transparent;
-  cursor: not-allowed;
-  color: rgb(58, 58, 58);
-}
-
-

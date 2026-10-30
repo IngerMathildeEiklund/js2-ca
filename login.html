@@ -7,10 +7,16 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body class="flex flex-col">
-    <header class="container px-8 border-b-cyan-50 border-solid border rounded-2xl mx-auto">
+    <header
+      class="container mx-auto px-8 my-2 bg-brand border-b-2 border-brand-lighter"
+    >
       <nav>
         <a href="/index.html"
-          ><img src="src/images/logo3.png" alt="company logo" />
+          ><img
+            src="src/images/logo3.png"
+            class="h-15 w-auto md:h-20"
+            alt="company logo"
+          />
         </a>
       </nav>
     </header>
@@ -42,13 +48,13 @@
         <form id="login-form" class="p-4 flex flex-col justify-center gap-8 md:gap-16 md:p-9">
           <div class="flex flex-col gap-2 self-center w-full md:w-96"> 
           <label for="login-email-input"> Email address </label>
-          <input id="login-email-input" class="bg-brand-lighter" name="email" type="email" required />
+          <input id="login-email-input" class="input" name="email" autocomplete="email" type="email" required />
         </div>
         <div class="flex flex-col gap-2 self-center w-full md:w-96" > 
           <label for="login-password-input"> Password </label>
-          <input class="bg-brand-lighter "
+          <input class="input"
             id="login-password-input"
-            name="password"
+            name="password" autocomplete="current-password"
             type="password"
             required
           />
