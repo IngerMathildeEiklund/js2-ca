@@ -8,7 +8,7 @@
   </head>
   <body class="flex flex-col">
     <header
-      class="container mx-auto px-8 my-2 bg-brand border-b-2 border-brand-lighter"
+      class="bg-brand border-brand-lighter container mx-auto my-2 border-b-2 px-8"
     >
       <nav>
         <a href="/index.html"
@@ -20,7 +20,7 @@
         </a>
       </nav>
     </header>
-    <main class="container flex flex-col mx-auto">
+    <main class="container mx-auto flex flex-col">
       <div>
         <button id="back-button" class="border-button">
           <svg
@@ -43,24 +43,37 @@
         </button>
       </div>
       <div id="toast-container" aria-live="polite" aria-atomic="true"></div>
-      <h1 class="text-center text-3xl font-bold mb-4 md:mb-9">Login</h1>
+      <h1 class="mb-4 text-center text-3xl font-bold md:mb-9">Login</h1>
       <section id="login-section">
-        <form id="login-form" class="p-4 flex flex-col justify-center gap-8 md:gap-16 md:p-9">
-          <div class="flex flex-col gap-2 self-center w-full md:w-96"> 
-          <label for="login-email-input"> Email address </label>
-          <input id="login-email-input" class="input" name="email" autocomplete="email" type="email" required />
-        </div>
-        <div class="flex flex-col gap-2 self-center w-full md:w-96" > 
-          <label for="login-password-input"> Password </label>
-          <input class="input"
-            id="login-password-input"
-            name="password" autocomplete="current-password"
-            type="password"
-            required
-          />
-        </div>
+        <form
+          id="login-form"
+          class="flex flex-col justify-center gap-8 p-4 md:gap-16 md:p-9"
+        >
+          <div class="flex w-full flex-col gap-2 self-center md:w-96">
+            <label for="login-email-input"> Email address </label>
+            <input
+              id="login-email-input"
+              class="input"
+              name="email"
+              autocomplete="email"
+              type="email"
+              required
+            />
+          </div>
+          <div class="flex w-full flex-col gap-2 self-center md:w-96">
+            <label for="login-password-input"> Password </label>
+            <input
+              class="input"
+              id="login-password-input"
+              name="password"
+              autocomplete="current-password"
+              type="password"
+              required
+            />
+          </div>
           <p class="text-center">
-            Don't have an account? Register <a class="font-bold" href="register.html">here</a>
+            Don't have an account? Register
+            <a class="font-bold" href="register.html">here</a>
           </p>
           <button id="login-button" class="btn" type="submit">Login</button>
         </form>

@@ -104,8 +104,8 @@ export async function renderOnePost(): Promise<void> {
       const editBTN = document.createElement("button");
       const deleteBTN = document.createElement("button");
 
-      editBTN.classList.add('btn');
-      deleteBTN.classList.add('btn');
+      editBTN.classList.add("btn");
+      deleteBTN.classList.add("btn");
 
       editBTN.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-edit">
 	<path stroke="none" d="M0 0h24v24H0z" fill="none" />
@@ -189,7 +189,7 @@ function buildPost(post: Post): HTMLElement {
   const postTitle = document.createElement("p");
   const followBTN = document.createElement("button");
 
-  followBTN.classList.add('btn');
+  followBTN.classList.add("btn");
 
   creatorAvatarWrapper.dataset.creator = "true";
 
@@ -200,20 +200,22 @@ function buildPost(post: Post): HTMLElement {
   const comments = document.createElement("p");
   const currentUser = getLoggedInUser();
 
-  postCreator.classList.add('text-heading-sd')
+  postCreator.classList.add("text-heading-sd");
   postCreator.textContent = post.author.name;
   let isFollowing = followingArray.some(
     (profile) => profile.name === post.author.name,
   );
-  followBTN.innerHTML = isFollowing ? `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-check">
+  followBTN.innerHTML = isFollowing
+    ? `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-check">
 	<path stroke="none" d="M0 0h24v24H0z" fill="none" />
 	<path d="M5 12l5 5l10 -10" />
-</svg> Following` : `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-plus">
+</svg> Following`
+    : `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-plus">
 	<path stroke="none" d="M0 0h24v24H0z" fill="none" />
 	<path d="M12 5l0 14" />
 	<path d="M5 12l14 0" />
 </svg> Follow`;
-followBTN.classList.add('flex', "flex-row", "gap-2")
+  followBTN.classList.add("flex", "flex-row", "gap-2");
   if (currentUser?.name === post.author.name) {
     followBTN.classList.add("hidden");
   } else {
@@ -254,14 +256,22 @@ followBTN.classList.add('flex', "flex-row", "gap-2")
   postTitle.textContent = post.title;
 
   postBody.textContent = post.body;
-  postBody.classList.add('mb-4');
-  
+  postBody.classList.add("mb-4");
+
   post.tags.forEach((tag) => {
-    const tagElement = document.createElement('span');
+    const tagElement = document.createElement("span");
     tagElement.textContent = `${tag}`;
-    tagElement.classList.add('rounded-full', "px-3", "py-1", "border","bg-brand-lighter", "border-brand-lighter", "w-fit");
+    tagElement.classList.add(
+      "rounded-full",
+      "px-3",
+      "py-1",
+      "border",
+      "bg-brand-lighter",
+      "border-brand-lighter",
+      "w-fit",
+    );
     postTags.appendChild(tagElement);
-  })
+  });
   postTags.classList.add("flex", "flex-row", "flex-wrap", "gap-2");
   timestamp.textContent = transformDate(post.created);
   if (post.updated > post.created) {
@@ -294,7 +304,7 @@ followBTN.classList.add('flex', "flex-row", "gap-2")
     "box-border",
     "relative",
     "border-2",
-    "border-brand-lighter"
+    "border-brand-lighter",
   );
 
   const timeCommentsReactionsWrapper = document.createElement("div");
@@ -311,6 +321,8 @@ followBTN.classList.add('flex', "flex-row", "gap-2")
     "justify-items-center",
     "gap-4",
     "rounded-2xl",
+    "md:gap-6",
+    "lg:gap-8",
   );
   creatorAvatar.classList.add("w-10", "h-10", "object-cover", "rounded-full");
   const postWasUpdated = post.updated !== post.created;

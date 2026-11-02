@@ -1,3 +1,4 @@
+/* eslint-disable css/no-invalid-at-rules */
 @import "tailwindcss";
 
 :root {
@@ -45,7 +46,7 @@
     @apply text-disabled cursor-not-allowed bg-transparent;
   }
   .input {
-    @apply bg-brand-lighter rounded-2xl border border-none p-2;
+    @apply bg-brand-lighter rounded-2xl border border-transparent p-2 outline-none focus:border-cyan-200;
   }
 }
 

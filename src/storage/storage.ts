@@ -20,7 +20,7 @@ export const storage = {
 
   remove(key: string): void {
     sessionStorage.removeItem(key);
-  }
+  },
 };
 
 export function getLoggedInUser(): UserProfile | null {

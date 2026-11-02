@@ -7,8 +7,8 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body class="flex flex-col">
-      <header
-      class="container mx-auto px-8 my-2 bg-brand border-b-2 border-brand-lighter"
+    <header
+      class="bg-brand border-brand-lighter container mx-auto my-2 border-b-2 px-8"
     >
       <nav>
         <a href="/index.html"
@@ -21,7 +21,7 @@
       </nav>
     </header>
 
-    <main class="container flex flex-col mx-auto p-2">
+    <main class="container mx-auto flex flex-col p-2">
       <div>
         <button id="back-button" class="border-button">
           <svg
@@ -44,18 +44,31 @@
         </button>
       </div>
       <div id="toast-container" aria-live="polite" aria-atomic="true"></div>
-      <div id="loggedin-and-make-post-container" class="flex flex-col xl:gap-9 xl:flex-row xl:justify-between">
-        
-        <form id="publish-post" class="flex flex-col gap-1 p-4 border-2 border-brand-lighter rounded-2xl mb-4">
-          <p class="text-2xl mb-4">Create a new post</p>
+      <div
+        id="loggedin-and-make-post-container"
+        class="flex flex-col xl:flex-row xl:justify-between xl:gap-9"
+      >
+        <form
+          id="publish-post"
+          class="border-brand-lighter mb-4 flex flex-col gap-1 rounded-2xl border-2 p-4"
+        >
+          <p class="mb-4 text-2xl">Create a new post</p>
           <label for="post-title">Post title*</label>
-          <input type="text" id="post-title" name="title" class="input mb-4" required />
+          <input
+            type="text"
+            id="post-title"
+            name="title"
+            class="input mb-4"
+            required
+          />
           <label for="publish-post-textarea"> Post body</label>
           <textarea
             id="publish-post-textarea"
             name="publishPost"
             rows="5"
-            cols="40"  class="input mb-4"
+            cols="40"
+            maxlength="280"
+            class="input mb-4"
           ></textarea>
           <div class="flex flex-col">
             <p class="mb-4">
@@ -63,14 +76,16 @@
               clicking an image and selecting "Copy image address".
             </p>
             <label for="url-string"> Image</label>
-            <input class="input mb-4"
+            <input
+              class="input mb-4"
               id="url-string"
               type="url"
               name="imageUrl"
               placeholder="eg. https://images.unsplash.com/photo-1582794543139-8ac9cb0f7b11?q=80&w=927&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
             />
             <label for="image-alt"> Describe your image </label>
-            <input class="input mb-4"
+            <input
+              class="input mb-4"
               type="text"
               id="image-alt"
               name="imageAlt"
@@ -79,24 +94,35 @@
           </div>
 
           <label for="tags"> Tags</label>
-          <input type="text" class="input mb-4" id="tags" name="tags" maxlength="30" />
-          <button id="publish-post-button" class="btn" type="submit">Publish post</button>
+          <input
+            type="text"
+            class="input mb-4"
+            id="tags"
+            name="tags"
+            maxlength="30"
+          />
+          <button id="publish-post-button" class="btn" type="submit">
+            Publish post
+          </button>
         </form>
       </div>
 
       <div class="container">
-        <p class="text-2xl mb-9 ml-4">Profiles you follow</p>
-        <ul id="following" class="p-4 grid gap-6 grid-cols-1 border-2 border-brand-lighter rounded-2xl md:grid-cols-2 lg:grid-cols-3 mb-12"></ul>
+        <p class="mb-9 ml-4 text-2xl">Profiles you follow</p>
+        <ul
+          id="following"
+          class="border-brand-lighter mb-12 grid grid-cols-1 gap-6 rounded-2xl border-2 p-4 md:grid-cols-2 lg:grid-cols-3"
+        ></ul>
       </div>
 
-      <h1 class="text-3xl ml-4 mb-9">Posts feed</h1>
-      <div class="flex flex-col p-4 gap-4">
+      <h1 class="mb-9 ml-4 text-3xl">Posts feed</h1>
+      <div class="flex flex-col gap-4 p-4">
         <label for="searchbar"> Search for a post </label>
         <input id="searchbar" class="input mb-4" type="text" />
       </div>
       <section id="render-posts" class="grid grid-cols-1 gap-4"></section>
 
-      <div class="flex flex-row p-4 gap-4 justify-center items-center">
+      <div class="flex flex-row items-center justify-center gap-4 p-4">
         <button id="prev-button" class="btn">Previous</button>
         <p id="total-pages"></p>
         <button id="next-button" class="btn">Next</button>

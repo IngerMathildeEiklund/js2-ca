@@ -8,7 +8,7 @@
   </head>
   <body class="flex flex-col">
     <header
-      class="container mx-auto px-8 my-2 bg-brand border-b-2 border-brand-lighter"
+      class="bg-brand border-brand-lighter container mx-auto my-2 border-b-2 px-8"
     >
       <nav>
         <a href="/index.html"
@@ -21,7 +21,7 @@
       </nav>
     </header>
 
-    <main class="container flex flex-col mx-auto p-2">
+    <main class="container mx-auto flex flex-col p-2">
       <div>
         <button id="back-button" class="border-button">
           <svg
@@ -45,7 +45,7 @@
       </div>
       <div id="toast-container" aria-live="polite" aria-atomic="true"></div>
       <section id="one-profile-container"></section>
-      <h2 class="text-2xl mb-9">Posts</h2>
+      <h2 class="mb-9 text-2xl">Posts</h2>
       <section id="own-posts" class="flex flex-col gap-4"></section>
     </main>
     <script src="./src/main.ts" type="module"></script>

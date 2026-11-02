@@ -6,9 +6,9 @@
     <title>WHIMZY | One post</title>
     <link rel="stylesheet" href="styles.css" />
   </head>
-   <body class="flex flex-col">
-      <header
-      class="container mx-auto px-8 my-2 bg-brand border-b-2 border-brand-lighter"
+  <body class="flex flex-col">
+    <header
+      class="bg-brand border-brand-lighter container mx-auto my-2 border-b-2 px-8"
     >
       <nav>
         <a href="/index.html"
@@ -23,7 +23,7 @@
     <div id="toast-container" aria-live="polite" aria-atomic="true"></div>
     <dialog id="pop-up-container" class="rounded-2xl"></dialog>
     <dialog id="edit-post-popup-container"></dialog>
-    <main class="container flex flex-col mx-auto p-2">
+    <main class="container mx-auto flex flex-col p-2">
       <div>
         <button id="back-button" class="border-button">
           <svg
@@ -48,7 +48,7 @@
 
       <div class="flex flex-col gap-6">
         <section id="render-one-post-container"></section>
-        <section id="comments" class="flex flex-col mb-9"></section>
+        <section id="comments" class="mb-9 flex flex-col"></section>
         <section>
           <form id="add-comment" class="flex flex-col gap-8">
             <label for="comment-text" class="heading-p">
@@ -62,8 +62,11 @@
               cols="40"
               placeholder="Add a comment"
               required
+              maxlength="280"
             ></textarea>
-            <button id="add-comment-button" class="btn" type="submit">Add comment</button>
+            <button id="add-comment-button" class="btn" type="submit">
+              Add comment
+            </button>
           </form>
         </section>
       </div>

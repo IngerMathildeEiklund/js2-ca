@@ -37,7 +37,7 @@ export interface UserProfile {
  */
 
 export async function loginUser(
-  credentials: Credentials
+  credentials: Credentials,
 ): Promise<UserProfile> {
   const response = await post<AuthResponse>(LOGIN_ENDPOINT, credentials);
 
@@ -68,9 +68,9 @@ interface RegisterUser {
     alt: string;
   };
   banner?: {
-    url: string,
-    alt: string
-  }
+    url: string;
+    alt: string;
+  };
 }
 
 interface RegisterResponse {
@@ -90,11 +90,11 @@ interface RegisterResponse {
  */
 
 export async function registerUser(
-  registerUser: RegisterUser
+  registerUser: RegisterUser,
 ): Promise<UserProfile> {
   const response = await post<RegisterResponse>(
     REGISTER_ENDPOINT,
-    registerUser
+    registerUser,
   );
 
   if (!response) {
@@ -105,7 +105,7 @@ export async function registerUser(
 
   if (!profile?.name || !profile?.email) {
     throw new Error(
-      "Registration succeeded, but no profile data was returned."
+      "Registration succeeded, but no profile data was returned.",
     );
   }
   storage.save<UserProfile>("profile", profile);

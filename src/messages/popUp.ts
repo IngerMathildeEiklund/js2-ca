@@ -7,10 +7,18 @@ import { getErrorMessage } from "../errors/apiError";
 
 export function createPopUp(postId: number): HTMLElement {
   const popUpContainer = document.getElementById(
-    "pop-up-container"
+    "pop-up-container",
   ) as HTMLDialogElement;
   popUpContainer.innerHTML = "";
-  popUpContainer.classList.add("m-auto", "rounded-2xl", "border", "border-brand-softer", "bg-brand", "text-current","p-4");
+  popUpContainer.classList.add(
+    "m-auto",
+    "rounded-2xl",
+    "border-2",
+    "border-brand-lighter",
+    "bg-brand",
+    "text-current",
+    "p-4",
+  );
   const popUpTitle = document.createElement("p");
   const popUpBody = document.createElement("p");
   const buttonsWrapper = document.createElement("div");
@@ -19,11 +27,10 @@ export function createPopUp(postId: number): HTMLElement {
   popUpContainer.showModal();
 
   popUpTitle.textContent = "Delete post?";
-  popUpTitle.classList.add("text-2xl","mb-4");
+  popUpTitle.classList.add("text-2xl", "mb-4");
   popUpBody.textContent = "This action cannot be undone.";
-  confirmBTN.classList.add('btn');
-  cancelBTN.classList.add('btn');
-
+  confirmBTN.classList.add("btn");
+  cancelBTN.classList.add("btn");
 
   confirmBTN.textContent = "Delete";
   cancelBTN.textContent = "Cancel";
@@ -42,7 +49,13 @@ export function createPopUp(postId: number): HTMLElement {
     popUpContainer.close();
   });
 
-  buttonsWrapper.classList.add("flex", "flex-row","justify-around","p-9", "gap-4");
+  buttonsWrapper.classList.add(
+    "flex",
+    "flex-row",
+    "justify-around",
+    "p-9",
+    "gap-4",
+  );
   popUpContainer.append(popUpTitle, popUpBody);
   buttonsWrapper.append(confirmBTN, cancelBTN);
   popUpContainer.appendChild(buttonsWrapper);
@@ -77,13 +90,21 @@ export async function createEditPostPopUp() {
   }
 
   const popUpContainer = document.getElementById(
-    "edit-post-popup-container"
+    "edit-post-popup-container",
   ) as HTMLDialogElement;
   popUpContainer.innerHTML = "";
   const popUp = document.createElement("div");
   const popUpTitle = document.createElement("p");
 
-  popUpContainer.classList.add("m-auto", "rounded-2xl", "border", "border-brand-softer", "bg-brand", "text-current","p-4");
+  popUpContainer.classList.add(
+    "m-auto",
+    "rounded-2xl",
+    "border-2",
+    "border-brand-lighter",
+    "bg-brand",
+    "text-current",
+    "p-4",
+  );
 
   popUpTitle.textContent = "Edit post";
   popUpTitle.classList.add("text-2xl", "items-center");
@@ -96,17 +117,17 @@ export async function createEditPostPopUp() {
   popUpContainer?.append(popUp, popUpTitle, formContainer);
 
   const cancelBTN = formContainer.querySelector(
-    "#cancel-changes-button"
+    "#cancel-changes-button",
   ) as HTMLButtonElement;
   const saveChangesBTN = formContainer.querySelector(
-    "#save-changes-button"
+    "#save-changes-button",
   ) as HTMLButtonElement;
   const editPostForm = formContainer.querySelector(
-    "#edit-post-form"
+    "#edit-post-form",
   ) as HTMLFormElement;
-  
-  cancelBTN.classList.add('btn');
-  saveChangesBTN.classList.add('btn');
+
+  cancelBTN.classList.add("btn");
+  saveChangesBTN.classList.add("btn");
   editPostForm?.addEventListener("submit", async (event) => {
     event.preventDefault();
     saveChangesBTN.disabled = true;
@@ -118,7 +139,7 @@ export async function createEditPostPopUp() {
     const media = elements.imageUrl?.value.trim()
       ? {
           url: elements.imageUrl.value.trim(),
-          alt: elements.imageAlt?.value.trim() ?? "No image added."
+          alt: elements.imageAlt?.value.trim() ?? "No image added.",
         }
       : null;
 
@@ -129,7 +150,7 @@ export async function createEditPostPopUp() {
         .split(",")
         .map((tag) => tag.trim())
         .filter((tag) => tag.length > 0),
-      media
+      media,
     };
 
     if (!updatedFormData.title) {

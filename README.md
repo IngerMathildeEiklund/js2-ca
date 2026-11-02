@@ -4,7 +4,8 @@
 
 This is a social media application where the user can create a profile, add posts, comment on other posts and follow other users.
 
-##### Update 2.11.2026: 
+##### Update 2.11.2026:
+
 Project was updated to go from vanilla CSS to Tailwind.
 
 [WHIMZY Live Demo](https://whimzysocial.netlify.app/index.html)
@@ -67,7 +68,7 @@ Type-check and build for production:
 npm build
 ```
 
-Preview the production build: 
+Preview the production build:
 
 ```bash
 npm run preview
@@ -75,11 +76,10 @@ npm run preview
 
 ### Code Formatting. Eslint & Prettier
 
-```bash 
+```bash
 npm run lint
 npm run format
 ```
-
 
 ## Usage guidelines
 
