@@ -19,7 +19,7 @@ export function header(): HTMLElement | null {
   avatarImage.src = currentProfile?.avatar?.url ?? "";
   avatarImage.alt = currentProfile?.avatar?.alt ?? "";
   userName.textContent = `Good to see you, ${currentProfile?.name ?? ""}!`;
-  userName.classList.add("mb-4");
+  userName.classList.add("mb-4", "text-center");
   const viewProfileBTN = document.createElement("button");
 
   viewProfileBTN.addEventListener("click", async () => {
