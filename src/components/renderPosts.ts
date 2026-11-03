@@ -291,6 +291,7 @@ function buildPost(post: Post): HTMLElement {
   }
 
   postElement.classList.add(
+    "w-full",
     "flex",
     "flex-col",
     "justify-between",
@@ -304,7 +305,8 @@ function buildPost(post: Post): HTMLElement {
     "box-border",
     "relative",
     "border-2",
-    "border-brand-lighter",
+    "border-brand-lighter", 
+    "lg:max-w-230"
   );
 
   const timeCommentsReactionsWrapper = document.createElement("div");
@@ -349,9 +351,10 @@ function buildPost(post: Post): HTMLElement {
   if (post.media) {
     const postImage = document.createElement("img");
     const postImageWrapper = document.createElement("div");
+    postImageWrapper.classList.add("flex", "justify-center", "items-center");
     postImage.src = post.media?.url ?? null;
     postImage.alt = post.media?.alt ?? "No image added";
-    postImage.classList.add("mb-9");
+    postImage.classList.add("mb-9", "max-h-200", "w-auto", "rounded-2xl");
     postImageWrapper.appendChild(postImage);
     postElement.appendChild(postImageWrapper);
   }
