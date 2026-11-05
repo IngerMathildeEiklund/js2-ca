@@ -21,6 +21,7 @@ export function toastNotification(message: string, type: MessageType): void {
 }
 
 const backBTN = document.getElementById("back-button") as HTMLButtonElement;
+backBTN.classList.add("btn", "my-4");
 backBTN?.addEventListener("click", () => {
   history.back();
 });

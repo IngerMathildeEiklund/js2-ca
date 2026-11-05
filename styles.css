@@ -1,8 +1,5 @@
-@import url(./css/index.css);
-@import url(./css/register.css);
-@import url(./css/messages.css);
-@import url(./css/login.css);
-@import url(./css/one-post.css);
+/* eslint-disable css/no-invalid-at-rules */
+@import "tailwindcss";
 
 :root {
   --background-error: #f8c6c6;
@@ -13,135 +10,77 @@
   --text-success: #096800;
 }
 
-body {
-  background-color: rgb(244, 247, 248);
-  font-family:
-    system-ui,
-    -apple-system,
-    BlinkMacSystemFont,
-    "Segoe UI",
-    Roboto,
-    Oxygen,
-    Ubuntu,
-    Cantarell,
-    "Open Sans",
-    "Helvetica Neue",
-    sans-serif;
-  color: rgb(37, 37, 37);
+@theme {
+  --color-brand: #1c1e21;
+  --color-brand-lighter: #313438;
+  --color-brand-text: #dbfdff;
+  --color-brand-softer: #566566;
+  --font-sans: "myfont-sans", system-ui, sans-serif;
+  --text-heading-sd: 1.1rem;
+  --color-disabled: #838383;
+  --text-sd: 0.875rem;
+  --text-md: 1rem;
 }
 
-.hidden {
-  display: none;
+@layer base {
+  body {
+    font-family: var(--font-sans);
+    color: var(--color-brand-text);
+    background-color: var(--color-brand);
+  }
+  button,
+  p {
+    font-size: var(--text-sd);
+
+    @variant md {
+      font-size: var(--text-md);
+    }
+  }
 }
 
-main {
+@layer components {
+  .btn {
+    @apply border-brand-lighter hover:bg-brand-lighter inline-flex w-fit cursor-pointer items-center justify-center self-center rounded-full border-2 p-1 px-4;
+  }
+  .btn:disabled {
+    @apply text-disabled cursor-not-allowed bg-transparent;
+  }
+  .input {
+    @apply bg-brand-lighter rounded-2xl border border-transparent p-2 outline-none focus:border-cyan-200;
+  }
+}
+
+#toast-container {
+  position: fixed;
+  top: 4.5rem;
+  right: 0.2rem;
   display: flex;
   flex-direction: column;
-  padding: 0.3rem;
-  max-width: 70rem;
-  margin: 0 auto;
-  background-color: rgb(228, 228, 228);
-  border-radius: 0.3rem;
-  padding-bottom: 3rem;
-  position: relative;
+  gap: 10px;
+  z-index: 1000;
 }
-
-input {
-  padding: 0.2rem;
-  border-radius: 0.3rem;
-  border: 1px solid rgb(156, 156, 156);
-}
-
-textarea {
-  border-radius: 0.3rem;
-  padding: 0;
-  resize: vertical;
-  tab-size: 2;
-  white-space: pre-wrap;
-  padding: 1rem;
-}
-
-button {
-  padding: 0.5rem;
-  width: fit-content;
-  justify-self: center;
-  align-self: center;
-  border: none;
-  border-radius: 0.3rem;
-  color: white;
-  cursor: pointer;
-  background-color: rgb(58, 58, 58);
-  font-size: 0.8rem;
-  padding-inline: 1rem;
-  font-family:
-    system-ui,
-    -apple-system,
-    BlinkMacSystemFont,
-    "Segoe UI",
-    Roboto,
-    Oxygen,
-    Ubuntu,
-    Cantarell,
-    "Open Sans",
-    "Helvetica Neue",
-    sans-serif;
-}
-
-#back-button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 1rem 0 0 1rem;
-  border: none;
-  cursor: pointer;
-  padding: 0.5rem;
-  margin: 0;
-}
-main > div:first-child {
-  display: block;
-  width: fit-content;
-}
-button:disabled {
-  background-color: transparent;
-  cursor: not-allowed;
-  color: rgb(58, 58, 58);
-}
-
-details {
-  list-style: none;
-  word-wrap: break-word;
-}
-
-fieldset {
-  background-color: white;
-  padding: 1rem;
-  border-radius: 0.3rem;
-  border: none;
-}
-
-legend {
-  list-style: none;
-  background-color: white;
-}
-
-dialog {
-  border: 1px solid gray;
-}
-.centered-h1 {
+.toast {
+  padding: 15px 20px;
+  border-radius: 5px;
+  font-family: var(--font-sans);
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 1.8rem;
-  padding-bottom: 1rem;
+  gap: 1rem;
+  opacity: 1;
+  transition:
+    opacity 0.5s,
+    transform 0.5s;
 }
-
-.image-details {
-  justify-content: center;
-  align-items: center;
+.toast.success {
+  color: var(--text-success);
+  background-color: var(--background-success);
 }
-
-@media (min-width: 768px) {
-  main {
-    padding: 1rem;
-  }
+.toast.error {
+  color: var(--text-error);
+  background-color: var(--background-error);
+}
+.toast.warning {
+  color: var(--text-warning);
+  background-color: var(--background-warning);
 }

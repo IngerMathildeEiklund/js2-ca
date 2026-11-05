@@ -6,17 +6,23 @@
     <title>WHIMZY | Log in</title>
     <link rel="stylesheet" href="styles.css" />
   </head>
-  <body>
-    <header class="header-logo">
+  <body class="flex flex-col">
+    <header
+      class="container mx-auto px-8 my-2 bg-brand border-b-2 border-brand-lighter"
+    >
       <nav>
         <a href="/index.html"
-          ><img src="src/images/logo3.png" alt="company logo" />
+          ><img
+            src="src/images/logo3.png"
+            class="h-15 w-auto md:h-20"
+            alt="company logo"
+          />
         </a>
       </nav>
     </header>
-    <main>
+    <main class="container flex flex-col mx-auto">
       <div>
-        <button id="back-button" class="border-button">
+        <button id="back-button">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="24"
@@ -37,22 +43,26 @@
         </button>
       </div>
       <div id="toast-container" aria-live="polite" aria-atomic="true"></div>
-      <h1 class="centered-h1">Log in</h1>
+      <h1 class="text-center text-3xl font-bold mb-4 md:mb-9">Login</h1>
       <section id="login-section">
-        <form id="login-form">
-          <label for="login-email-input"> Email adress </label>
-          <input id="login-email-input" name="email" type="email" required />
+        <form id="login-form" class="p-4 flex flex-col justify-center gap-8 md:gap-16 md:p-9">
+          <div class="flex flex-col gap-2 self-center w-full md:w-96"> 
+          <label for="login-email-input"> Email address </label>
+          <input id="login-email-input" class="input" name="email" autocomplete="email" type="email" required />
+        </div>
+        <div class="flex flex-col gap-2 self-center w-full md:w-96" > 
           <label for="login-password-input"> Password </label>
-          <input
+          <input class="input"
             id="login-password-input"
-            name="password"
+            name="password" autocomplete="current-password"
             type="password"
             required
           />
-          <p>
-            Don't have an account? Register <a href="register.html">here</a>
+        </div>
+          <p class="text-center">
+            Don't have an account? Register <a class="font-bold" href="register.html">here</a>
           </p>
-          <button id="login-button" type="submit">Log in</button>
+          <button id="login-button" class="btn" type="submit">Login</button>
         </form>
       </section>
     </main>

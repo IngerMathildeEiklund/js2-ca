@@ -4,6 +4,10 @@
 
 This is a social media application where the user can create a profile, add posts, comment on other posts and follow other users.
 
+##### Update 2.11.2026:
+
+Project was updated to go from vanilla CSS to Tailwind.
+
 [WHIMZY Live Demo](https://whimzysocial.netlify.app/index.html)
 
 <img width="1179" height="845" alt="image" src="https://github.com/user-attachments/assets/dcfa8c9c-2ec5-43ab-9234-8f0c2684d1b0" />
@@ -23,6 +27,60 @@ This is a social media application where the user can create a profile, add post
 
 Visit the site [here](https://whimzysocial.netlify.app/index.html), create an account using a "@stud.noroff.no" email and start posting!
 
+### Prerequesites
+
+- Node.js to run npm
+- Git
+- VSCode, or equivalent
+
+### Setup
+
+1. Clone the repository
+
+```bash
+git clone https://github.com/IngerMathildeEiklund/js2-ca.git
+cd js2-ca
+```
+
+### Install dependencies
+
+```bash
+npm install
+```
+
+### Environment Variables
+
+To run this project, you will need to add the following environment variables to your .env file:
+
+`VITE_API_KEY`
+
+### Scripts
+
+To start the server:
+
+```bash
+npm run dev
+```
+
+Type-check and build for production:
+
+```bash
+npm build
+```
+
+Preview the production build:
+
+```bash
+npm run preview
+```
+
+### Code Formatting. Eslint & Prettier
+
+```bash
+npm run lint
+npm run format
+```
+
 ## Usage guidelines
 
 Contribute to the environment by:
@@ -34,9 +92,7 @@ Contribute to the environment by:
 
 - TypeScript
 - HTML
-- CSS
-
-No frameworks were used.
+- CSS / Tailwind
 
 ## Why this project
 

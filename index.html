@@ -6,16 +6,22 @@
     <title>WHIMZY | Homepage</title>
     <link rel="stylesheet" href="styles.css" />
   </head>
-  <body>
-    <header class="header-logo">
+  <body class="flex flex-col">
+    <header
+      class="bg-brand border-brand-lighter container mx-auto my-2 border-b-2 px-8"
+    >
       <nav>
         <a href="/index.html"
-          ><img src="src/images/logo3.png" alt="company logo" />
+          ><img
+            src="src/images/logo3.png"
+            class="h-15 w-auto md:h-20"
+            alt="company logo"
+          />
         </a>
       </nav>
     </header>
 
-    <main>
+    <main class="container mx-auto flex flex-col p-2">
       <div>
         <button id="back-button" class="border-button">
           <svg
@@ -38,38 +44,48 @@
         </button>
       </div>
       <div id="toast-container" aria-live="polite" aria-atomic="true"></div>
-      <div id="loggedin-and-make-post-container">
-        <form id="publish-post">
-          <p class="heading-p">Create a new post</p>
-          <label for="post-title">Post title</label>
-          <input type="text" id="post-title" name="title" />
-          <label for="publish-post-textarea"> Post body: Optional </label>
+      <div
+        id="loggedin-and-make-post-container"
+        class="flex flex-col xl:flex-row xl:justify-between xl:gap-9"
+      >
+        <form
+          id="publish-post"
+          class="border-brand-lighter mb-4 flex flex-col gap-1 rounded-2xl border-2 p-4"
+        >
+          <p class="mb-4 text-2xl">Create a new post</p>
+          <label for="post-title">Post title*</label>
+          <input
+            type="text"
+            id="post-title"
+            name="title"
+            class="input mb-4"
+            required
+          />
+          <label for="publish-post-textarea"> Post body</label>
           <textarea
             id="publish-post-textarea"
             name="publishPost"
             rows="5"
             cols="40"
-            required
+            maxlength="280"
+            class="input mb-4"
           ></textarea>
-
-          <button id="add-image-button" class="border-button" type="button">
-            Add an image
-          </button>
-
-          <div class="optional-image-container hidden">
-            <details>
+          <div class="flex flex-col">
+            <p class="mb-4">
               Note! Not all urls can be used. Get the right format by right
               clicking an image and selecting "Copy image address".
-            </details>
-            <label for="url-string"> Image:</label>
+            </p>
+            <label for="url-string"> Image</label>
             <input
+              class="input mb-4"
               id="url-string"
               type="url"
               name="imageUrl"
               placeholder="eg. https://images.unsplash.com/photo-1582794543139-8ac9cb0f7b11?q=80&w=927&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
             />
-            <label for="image-alt"> Describe your image: </label>
+            <label for="image-alt"> Describe your image </label>
             <input
+              class="input mb-4"
               type="text"
               id="image-alt"
               name="imageAlt"
@@ -77,28 +93,41 @@
             />
           </div>
 
-          <label for="tags"> Tags: Optional</label>
-          <input type="text" id="tags" name="tags" maxlength="30" />
-          <button id="publish-post-button" type="submit">Publish post</button>
+          <label for="tags"> Tags</label>
+          <input
+            type="text"
+            class="input mb-4"
+            id="tags"
+            name="tags"
+            maxlength="30"
+          />
+          <button id="publish-post-button" class="btn" type="submit">
+            Publish post
+          </button>
         </form>
       </div>
 
-      <div class="following-container">
-        <p class="heading-p">Profiles you follow</p>
-        <ul id="following"></ul>
+      <div class="container">
+        <p class="mb-9 ml-4 text-2xl">Profiles you follow</p>
+        <ul
+          id="following"
+          class="border-brand-lighter mb-12 grid grid-cols-1 gap-6 rounded-2xl border-2 p-4 md:grid-cols-2 lg:grid-cols-3"
+        ></ul>
       </div>
 
-      <h1 class="centered-h1">Newest posts</h1>
-      <div class="searchbar-div">
+      <h1 class="mb-9 ml-4 text-3xl">Posts feed</h1>
+      <div class="flex flex-col gap-4 p-4">
         <label for="searchbar"> Search for a post </label>
-        <input id="searchbar" type="text" />
+        <input id="searchbar" class="input mb-4" type="text" />
       </div>
-      <section id="render-posts"></section>
+      <section id="render-posts" class="grid grid-cols-1 gap-4 justify-items-center items-center"></section>
 
-      <div class="pagination-controls">
-        <button id="prev-button">Previous</button>
+      </section>
+
+      <div class="flex flex-row items-center justify-center gap-4 p-4">
+        <button id="prev-button" class="btn">Previous</button>
         <p id="total-pages"></p>
-        <button id="next-button">Next</button>
+        <button id="next-button" class="btn">Next</button>
       </div>
     </main>
     <script src="./src/main.ts" type="module"></script>

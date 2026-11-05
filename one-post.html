@@ -6,20 +6,26 @@
     <title>WHIMZY | One post</title>
     <link rel="stylesheet" href="styles.css" />
   </head>
-  <body>
-    <header class="header-logo">
+   <body class="flex flex-col">
+      <header
+      class="container mx-auto px-8 my-2 bg-brand border-b-2 border-brand-lighter"
+    >
       <nav>
         <a href="/index.html"
-          ><img src="src/images/logo3.png" alt="company logo" />
+          ><img
+            src="src/images/logo3.png"
+            class="h-15 w-auto md:h-20"
+            alt="company logo"
+          />
         </a>
       </nav>
     </header>
     <div id="toast-container" aria-live="polite" aria-atomic="true"></div>
     <dialog id="pop-up-container"></dialog>
     <dialog id="edit-post-popup-container"></dialog>
-    <main>
+    <main class="container flex flex-col mx-auto p-2">
       <div>
-        <button id="back-button" class="border-button">
+        <button id="back-button">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="24"
@@ -40,24 +46,24 @@
         </button>
       </div>
 
-      <div class="post-comments-add-comment-container">
-        <section id="render-one-post-container"></section>
-        <section id="comments"></section>
-        <section>
-          <form id="add-comment">
-            <label for="comment-text" class="heading-p">
+      <div class="flex flex-col gap-6 justify-center items-center">
+        <section id="render-one-post-container" class="flex flex-col"></section>
+        <section id="comments" class="w-full flex flex-col mb-9 lg:max-w-200"></section>
+        <section class="w-full lg:max-w-200">
+          <form id="add-comment" class="w-full flex flex-col gap-8 lg:max-w-200">
+            <label for="comment-text">
               Write a comment
             </label>
             <textarea
-              class="textarea"
+              class="input"
               id="comment-text"
               name="comment"
               rows="5"
               cols="40"
               placeholder="Add a comment"
-              required
+              required maxlength="280"
             ></textarea>
-            <button id="add-comment-button" type="submit">Add comment</button>
+            <button id="add-comment-button" class="btn" type="submit">Add comment</button>
           </form>
         </section>
       </div>

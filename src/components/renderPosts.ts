@@ -3,7 +3,7 @@ import {
   getPostById,
   followUser,
   unfollowUser,
-  getFollowing
+  getFollowing,
 } from "../api/postsService";
 import { buildComments, NO_AVATAR_IMAGE } from "./addComment";
 import { createPopUp, createEditPostPopUp } from "../messages/popUp";
@@ -18,10 +18,10 @@ import type { Profile } from "../api/postsService";
 
 const renderPostsContainer = document.getElementById("render-posts");
 const renderOnePostContainer = document.getElementById(
-  "render-one-post-container"
+  "render-one-post-container",
 );
 const loggedInUserAndAddNewPostContainer = document.getElementById(
-  "loggedin-and-make-post-container"
+  "loggedin-and-make-post-container",
 );
 
 const searchbar = document.getElementById("searchbar") as HTMLInputElement;
@@ -42,13 +42,13 @@ export function transformDate(date: string): string {
     year: "numeric",
     hour: "2-digit",
     minute: "2-digit",
-    timeZone: "Europe/Oslo"
+    timeZone: "Europe/Oslo",
   });
 }
 
 export function renderPosts(
   posts: Post[],
-  container: HTMLElement | null = renderPostsContainer
+  container: HTMLElement | null = renderPostsContainer,
 ): void {
   if (!container) return;
   container.innerHTML = "";
@@ -104,6 +104,9 @@ export async function renderOnePost(): Promise<void> {
       const editBTN = document.createElement("button");
       const deleteBTN = document.createElement("button");
 
+      editBTN.classList.add("btn");
+      deleteBTN.classList.add("btn");
+
       editBTN.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-edit">
 	<path stroke="none" d="M0 0h24v24H0z" fill="none" />
 	<path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1" />
@@ -118,7 +121,7 @@ export async function renderOnePost(): Promise<void> {
 	<path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" />
 	<path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" />
 </svg>`;
-      editDeleteBTNWrapper.classList.add("edit-delete-wrapper");
+      editDeleteBTNWrapper.classList.add("flex", "flex-row", "gap-4");
       editDeleteBTNWrapper.append(editBTN, deleteBTN);
       postElement.appendChild(editDeleteBTNWrapper);
 
@@ -153,12 +156,13 @@ function renderFollowing(profiles: Profile[]): void {
     userAvatar.alt = profile.avatar?.alt ?? "";
     userName.textContent = profile.name;
 
-    userAvatar.classList.add("following-user-image");
-    userContainer.classList.add("following-user-container");
+    userAvatar.classList.add("w-8", "h-8", "rounded-full", "object-cover");
+    userContainer.classList.add("flex", "flex-row", "gap-9");
     userContainer.append(userAvatar, userName);
     followingContainer.appendChild(userContainer);
   });
 }
+
 let followingArray: Profile[] = [];
 
 async function fetchAndRenderFollowing(): Promise<void> {
@@ -185,6 +189,10 @@ function buildPost(post: Post): HTMLElement {
   const postTitle = document.createElement("p");
   const followBTN = document.createElement("button");
 
+  followBTN.classList.add("btn");
+
+  creatorAvatarWrapper.dataset.creator = "true";
+
   const postBody = document.createElement("p");
   const postTags = document.createElement("div");
   const timestamp = document.createElement("p");
@@ -192,13 +200,22 @@ function buildPost(post: Post): HTMLElement {
   const comments = document.createElement("p");
   const currentUser = getLoggedInUser();
 
+  postCreator.classList.add("text-heading-sd");
   postCreator.textContent = post.author.name;
   let isFollowing = followingArray.some(
-    (profile) => profile.name === post.author.name
+    (profile) => profile.name === post.author.name,
   );
-  followBTN.textContent = isFollowing ? "Following" : "Follow";
-  followBTN.classList.add(isFollowing ? "button-unfollow" : "button-follow");
-
+  followBTN.innerHTML = isFollowing
+    ? `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-check">
+	<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+	<path d="M5 12l5 5l10 -10" />
+</svg> Following`
+    : `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-plus">
+	<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+	<path d="M12 5l0 14" />
+	<path d="M5 12l14 0" />
+</svg> Follow`;
+  followBTN.classList.add("flex", "flex-row", "gap-2");
   if (currentUser?.name === post.author.name) {
     followBTN.classList.add("hidden");
   } else {
@@ -210,19 +227,15 @@ function buildPost(post: Post): HTMLElement {
       try {
         if (isFollowing) {
           await unfollowUser(post.author.name);
-          followBTN.classList.remove("button-unfollow");
-          followBTN.classList.add("button-follow");
           toastNotification(
             `You unfollowed user ${post.author.name}`,
-            "success"
+            "success",
           );
         } else {
           await followUser(post.author.name);
-          followBTN.classList.remove("button-follow");
-          followBTN.classList.add("button-unfollow");
           toastNotification(
             `You are now following ${post.author.name}`,
-            "success"
+            "success",
           );
         }
         isFollowing = !isFollowing;
@@ -243,24 +256,77 @@ function buildPost(post: Post): HTMLElement {
   postTitle.textContent = post.title;
 
   postBody.textContent = post.body;
-  postTags.textContent = `Tags: ${post.tags.join(", ")}`;
-  postTags.classList.add("tags");
+  postBody.classList.add("mb-4");
+
+  post.tags.forEach((tag) => {
+    const tagElement = document.createElement("span");
+    tagElement.textContent = `${tag}`;
+    tagElement.classList.add(
+      "rounded-full",
+      "px-3",
+      "py-1",
+      "border",
+      "bg-brand-lighter",
+      "border-brand-lighter",
+      "w-fit",
+    );
+    postTags.appendChild(tagElement);
+  });
+  postTags.classList.add("flex", "flex-row", "flex-wrap", "gap-2");
   timestamp.textContent = transformDate(post.created);
   if (post.updated > post.created) {
     timestamp.classList.add("hidden");
   }
-  comments.textContent = `Comments: ${post._count.comments}`;
+  comments.classList.add("flex", "flex-row", "gap-2");
+  comments.innerHTML = `${post._count.comments} <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-message-circle">
+	<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+	<path d="M3 20l1.3 -3.9c-2.324 -3.437 -1.426 -7.872 2.1 -10.374c3.526 -2.501 8.59 -2.296 11.845 .48c3.255 2.777 3.695 7.266 1.029 10.501c-2.666 3.235 -7.615 4.215 -11.574 2.293l-4.7 1" />
+</svg> `;
 
   if (post._count.comments === 0) {
-    comments.textContent = "No comments";
+    comments.innerHTML = `${post._count.comments} <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-message-circle">
+	<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+	<path d="M3 20l1.3 -3.9c-2.324 -3.437 -1.426 -7.872 2.1 -10.374c3.526 -2.501 8.59 -2.296 11.845 .48c3.255 2.777 3.695 7.266 1.029 10.501c-2.666 3.235 -7.615 4.215 -11.574 2.293l-4.7 1" />
+</svg> `;
   }
 
-  postElement.classList.add("post-element");
+  postElement.classList.add(
+    "w-full",
+    "flex",
+    "flex-col",
+    "justify-between",
+    "p-4",
+    "cursor-pointer",
+    "rounded-2xl",
+    "gap-4",
+    "w-auto",
+    "wrap-break-word",
+    "break-all",
+    "box-border",
+    "relative",
+    "border-2",
+    "border-brand-lighter", 
+    "lg:max-w-230"
+  );
 
   const timeCommentsReactionsWrapper = document.createElement("div");
-  postTitle.classList.add("post-title");
-  timeCommentsReactionsWrapper.classList.add("time-comments-reactions-wrapper");
-  creatorAvatarWrapper.classList.add("avatar-image-wrapper");
+  postTitle.classList.add("text-heading-sd", "md:text-2xl", "mb-4");
+  timeCommentsReactionsWrapper.classList.add(
+    "flex",
+    "flex-row",
+    "justify-between",
+  );
+  creatorAvatarWrapper.classList.add(
+    "flex",
+    "flex-row",
+    "items-center",
+    "justify-items-center",
+    "gap-4",
+    "rounded-2xl",
+    "md:gap-6",
+    "lg:gap-8",
+  );
+  creatorAvatar.classList.add("w-10", "h-10", "object-cover", "rounded-full");
   const postWasUpdated = post.updated !== post.created;
   if (postWasUpdated) {
     updatedTimestamp.textContent = `Edited: ${transformDate(post.updated)}`;
@@ -285,10 +351,10 @@ function buildPost(post: Post): HTMLElement {
   if (post.media) {
     const postImage = document.createElement("img");
     const postImageWrapper = document.createElement("div");
+    postImageWrapper.classList.add("flex", "justify-center", "items-center");
     postImage.src = post.media?.url ?? null;
     postImage.alt = post.media?.alt ?? "No image added";
-    postImage.classList.add("image");
-    postImageWrapper.classList.add("image-wrapper");
+    postImage.classList.add("mb-9", "max-h-200", "w-auto", "rounded-2xl");
     postImageWrapper.appendChild(postImage);
     postElement.appendChild(postImageWrapper);
   }
@@ -304,7 +370,9 @@ function buildPost(post: Post): HTMLElement {
 
 export function renderPostCard(post: Post): HTMLElement {
   const postElement = buildPost(post);
-  postElement.addEventListener("click", () => {
+  postElement.addEventListener("click", (event) => {
+    const target = event.target as HTMLElement;
+    if (target.closest("[data-creator]")) return;
     window.location.href = `/one-post.html?id=${post.id}`;
   });
   return postElement;

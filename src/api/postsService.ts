@@ -109,24 +109,24 @@ interface CreateCommentData {
  */
 export async function getPosts(
   page: number = 1,
-  limit: number = 100
+  limit: number = 100,
 ): Promise<GetPostsResponse> {
   const response = await get<GetPostsResponse>(
-    `${POSTS_ENDPOINT}?page=${page}&limit=${limit}&_author=true&_reactions=true`
+    `${POSTS_ENDPOINT}?page=${page}&limit=${limit}&_author=true&_reactions=true`,
   );
   if (!response?.data) {
     throw new Error(
-      `Failed to fetch posts, Response: ${JSON.stringify(response)}`
+      `Failed to fetch posts, Response: ${JSON.stringify(response)}`,
     );
   }
   return response;
 }
 
 export async function getPostById(
-  postId: number
+  postId: number,
 ): Promise<PostWithComments | null> {
   const response = await get<GetPostResponse>(
-    `${POSTS_ENDPOINT}/${postId}?_comments=true&_author=true&_reactions=true`
+    `${POSTS_ENDPOINT}/${postId}?_comments=true&_author=true&_reactions=true`,
   );
 
   if (!response?.data) {
@@ -138,12 +138,12 @@ export async function getPostById(
 export async function postComment(
   postId: number,
   comment: string,
-  replyToId?: number
+  replyToId?: number,
 ): Promise<CommentResponse> {
   const bodyContent: CreateComment = { body: comment, replyToId: replyToId };
   const response = await post<CommentResponse>(
     `${POSTS_ENDPOINT}/${postId}/comment`,
-    bodyContent
+    bodyContent,
   );
 
   if (!response) {
@@ -178,12 +178,12 @@ export async function publishNewPost(
   title: string,
   body?: string,
   tags?: string[],
-  media?: Media
+  media?: Media,
 ): Promise<CreatePublishPostresponse> {
   const postContent: PublishPost = { title, body, tags, media };
   const response = await post<CreatePublishPostresponse>(
     POSTS_ENDPOINT,
-    postContent
+    postContent,
   );
   if (!response) {
     throw new Error("Error publishing post.");
@@ -199,10 +199,10 @@ interface SearchPostsResponse {
 export async function searchForPosts(
   query: string,
   page: number = 1,
-  limit: number = 100
+  limit: number = 100,
 ): Promise<SearchPostsResponse> {
   const response = await get<SearchPostsResponse>(
-    `${POSTS_ENDPOINT}/search?q=${encodeURIComponent(query)}&page=${page}&limit=${limit}&_author=true&_comments=true&_reactions=true`
+    `${POSTS_ENDPOINT}/search?q=${encodeURIComponent(query)}&page=${page}&limit=${limit}&_author=true&_comments=true&_reactions=true`,
   );
 
   if (!response) {
@@ -233,7 +233,7 @@ export interface ProfileResponse {
 export async function followUser(name: string): Promise<ProfileResponse> {
   const response = await put<ProfileResponse>(
     `${PROFILES_ENDPOINT}/${name}/follow`,
-    undefined
+    undefined,
   );
 
   if (!response) {
@@ -243,10 +243,10 @@ export async function followUser(name: string): Promise<ProfileResponse> {
 }
 
 export async function getFollowing(
-  loggedInUserName: string
+  loggedInUserName: string,
 ): Promise<ProfileResponse> {
   const response = await get<ProfileResponse>(
-    `${PROFILES_ENDPOINT}/${loggedInUserName}?_following=true`
+    `${PROFILES_ENDPOINT}/${loggedInUserName}?_following=true`,
   );
 
   if (!response) {
@@ -258,7 +258,7 @@ export async function getFollowing(
 export async function unfollowUser(name: string): Promise<ProfileResponse> {
   const response = await put<ProfileResponse>(
     `${PROFILES_ENDPOINT}/${name}/unfollow`,
-    undefined
+    undefined,
   );
 
   if (!response) {
@@ -293,10 +293,24 @@ interface OneProfileResponse {
 
 export async function getOneProfile(name: string): Promise<OneProfileResponse> {
   const response = await get<OneProfileResponse>(
-    `${PROFILES_ENDPOINT}/${name}`
+    `${PROFILES_ENDPOINT}/${name}`,
   );
   if (!response) {
     throw new Error("Error trying to get profile.");
+  }
+  return response;
+}
+
+export async function getProfilePosts(
+  name: string,
+  page: number = 1,
+  limit: number = 100,
+): Promise<GetPostsResponse> {
+  const response = await get<GetPostsResponse>(
+    `${PROFILES_ENDPOINT}/${encodeURIComponent(name)}/posts?page=${page}&limit=${limit}&_author=true&reactions=true`,
+  );
+  if (!response) {
+    throw new Error(`Failed to fetch profile.`);
   }
   return response;
 }
@@ -332,11 +346,11 @@ interface EditPostResponse {
 
 export async function editOwnPost(
   postId: number,
-  content: EditPost
+  content: EditPost,
 ): Promise<EditPostResponse> {
   const response = await put<EditPostResponse>(
     `${POSTS_ENDPOINT}/${postId}`,
-    content
+    content,
   );
 
   if (!response) {

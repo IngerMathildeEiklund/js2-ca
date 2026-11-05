@@ -4,7 +4,7 @@ import { reRenderPosts } from "./renderPosts";
 import { getErrorMessage } from "../errors/apiError";
 
 const publishPostForm = document.getElementById(
-  "publish-post"
+  "publish-post",
 ) as HTMLFormElement;
 
 interface PublishPost {
@@ -23,12 +23,12 @@ interface PublishPostFormElements extends HTMLFormControlsCollection {
 }
 
 const addOptionalImageBTN = document.getElementById(
-  "add-image-button"
+  "add-image-button",
 ) as HTMLButtonElement;
 addOptionalImageBTN?.addEventListener("click", (event) => {
   event.preventDefault();
   const optionalImageContainer = document.querySelector(
-    ".optional-image-container"
+    ".optional-image-container",
   );
   optionalImageContainer?.classList.toggle("hidden");
 });
@@ -39,7 +39,7 @@ publishPostForm?.addEventListener("submit", async (event) => {
   const elements = publishPostForm.elements as PublishPostFormElements;
 
   const publishPostBTN = document.getElementById(
-    "publish-post-button"
+    "publish-post-button",
   ) as HTMLButtonElement;
 
   const formData: PublishPost = {
@@ -50,13 +50,13 @@ publishPostForm?.addEventListener("submit", async (event) => {
       .map((tag) => tag.trim())
       .filter((tag) => tag.length > 0),
     imageUrl: elements.imageUrl.value.trim(),
-    imageAlt: elements.imageAlt.value.trim()
+    imageAlt: elements.imageAlt.value.trim(),
   };
 
   if (!formData.title) {
     toastNotification(
       "Missing input! Please fill out required fields before submitting,",
-      "warning"
+      "warning",
     );
     return;
   }
@@ -71,14 +71,14 @@ publishPostForm?.addEventListener("submit", async (event) => {
       formData.title,
       formData.publishPost,
       formData.tags,
-      media
+      media,
     );
     publishPostForm.reset();
     reRenderPosts();
+    toastNotification("Comment successfully added.", "success");
   } catch (error) {
     toastNotification(getErrorMessage(error), "error");
   } finally {
     publishPostBTN.disabled = false;
-    publishPostForm.reset();
   }
 });

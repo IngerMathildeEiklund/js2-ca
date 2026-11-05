@@ -11,21 +11,22 @@ export default defineConfig([
       "dist/**",
       "node_modules/**",
       "package-lock.json",
-      "tsconfig.json"
-    ]
+      "tsconfig.json",
+      "**/*.css",
+    ],
   },
   {
     files: ["**/*.{js,mjs,cjs,ts,mts,cts}"],
     plugins: { js },
     extends: ["js/recommended"],
-    languageOptions: { globals: { ...globals.browser, ...globals.node } }
+    languageOptions: { globals: { ...globals.browser, ...globals.node } },
   },
   tseslint.configs.recommended,
   {
     files: ["**/*.json"],
     plugins: { json },
     language: "json/json",
-    extends: ["json/recommended"]
+    extends: ["json/recommended"],
   },
   {
     files: ["**/*.css"],
@@ -36,9 +37,10 @@ export default defineConfig([
       "css/no-invalid-properties": [
         "warn",
         {
-          allowUnknownVariables: true
-        }
-      ]
-    }
-  }
+          allowUnknownVariables: true,
+        },
+      ],
+      "css/use-baseline": "off",
+    },
+  },
 ]);

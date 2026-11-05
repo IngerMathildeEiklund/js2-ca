@@ -6,13 +6,13 @@ import { getErrorMessage } from "../errors/apiError";
 import type { Meta } from "../api/postsService";
 
 const prevBTN = document.getElementById(
-  "prev-button"
+  "prev-button",
 ) as HTMLButtonElement | null;
 const nextBTN = document.getElementById(
-  "next-button"
+  "next-button",
 ) as HTMLButtonElement | null;
 const totalPagesP = document.getElementById(
-  "total-pages"
+  "total-pages",
 ) as HTMLParagraphElement | null;
 
 let currentPage = 1;

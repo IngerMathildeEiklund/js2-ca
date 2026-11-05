@@ -17,7 +17,7 @@ interface LoginFormElements extends HTMLFormControlsCollection {
   password: HTMLInputElement;
 }
 const loginForm = document.getElementById(
-  "login-form"
+  "login-form",
 ) as HTMLFormElement | null;
 
 loginForm?.addEventListener("submit", async (event) => {
@@ -26,7 +26,7 @@ loginForm?.addEventListener("submit", async (event) => {
 
   const credentials = {
     email: elements.email.value.trim().toLowerCase(),
-    password: elements.password.value
+    password: elements.password.value,
   };
 
   try {
